@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navBarHome"
+        android:icon="@drawable/baseline_home_black_24dp"
+        android:title="@string/nav_home" />
+    <item
+        android:id="@+id/navBarMood"
+        android:icon="@drawable/baseline_mood_black_24dp"
+        android:title="@string/nav_mood" />
+    <item
+        android:id="@+id/navBarUser"
+        android:icon="@drawable/baseline_account_circle_black_24dp"
+        android:title="@string/nav_user" />
+</menu>
