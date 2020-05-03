@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="3dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="7dp"
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="20dp">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
             android:id="@+id/cardImageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/cardTitleTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
-            android:textSize="22sp"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:layout_toRightOf="@id/cardImageView"
+            android:layout_marginLeft="15dp"
             android:layout_toEndOf="@id/cardImageView"
-            android:layout_marginLeft="10dp"/>
+            android:layout_toRightOf="@id/cardImageView"
+            android:fontFamily="sans-serif-medium"
+            android:text="Title"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/cardDesTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Des"
-            android:textSize="18sp"
-            android:textColor="#a9a9a9"
-            android:textStyle="normal"
-            android:layout_toRightOf="@id/cardImageView"
+            android:layout_below="@id/cardTitleTxt"
+            android:layout_marginLeft="15dp"
             android:layout_toEndOf="@id/cardImageView"
-            android:layout_marginLeft="10dp"
-            android:layout_below="@id/cardTitleTxt"/>
+            android:layout_toRightOf="@id/cardImageView"
+            android:text="Des"
+            android:textColor="#111111"
+            android:textSize="18sp"
+            android:textStyle="normal" />
 
     </RelativeLayout>
 

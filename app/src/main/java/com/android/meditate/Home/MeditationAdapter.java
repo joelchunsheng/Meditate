@@ -1,6 +1,7 @@
 package com.android.meditate.Home;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,19 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationHolder> {
         holder.mTitle.setText(models.get(position).getTitle());
         holder.mDes.setText(models.get(position).getDescription());
         holder.mImageView.setImageResource(models.get(position).getImg());
+
+        if(position==0)
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#C6DEF1"));
+        else if (position==1)
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#FFCDB2"));
+        else if (position==2)
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#DBCDF0"));
+        else if (position==3)
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#E2CFC4"));
+        else if (position==4)
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#C9E4DE"));
+        else if (position==5)
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#D2D2CF"));
     }
 
     @Override
