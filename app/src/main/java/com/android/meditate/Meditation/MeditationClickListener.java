@@ -1,4 +1,4 @@
-package com.android.meditate;
+package com.android.meditate.Meditation;
 
 import android.view.View;
 

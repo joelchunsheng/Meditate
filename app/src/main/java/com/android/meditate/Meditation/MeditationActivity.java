@@ -1,4 +1,4 @@
-package com.android.meditate;
+package com.android.meditate.Meditation;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,8 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.android.meditate.R;
 
 public class MeditationActivity extends AppCompatActivity {
 

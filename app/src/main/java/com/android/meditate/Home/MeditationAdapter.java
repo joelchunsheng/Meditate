@@ -12,11 +12,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.meditate.MeditationActivity;
-import com.android.meditate.MeditationClickListener;
+import com.android.meditate.Meditation.MeditationActivity;
+import com.android.meditate.Meditation.MeditationClickListener;
 import com.android.meditate.R;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;

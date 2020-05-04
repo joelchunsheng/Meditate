@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.meditate.MeditationClickListener;
+import com.android.meditate.Meditation.MeditationClickListener;
 import com.android.meditate.R;
 
 public class MeditationHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
