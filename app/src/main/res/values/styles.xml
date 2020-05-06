@@ -7,7 +7,10 @@
         <item name="colorPrimaryDark">@color/colorTerraCotta</item>
         <item name="colorAccent">@color/colorTerraCotta</item>
 
+    </style>
 
+    <style name="SeekBarTheme" parent="Widget.AppCompat.SeekBar">
+        <item name="colorAccent">@color/colorTerraCotta</item>
     </style>
 
 </resources>
