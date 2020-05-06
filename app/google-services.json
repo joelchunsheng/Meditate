@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "49718949610",
+    "firebase_url": "https://meditate-258b2.firebaseio.com",
+    "project_id": "meditate-258b2",
+    "storage_bucket": "meditate-258b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49718949610:android:b82b0d81422cef13c60993",
+        "android_client_info": {
+          "package_name": "com.android.meditate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "49718949610-epuujkbqesk45sfa60iiqjpbtgab789t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCULzqXySs2A_0yBkYyUZwGdCLBFt4eU-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "49718949610-epuujkbqesk45sfa60iiqjpbtgab789t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
