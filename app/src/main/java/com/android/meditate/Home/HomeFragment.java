@@ -51,11 +51,11 @@ public class HomeFragment extends Fragment {
 
         listGuides = new ArrayList<>();
         listGuides.add(new MeditationModel("Sleep", "Feel the night. Watch its beauty.", R.drawable.sleep));
-        listGuides.add(new MeditationModel("Stress & Anxiety", "Soothes your soul.", R.drawable.sleep));
-        listGuides.add(new MeditationModel("Breathe", "Stop, relax and breathe.", R.drawable.sleep));
-        listGuides.add(new MeditationModel("Midnight Thoughts", "Calm your heart.", R.drawable.sleep));
-        listGuides.add(new MeditationModel("Work Out", "Get your heart pumping.", R.drawable.sleep));
-        listGuides.add(new MeditationModel("Concentration", "Focus and relax.", R.drawable.sleep));
+        listGuides.add(new MeditationModel("Stress & Anxiety", "Soothes your soul.", R.drawable.calm));
+        listGuides.add(new MeditationModel("Breathe", "Stop, relax and breathe.", R.drawable.nature));
+        listGuides.add(new MeditationModel("Midnight Thoughts", "Calm your heart.", R.drawable.moon));
+        listGuides.add(new MeditationModel("Work Out", "Get your heart pumping.", R.drawable.man));
+        listGuides.add(new MeditationModel("Concentration", "Focus and relax.", R.drawable.mind));
 
     }
 
