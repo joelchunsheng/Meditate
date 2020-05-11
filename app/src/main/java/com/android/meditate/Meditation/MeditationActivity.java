@@ -90,8 +90,6 @@ public class MeditationActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     @Override
