@@ -1,5 +1,7 @@
 package com.android.meditate.Mood;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -28,6 +30,8 @@ public class MoodFragment extends Fragment {
     TextView date;
     CardView happy, sad, stressed, angry;
     ImageView selectedMoodImg;
+    SharedPreferences moodPreferences;
+    String retrievedMood;
 
     public MoodFragment() {
         // Required empty public constructor
@@ -50,12 +54,12 @@ public class MoodFragment extends Fragment {
         angry = (CardView) v.findViewById(R.id.angryCardView);
         selectedMoodImg = (ImageView) v.findViewById(R.id.currentMoodImage);
 
-
         happy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Happy Clicked");
                 selectedMoodImg.setImageResource(R.drawable.happy_emoji);
+                moodPreferences.edit().putString("Mood", "Happy").apply();
             }
         });
 
@@ -64,6 +68,7 @@ public class MoodFragment extends Fragment {
             public void onClick(View v) {
                 Log.i(TAG, "Sad Clicked");
                 selectedMoodImg.setImageResource(R.drawable.sad_emoji);
+                moodPreferences.edit().putString("Mood", "Sad").apply();
             }
         });
 
@@ -72,6 +77,7 @@ public class MoodFragment extends Fragment {
             public void onClick(View v) {
                 Log.i(TAG, "Stressed Clicked");
                 selectedMoodImg.setImageResource(R.drawable.stress_emoji);
+                moodPreferences.edit().putString("Mood", "Stressed").apply();
             }
         });
 
@@ -80,10 +86,39 @@ public class MoodFragment extends Fragment {
             public void onClick(View v) {
                 Log.i(TAG, "Angry Clicked");
                 selectedMoodImg.setImageResource(R.drawable.angry_emoji);
+                moodPreferences.edit().putString("Mood", "Angry").apply();
             }
         });
 
+        if (retrievedMood.equalsIgnoreCase("Happy")){
+            selectedMoodImg.setImageResource(R.drawable.happy_emoji);
+        }
+        else if (retrievedMood.equalsIgnoreCase("Sad")){
+            selectedMoodImg.setImageResource(R.drawable.sad_emoji);
+        }
+        else if (retrievedMood.equalsIgnoreCase("Stressed")){
+            selectedMoodImg.setImageResource(R.drawable.stress_emoji);
+        }
+        else if (retrievedMood.equalsIgnoreCase("Angry")){
+            selectedMoodImg.setImageResource(R.drawable.angry_emoji);
+        }
+        else{
+            selectedMoodImg.setImageResource(R.drawable.empty_mood);
+        }
+
         return v;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //get date time
+
+        moodPreferences = this.getActivity().getSharedPreferences("com.android.meditate.Mood", Context.MODE_PRIVATE);
+
+        // retrieve mood preference
+        retrievedMood = moodPreferences.getString("Mood", "");
+        Log.i(TAG, retrievedMood);
     }
 
     private static final int[] BUTTON_IDS = {
