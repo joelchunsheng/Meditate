@@ -32,6 +32,7 @@ public class MoodFragment extends Fragment {
     ImageView selectedMoodImg;
     SharedPreferences moodPreferences;
     String retrievedMood;
+    String retrievedDate;
 
     public MoodFragment() {
         // Required empty public constructor
@@ -46,7 +47,7 @@ public class MoodFragment extends Fragment {
 
         // display current date
         date = (TextView) v.findViewById(R.id.datetxt);
-        getDateTime();
+        date.setText(getDateTime());
 
         happy = (CardView) v.findViewById(R.id.happyCardView);
         sad = (CardView) v.findViewById(R.id.sadCardView);
@@ -60,6 +61,7 @@ public class MoodFragment extends Fragment {
                 Log.i(TAG, "Happy Clicked");
                 selectedMoodImg.setImageResource(R.drawable.happy_emoji);
                 moodPreferences.edit().putString("Mood", "Happy").apply();
+                moodPreferences.edit().putString("Date", getDateTime()).apply();
             }
         });
 
@@ -69,6 +71,7 @@ public class MoodFragment extends Fragment {
                 Log.i(TAG, "Sad Clicked");
                 selectedMoodImg.setImageResource(R.drawable.sad_emoji);
                 moodPreferences.edit().putString("Mood", "Sad").apply();
+                moodPreferences.edit().putString("Date", getDateTime()).apply();
             }
         });
 
@@ -78,6 +81,7 @@ public class MoodFragment extends Fragment {
                 Log.i(TAG, "Stressed Clicked");
                 selectedMoodImg.setImageResource(R.drawable.stress_emoji);
                 moodPreferences.edit().putString("Mood", "Stressed").apply();
+                moodPreferences.edit().putString("Date", getDateTime()).apply();
             }
         });
 
@@ -87,22 +91,30 @@ public class MoodFragment extends Fragment {
                 Log.i(TAG, "Angry Clicked");
                 selectedMoodImg.setImageResource(R.drawable.angry_emoji);
                 moodPreferences.edit().putString("Mood", "Angry").apply();
+                moodPreferences.edit().putString("Date", getDateTime()).apply();
             }
         });
 
-        if (retrievedMood.equalsIgnoreCase("Happy")){
-            selectedMoodImg.setImageResource(R.drawable.happy_emoji);
-        }
-        else if (retrievedMood.equalsIgnoreCase("Sad")){
-            selectedMoodImg.setImageResource(R.drawable.sad_emoji);
-        }
-        else if (retrievedMood.equalsIgnoreCase("Stressed")){
-            selectedMoodImg.setImageResource(R.drawable.stress_emoji);
-        }
-        else if (retrievedMood.equalsIgnoreCase("Angry")){
-            selectedMoodImg.setImageResource(R.drawable.angry_emoji);
+        if (retrievedDate.equalsIgnoreCase(getDateTime())){
+            // if same date
+            if (retrievedMood.equalsIgnoreCase("Happy")){
+                selectedMoodImg.setImageResource(R.drawable.happy_emoji);
+            }
+            else if (retrievedMood.equalsIgnoreCase("Sad")){
+                selectedMoodImg.setImageResource(R.drawable.sad_emoji);
+            }
+            else if (retrievedMood.equalsIgnoreCase("Stressed")){
+                selectedMoodImg.setImageResource(R.drawable.stress_emoji);
+            }
+            else if (retrievedMood.equalsIgnoreCase("Angry")){
+                selectedMoodImg.setImageResource(R.drawable.angry_emoji);
+            }
+            else{
+                selectedMoodImg.setImageResource(R.drawable.empty_mood);
+            }
         }
         else{
+            //if different date
             selectedMoodImg.setImageResource(R.drawable.empty_mood);
         }
 
@@ -118,6 +130,7 @@ public class MoodFragment extends Fragment {
 
         // retrieve mood preference
         retrievedMood = moodPreferences.getString("Mood", "");
+        retrievedDate = moodPreferences.getString("Date", "");
         Log.i(TAG, retrievedMood);
     }
 
@@ -130,10 +143,10 @@ public class MoodFragment extends Fragment {
 
 
 
-    public void getDateTime(){
+    public String getDateTime(){
         Calendar calendar = Calendar.getInstance();
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
-        date.setText(currentDate);
+        return currentDate;
     }
 
 }
