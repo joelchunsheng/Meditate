@@ -1,5 +1,6 @@
 package com.android.meditate.Register;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -27,6 +28,8 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        ActionBar actionBar = getSupportActionBar();
 
         registerEmail = (EditText) findViewById(R.id.registerEmail);
         registerPassword = (EditText) findViewById(R.id.registerPassword);

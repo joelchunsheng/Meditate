@@ -10,24 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Username.UsernameActivity"></activity>
-        <activity android:name=".Register.RegisterActivity" />
+
+        <activity android:name=".Register.RegisterActivity"
+            android:parentActivityName=".Login.LoginActivity"/>
+
         <activity android:name=".Login.LoginActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Meditation.MeditationActivity"
             android:parentActivityName=".MainActivity" />
 
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.v(TAG, "Login Button Clicked!");
                 Intent toMain = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(toMain);
+                finish();
             }
         });
 
