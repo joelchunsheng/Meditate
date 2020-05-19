@@ -1,6 +1,8 @@
 package com.android.meditate.Mood;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -12,10 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.meditate.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -33,6 +37,8 @@ public class MoodFragment extends Fragment {
     SharedPreferences moodPreferences;
     String retrievedMood;
     String retrievedDate;
+    AlertDialog.Builder dialog;
+    TextInputLayout dialogTxt;
 
     public MoodFragment() {
         // Required empty public constructor
@@ -55,13 +61,13 @@ public class MoodFragment extends Fragment {
         angry = (CardView) v.findViewById(R.id.angryCardView);
         selectedMoodImg = (ImageView) v.findViewById(R.id.currentMoodImage);
 
+
         happy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Happy Clicked");
                 selectedMoodImg.setImageResource(R.drawable.happy_emoji);
-                moodPreferences.edit().putString("Mood", "Happy").apply();
-                moodPreferences.edit().putString("Date", getDateTime()).apply();
+                dialog("Happy");
             }
         });
 
@@ -70,8 +76,7 @@ public class MoodFragment extends Fragment {
             public void onClick(View v) {
                 Log.i(TAG, "Sad Clicked");
                 selectedMoodImg.setImageResource(R.drawable.sad_emoji);
-                moodPreferences.edit().putString("Mood", "Sad").apply();
-                moodPreferences.edit().putString("Date", getDateTime()).apply();
+                dialog("Sad");
             }
         });
 
@@ -80,8 +85,7 @@ public class MoodFragment extends Fragment {
             public void onClick(View v) {
                 Log.i(TAG, "Stressed Clicked");
                 selectedMoodImg.setImageResource(R.drawable.stress_emoji);
-                moodPreferences.edit().putString("Mood", "Stressed").apply();
-                moodPreferences.edit().putString("Date", getDateTime()).apply();
+                dialog("Stressed");
             }
         });
 
@@ -90,11 +94,12 @@ public class MoodFragment extends Fragment {
             public void onClick(View v) {
                 Log.i(TAG, "Angry Clicked");
                 selectedMoodImg.setImageResource(R.drawable.angry_emoji);
-                moodPreferences.edit().putString("Mood", "Angry").apply();
-                moodPreferences.edit().putString("Date", getDateTime()).apply();
+                dialog("Angry");
             }
         });
 
+        // check if it is a new day
+        // if same day, show selected mood
         if (retrievedDate.equalsIgnoreCase(getDateTime())){
             // if same date
             if (retrievedMood.equalsIgnoreCase("Happy")){
@@ -113,8 +118,8 @@ public class MoodFragment extends Fragment {
                 selectedMoodImg.setImageResource(R.drawable.empty_mood);
             }
         }
+        //if different day, reset mood
         else{
-            //if different date
             selectedMoodImg.setImageResource(R.drawable.empty_mood);
         }
 
@@ -124,7 +129,6 @@ public class MoodFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //get date time
 
         moodPreferences = this.getActivity().getSharedPreferences("com.android.meditate.Mood", Context.MODE_PRIVATE);
 
@@ -147,6 +151,31 @@ public class MoodFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
         return currentDate;
+    }
+
+    public void dialog(final String mood){
+        dialog = new AlertDialog.Builder(getContext());
+        dialog.setTitle("Almost done");
+
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.mood_dialog, null);
+        dialogTxt = (TextInputLayout) dialogView.findViewById(R.id.dialogTxt);
+
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("Save", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                String dialogText = dialogTxt.getEditText().getText().toString();
+                moodPreferences.edit().putString("Mood", mood).apply();
+                moodPreferences.edit().putString("Date", getDateTime()).apply();
+                moodPreferences.edit().putString("Summary", dialogText).apply();
+            }
+        });
+        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                selectedMoodImg.setImageResource(R.drawable.empty_mood);
+            }
+        });
+        dialog.setView(dialogView);
+        dialog.show();
     }
 
 }
