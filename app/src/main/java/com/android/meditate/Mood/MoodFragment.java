@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.meditate.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -37,8 +38,10 @@ public class MoodFragment extends Fragment {
     SharedPreferences moodPreferences;
     String retrievedMood;
     String retrievedDate;
+    String retrieveSummary;
     AlertDialog.Builder dialog;
     TextInputLayout dialogTxt;
+    EditText dialogEditTxt;
 
     public MoodFragment() {
         // Required empty public constructor
@@ -159,23 +162,57 @@ public class MoodFragment extends Fragment {
 
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.mood_dialog, null);
         dialogTxt = (TextInputLayout) dialogView.findViewById(R.id.dialogTxt);
+        dialogEditTxt = (EditText) dialogView.findViewById(R.id.dialogEditTxt);
+
+        retrieveSummary = moodPreferences.getString("Summary", "");
+
+        // if summary is not blank, show saved summary
+        if (!retrieveSummary.equalsIgnoreCase("You did not write anything on this day.")){
+            dialogEditTxt.setText(retrieveSummary);
+        }
 
         dialog.setCancelable(false);
         dialog.setPositiveButton("Save", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int id){
-                String dialogText = dialogTxt.getEditText().getText().toString();
-                moodPreferences.edit().putString("Mood", mood).apply();
-                moodPreferences.edit().putString("Date", getDateTime()).apply();
-                moodPreferences.edit().putString("Summary", dialogText).apply();
+                String dialogText = dialogTxt.getEditText().getText().toString().trim();
+
+                if (dialogText.isEmpty()){
+                    moodPreferences.edit().putString("Mood", mood).apply();
+                    moodPreferences.edit().putString("Date", getDateTime()).apply();
+                    moodPreferences.edit().putString("Summary", "You did not write anything on this day.").apply();
+                }
+                else{
+                    moodPreferences.edit().putString("Mood", mood).apply();
+                    moodPreferences.edit().putString("Date", getDateTime()).apply();
+                    moodPreferences.edit().putString("Summary", dialogText).apply();
+                }
+                Toast.makeText(getContext(), "Mood saved", Toast.LENGTH_SHORT).show();
             }
         });
         dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int id){
-                selectedMoodImg.setImageResource(R.drawable.empty_mood);
+                retrievedMood = moodPreferences.getString("Mood", "");
+
+                if (retrievedMood.equalsIgnoreCase("Happy")){
+                    selectedMoodImg.setImageResource(R.drawable.happy_emoji);
+                }
+                else if (retrievedMood.equalsIgnoreCase("Sad")){
+                    selectedMoodImg.setImageResource(R.drawable.sad_emoji);
+                }
+                else if (retrievedMood.equalsIgnoreCase("Stressed")){
+                    selectedMoodImg.setImageResource(R.drawable.stress_emoji);
+                }
+                else if (retrievedMood.equalsIgnoreCase("Angry")){
+                    selectedMoodImg.setImageResource(R.drawable.angry_emoji);
+                }
+                else{
+                    selectedMoodImg.setImageResource(R.drawable.empty_mood);
+                }
             }
         });
         dialog.setView(dialogView);
         dialog.show();
     }
+
 
 }
