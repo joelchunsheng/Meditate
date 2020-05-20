@@ -3,6 +3,7 @@ package com.android.meditate.Mood;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -33,7 +34,7 @@ public class MoodFragment extends Fragment {
     private static final String TAG = "Mood";
     View v;
     TextView date;
-    CardView happy, sad, stressed, angry;
+    CardView happy, sad, stressed, angry, history;
     ImageView selectedMoodImg;
     SharedPreferences moodPreferences;
     String retrievedMood;
@@ -63,7 +64,7 @@ public class MoodFragment extends Fragment {
         stressed = (CardView) v.findViewById(R.id.stressedCardView);
         angry = (CardView) v.findViewById(R.id.angryCardView);
         selectedMoodImg = (ImageView) v.findViewById(R.id.currentMoodImage);
-
+        history = (CardView) v.findViewById(R.id.historyCardView);
 
         happy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +126,14 @@ public class MoodFragment extends Fragment {
         else{
             selectedMoodImg.setImageResource(R.drawable.empty_mood);
         }
+
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moodHistoryActivity = new Intent(getActivity(), MoodHistory.class);
+                startActivity(moodHistoryActivity);
+            }
+        });
 
         return v;
     }
