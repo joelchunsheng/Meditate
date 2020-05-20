@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.android.meditate.MoodAdapter;
-import com.android.meditate.MoodModel;
 import com.android.meditate.R;
 
 import java.util.ArrayList;

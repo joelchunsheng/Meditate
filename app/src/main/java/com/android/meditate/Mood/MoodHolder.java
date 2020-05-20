@@ -1,4 +1,4 @@
-package com.android.meditate;
+package com.android.meditate.Mood;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.meditate.R;
 
 public class MoodHolder extends RecyclerView.ViewHolder {
 
