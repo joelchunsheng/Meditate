@@ -8,15 +8,13 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.meditate.Meditation.MeditationClickListener;
 import com.android.meditate.R;
 
-public class MeditationHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class MeditationHolder extends RecyclerView.ViewHolder{
 
     ImageView mImageView;
     TextView mTitle, mDes;
     CardView cardView;
-    MeditationClickListener meditationClickListener;
 
     MeditationHolder(@NonNull View itemView) {
         super(itemView);
@@ -24,17 +22,6 @@ public class MeditationHolder extends RecyclerView.ViewHolder implements View.On
         this.mTitle = itemView.findViewById(R.id.cardTitleTxt);
         this.mDes = itemView.findViewById(R.id.cardDesTxt);
         this.cardView = itemView.findViewById(R.id.cardview);
-
-        itemView.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-
-        this.meditationClickListener.onItemClickListener(v, getLayoutPosition());
-    }
-
-    public void setItemClickListener(MeditationClickListener ic){
-        this.meditationClickListener = ic;
-    }
 }

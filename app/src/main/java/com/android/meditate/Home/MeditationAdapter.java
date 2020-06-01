@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.meditate.Meditation.MeditationActivity;
-import com.android.meditate.Meditation.MeditationClickListener;
 import com.android.meditate.R;
 
 import java.io.ByteArrayOutputStream;
@@ -36,7 +35,30 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationHolder> {
 
         //View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_row, null);
         View view = LayoutInflater.from(c).inflate(R.layout.home_row,parent,false);
-        MeditationHolder vHolder = new MeditationHolder(view);
+        final MeditationHolder vHolder = new MeditationHolder(view);
+
+        vHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String gTitle = models.get(vHolder.getAdapterPosition()).getTitle();
+                String gDes = models.get(vHolder.getAdapterPosition()).getDescription();
+                BitmapDrawable bitmapDrawable = (BitmapDrawable)vHolder.mImageView.getDrawable(); //get image from drawable
+
+                Bitmap bitmap = bitmapDrawable.getBitmap();
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream(); //image will get steam and bytes
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); // compress image
+
+                byte[] bytes = stream.toByteArray();
+
+                Intent intent = new Intent(c, MeditationActivity.class);
+                intent.putExtra("iTitle", gTitle);
+                intent.putExtra("iDes", gDes);
+                intent.putExtra("iImage", bytes);
+                c.startActivity(intent);
+            }
+        });
+
         return vHolder; //return view to holder class
     }
 
@@ -59,29 +81,6 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationHolder> {
         else if (position==5)
             holder.cardView.setCardBackgroundColor(Color.parseColor("#D2D2CF"));
 
-        holder.setItemClickListener(new MeditationClickListener() {
-            @Override
-            public void onItemClickListener(View v, int position) {
-                String gTitle = models.get(position).getTitle();
-                String gDes = models.get(position).getDescription();
-                BitmapDrawable bitmapDrawable = (BitmapDrawable)holder.mImageView.getDrawable(); //get image from drawable
-
-                Bitmap bitmap = bitmapDrawable.getBitmap();
-
-                ByteArrayOutputStream stream = new ByteArrayOutputStream(); //image will get steam and bytes
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); // compress image
-
-                byte[] bytes = stream.toByteArray();
-
-                Intent intent = new Intent(c, MeditationActivity.class);
-                intent.putExtra("iTitle", gTitle);
-                intent.putExtra("iDes", gDes);
-                intent.putExtra("iImage", bytes);
-                c.startActivity(intent);
-
-
-            }
-        });
     }
 
     @Override
