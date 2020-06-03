@@ -35,8 +35,6 @@ public class MeditationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meditation);
 
-        ActionBar actionBar = getSupportActionBar();
-
         meditateTitle = findViewById(R.id.meditateTitleTxt);
         meditateDes = findViewById(R.id.meditateDesTxt);
         meditateImage = findViewById(R.id.meditateImageView);
