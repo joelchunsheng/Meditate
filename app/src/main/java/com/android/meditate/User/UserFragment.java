@@ -44,7 +44,7 @@ public class UserFragment extends Fragment {
         settingsList.add("Log Out");
 
         userAvatar = v.findViewById(R.id.userAvatar);
-        userAvatar.setImageURI(Uri.parse("android.resource://" + v.getContext().getPackageName() + "/" + R.drawable.sample_avatar));
+        userAvatar.setImageURI(Uri.parse("android.resource://" + v.getContext().getPackageName() + "/" + R.drawable.user_pic));
 
         RecyclerView userSettingsRecyclerView = v.findViewById(R.id.userSettingsRecyclerView);
         UserAdaptor userAdaptor = new UserAdaptor(settingsList);
