@@ -39,7 +39,7 @@ public class UserAdaptor extends RecyclerView.Adapter<UserViewHolder> {
         holder.settingText.setText(data.get(position));
         String text = holder.settingText.getText().toString();
         if (text.equals("About")){
-            holder.settingText.setOnClickListener(new View.OnClickListener() {
+            holder.settingCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // GO TO ABOUT ACTIVITY
@@ -47,7 +47,7 @@ public class UserAdaptor extends RecyclerView.Adapter<UserViewHolder> {
             });
         }
         else if (text.equals(("Notifications"))){
-            holder.settingText.setOnClickListener(new View.OnClickListener() {
+            holder.settingCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), Notification.class);
@@ -56,7 +56,7 @@ public class UserAdaptor extends RecyclerView.Adapter<UserViewHolder> {
             });
         }
         else if (text.equals("Log Out")){
-            holder.settingText.setOnClickListener(new View.OnClickListener() {
+            holder.settingCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), LoginActivity.class);
@@ -66,7 +66,7 @@ public class UserAdaptor extends RecyclerView.Adapter<UserViewHolder> {
             });
         }
         else{
-            holder.settingText.setOnClickListener(new View.OnClickListener() {
+            holder.settingCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Log.v(TAG, "Button not assigned");

@@ -26,7 +26,7 @@ public class UserFragment extends Fragment {
     private View v;
     private ImageView userAvatar;
     private static final String TAG = "UserFragment";
-    private ArrayList<String> settingsList = new ArrayList<>();
+    private ArrayList<String> settingsList;
 
     public UserFragment() {
         // Required empty public constructor
@@ -38,10 +38,6 @@ public class UserFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_user, container, false);
-
-        settingsList.add("About");
-        settingsList.add("Notifications");
-        settingsList.add("Log Out");
 
         userAvatar = v.findViewById(R.id.userAvatar);
         userAvatar.setImageURI(Uri.parse("android.resource://" + v.getContext().getPackageName() + "/" + R.drawable.user_pic));
@@ -62,7 +58,9 @@ public class UserFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-
-
+        settingsList = new ArrayList<>();
+        settingsList.add("About");
+        settingsList.add("Notifications");
+        settingsList.add("Log Out");
     }
 }

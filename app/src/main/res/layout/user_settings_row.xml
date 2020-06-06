@@ -3,15 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/userSettingsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/userSettingsCardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:paddingStart="25sp"
-        android:paddingTop="10sp"
-        android:paddingBottom="10sp"
-        android:text="SettingTitle"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/userSettingsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="25sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
+            android:text="SettingTitle"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+    </androidx.cardview.widget.CardView>
 </LinearLayout>
