@@ -49,6 +49,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
+        // create list of meditation guides
         listGuides = new ArrayList<>();
         listGuides.add(new MeditationModel("Sleep", "Feel the night. Watch its beauty.", R.drawable.sleep));
         listGuides.add(new MeditationModel("Stress & Anxiety", "Soothes your soul.", R.drawable.calm));

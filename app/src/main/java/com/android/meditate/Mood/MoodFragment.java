@@ -66,6 +66,7 @@ public class MoodFragment extends Fragment {
         selectedMoodImg = (ImageView) v.findViewById(R.id.currentMoodImage);
         history = (CardView) v.findViewById(R.id.historyCardView);
 
+        //mood card onclick
         happy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +128,7 @@ public class MoodFragment extends Fragment {
             selectedMoodImg.setImageResource(R.drawable.empty_mood);
         }
 
+        //history card
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,13 +145,13 @@ public class MoodFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         moodPreferences = this.getActivity().getSharedPreferences("com.android.meditate.Mood", Context.MODE_PRIVATE);
-
         // retrieve mood preference
         retrievedMood = moodPreferences.getString("Mood", "");
         retrievedDate = moodPreferences.getString("Date", "");
         Log.i(TAG, retrievedMood);
     }
 
+    // list of mood cards
     private static final int[] BUTTON_IDS = {
             R.id.happyCardView,
             R.id.sadCardView,

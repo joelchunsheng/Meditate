@@ -40,7 +40,6 @@ public class MeditationActivity extends AppCompatActivity {
         meditateImage = findViewById(R.id.meditateImageView);
         iconCard = findViewById(R.id.headerCard);
         playCard = findViewById(R.id.playCard);
-
         playPauseTxt = findViewById(R.id.playPauseText);
         playPauseImage = findViewById(R.id.playPauseImg);
 
@@ -52,22 +51,26 @@ public class MeditationActivity extends AppCompatActivity {
         //decode image
         Bitmap bitmap = BitmapFactory.decodeByteArray(mBytes, 0 , mBytes.length);
 
+        //display
         meditateTitle.setText(mTitle);
         meditateDes.setText(mDes);
         meditateImage.setImageBitmap(bitmap);
 
+        //set up header card
         setUpHeaderCard(mTitle, iconCard);
 
+        //play/pause button
         playCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // if true
+                // if true -> playing
                 if (playPause){
+                    //show pause
                     playPauseTxt.setText("PAUSE");
                     playPauseImage.setImageResource(R.drawable.ic_pause_white_24dp);
                     playPause = false;
                 }
+                //else if false -> not playing
                 else{
                     playPauseTxt.setText("PLAY");
                     playPauseImage.setImageResource(R.drawable.ic_play_arrow_white_24dp);
@@ -83,6 +86,7 @@ public class MeditationActivity extends AppCompatActivity {
 
     }
 
+    //get up card bg
     public static void setUpHeaderCard(String mTitle, CardView iconCard){
         if (mTitle.equalsIgnoreCase("Sleep")){
             iconCard.setCardBackgroundColor(Color.parseColor("#C6DEF1"));

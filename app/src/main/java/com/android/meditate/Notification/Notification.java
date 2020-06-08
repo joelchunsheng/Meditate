@@ -30,7 +30,7 @@ public class Notification extends AppCompatActivity {
     TextView wakeUpText, bedTimeText;
     Context context = this;
     int hour, min;
-
+    Boolean switchPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +49,25 @@ public class Notification extends AppCompatActivity {
 
         notificationPref = this.getSharedPreferences("com.android.meditate.Notification", Context.MODE_PRIVATE);
 
-        Boolean switchPref = notificationPref.getBoolean("Notification", false);
+        switchPref = notificationPref.getBoolean("Notification", false);
 
+        //if switch was previously checked
         if (switchPref == true){
             notificationSwitch.setChecked(true);
-        }else{
+            wakeUpCard.setClickable(true);
+            bedTimeCard.setClickable(true);
+
+        }
+        //if switch was previously turned off
+        else{
+            //disable click
             notificationSwitch.setChecked(false);
+            //make cards translucent
             wakeUpCard.setAlpha(.5f);
             bedTimeCard.setAlpha(.5f);
         }
 
+        //configure switch
         notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -68,20 +77,8 @@ public class Notification extends AppCompatActivity {
                     bedTimeCard.setClickable(true);
                     wakeUpCard.setAlpha(1);
                     bedTimeCard.setAlpha(1);
+                    switchPref = true;
 
-                    wakeUpCard.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            timePicker(context, hour, min, wakeUpText);
-                        }
-                    });
-
-                    bedTimeCard.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            timePicker(context, hour, min, bedTimeText);
-                        }
-                    });
                 }
                 else{
                     notificationPref.edit().putBoolean("Notification", false).apply();
@@ -89,6 +86,25 @@ public class Notification extends AppCompatActivity {
                     bedTimeCard.setClickable(false);
                     wakeUpCard.setAlpha(.5f);
                     bedTimeCard.setAlpha(.5f);
+                    switchPref = false;
+                }
+            }
+        });
+
+        wakeUpCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (switchPref == true){
+                    timePicker(context, hour, min, wakeUpText);
+                }
+            }
+        });
+
+        bedTimeCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (switchPref == true){
+                    timePicker(context, hour, min, bedTimeText);
                 }
             }
         });
@@ -102,7 +118,7 @@ public class Notification extends AppCompatActivity {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 if (hourOfDay>=12){
                     //PM
-                    textView.setText(hourOfDay + " : " + minute + " PM");
+                    textView.setText((hourOfDay-12) + " : " + minute + " PM");
                 }
                 else{
                     //AM

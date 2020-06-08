@@ -48,9 +48,9 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationHolder> {
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream(); //image will get steam and bytes
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); // compress image
-
                 byte[] bytes = stream.toByteArray();
 
+                //intent to meditation activity
                 Intent intent = new Intent(c, MeditationActivity.class);
                 intent.putExtra("iTitle", gTitle);
                 intent.putExtra("iDes", gDes);
@@ -68,6 +68,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationHolder> {
         holder.mDes.setText(models.get(position).getDescription());
         holder.mImageView.setImageResource(models.get(position).getImg());
 
+        //set card bg based on position
         if(position==0)
             holder.cardView.setCardBackgroundColor(Color.parseColor("#C6DEF1"));
         else if (position==1)
