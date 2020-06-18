@@ -14,12 +14,12 @@ import java.util.ArrayList;
 
 public class MoodAdapter extends RecyclerView.Adapter<MoodHolder> {
 
-    Context c;
-    ArrayList<MoodModel> moodModels;
+//    Context c;
+    ArrayList<MoodModel> moodList;
 
-    public MoodAdapter(Context c, ArrayList<MoodModel> moodModels) {
-        this.c = c;
-        this.moodModels = moodModels;
+    public MoodAdapter(ArrayList<MoodModel> moodList) {
+//        this.c = c;
+        this.moodList = moodList;
     }
 
     @NonNull
@@ -32,16 +32,16 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MoodHolder holder, int position) {
-        holder.date.setText(moodModels.get(position).getDate());
-        holder.month.setText(moodModels.get(position).getMonth());
-        holder.mood.setText(moodModels.get(position).getMood());
-        holder.summary.setText(moodModels.get(position).getSummary());
-        holder.moodImage.setImageResource(moodModels.get(position).getImage());
+        holder.date.setText(moodList.get(position).getDate());
+        holder.month.setText(moodList.get(position).getMonth());
+        holder.mood.setText(moodList.get(position).getMood());
+        holder.summary.setText(moodList.get(position).getSummary());
+        holder.moodImage.setImageResource(moodList.get(position).getImage());
 
     }
 
     @Override
     public int getItemCount() {
-        return moodModels.size();
+        return moodList.size();
     }
 }

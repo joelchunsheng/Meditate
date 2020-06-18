@@ -26,10 +26,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ServerTimestamp;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +51,7 @@ public class MoodFragment extends Fragment {
     AlertDialog.Builder dialog;
     TextInputLayout dialogTxt;
     EditText dialogEditTxt;
+    @ServerTimestamp Date time;
 
     FirebaseFirestore db;
 
@@ -266,6 +270,7 @@ public class MoodFragment extends Fragment {
         moodObj.put("month", getDate(date, "M"));
         moodObj.put("mood", mood);
         moodObj.put("summary", summary);
+        moodObj.put("timestamp", FieldValue.serverTimestamp());
 
         db.collection("users").document("wumxM5qn4tYAyYSzMXdhZawvITW2").collection("mood")
                 .add(moodObj)
@@ -291,6 +296,7 @@ public class MoodFragment extends Fragment {
         moodObj.put("month", getDate(date, "M"));
         moodObj.put("mood", mood);
         moodObj.put("summary", summary);
+        moodObj.put("timestamp", FieldValue.serverTimestamp());
 
         db.collection("users").document("wumxM5qn4tYAyYSzMXdhZawvITW2").collection("mood").document(moodPreferences.getString("DocID", ""))
                 .set(moodObj)
