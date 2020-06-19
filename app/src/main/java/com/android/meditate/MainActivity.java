@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private HomeFragment homeFragment;
     private MoodFragment moodFragment;
     private UserFragment userFragment;
+    private ShopFragment shopFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new HomeFragment();
         moodFragment = new MoodFragment();
         userFragment = new UserFragment();
+        shopFragment = new ShopFragment();
 
         setFragment(homeFragment);
 
@@ -46,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.navBarHome:
                         setFragment(homeFragment);
+                        return true;
+
+                    case R.id.navBarShop:
+                        setFragment(shopFragment);
                         return true;
 
                     case R.id.navBarMood:
