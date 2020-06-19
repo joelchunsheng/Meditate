@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.android.meditate.Home.HomeFragment;
 import com.android.meditate.Mood.MoodFragment;
+import com.android.meditate.Shop.ShopFragment;
 import com.android.meditate.User.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
