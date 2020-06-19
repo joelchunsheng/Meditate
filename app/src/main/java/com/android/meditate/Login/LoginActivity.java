@@ -3,7 +3,9 @@ package com.android.meditate.Login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -20,6 +22,15 @@ import android.widget.Toast;
 import com.android.meditate.MainActivity;
 import com.android.meditate.R;
 import com.android.meditate.Register.RegisterActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -43,15 +54,23 @@ public class LoginActivity extends AppCompatActivity {
                 String emailInputText = emailInput.getEditableText().toString();
                 String passwordInputText = passwordInput.getEditableText().toString();
 
-                if (emailInputText.contains(" ") || (!(emailInputText.contains("@"))) || emailInputText.isEmpty()){
-                    Toast.makeText(LoginActivity.this, "Please provide a valid Email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (emailInputText.contains(" ") || (!(emailInputText.contains("@"))) || emailInputText.isEmpty()){
+//                    Toast.makeText(LoginActivity.this, "Please provide a valid Email", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                if (passwordInputText.contains(" ") || passwordInputText.isEmpty()){
+//                    Toast.makeText(LoginActivity.this, "Please provide a valid password", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
 
-                if (passwordInputText.contains(" ") || passwordInputText.isEmpty()){
-                    Toast.makeText(LoginActivity.this, "Please provide a valid password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                //call this only when login SUCCESSFUL
+                // include this in your firebase auth sign in
+                saveUID("wumxM5qn4tYAyYSzMXdhZawvITW2");
+
+                //get user infro
+                getUserInfo("wumxM5qn4tYAyYSzMXdhZawvITW2");
+
                 Log.v(TAG, "Login Button Clicked!");
                 Intent toMain = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(toMain);
@@ -77,9 +96,72 @@ public class LoginActivity extends AppCompatActivity {
         loginSignUpTextView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-//    @Override
-//    protected void onPause(){
-//        super.onPause();
-//        finish();
-//    }
+    // TO DO
+    // method to save UID to shared pref
+    //method to retrive user data from firestore and save to firestore
+
+    //call this method upon successful login.
+    //Pass in user uid.
+    private void saveUID(String uid){
+        Log.i(TAG, "saving UID");
+        SharedPreferences userPref = this.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
+        userPref.edit().putString("UID", uid).apply();
+    }
+
+    private void getUserInfo(String uid){
+        Log.i(TAG, "retrieving user info");
+        final SharedPreferences userPref = this.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
+
+        // Access a Cloud Firestore instance from your Activity
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        DocumentReference docRef = db.collection("users").document(uid);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+//                        Log.d(TAG, "DocumentSnapshot data: " + document.get("purchased"));
+
+                        // save name
+                        userPref.edit().putString("name", document.getString("name")).apply();
+
+                        // save coins
+                        userPref.edit().putInt("coins", Integer.parseInt(document.getString("coins"))).apply();
+
+                        // save hours
+                        userPref.edit().putFloat("hours", Float.parseFloat(document.getString("hours"))).apply();
+
+                        // save purchased (if applicable)
+                        try{
+                            List<String> group = (List<String>) document.get("purchased"); //retrieve purchased list
+                            userPref.edit().putStringSet("purchased", transformList(group)).apply();
+                        }
+                        catch (Exception e){
+                            Log.d(TAG, "Error saving purchase list");
+                        }
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+    }
+
+    // convert list to hashset to save to shared pref
+    public static Set transformList(List<String> list){
+        Set<String> set = new HashSet<String>();
+
+        for(String guide : list){
+            set.add(guide);
+        }
+        Log.d(TAG, "HashSet: " + set);
+        return set;
+    }
 }

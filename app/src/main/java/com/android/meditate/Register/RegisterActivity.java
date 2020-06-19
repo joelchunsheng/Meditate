@@ -66,4 +66,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    //TO DO
+    // Register
+    // save UID to shared pref
 }

@@ -37,5 +37,12 @@ public class UsernameActivity extends AppCompatActivity {
                 startActivity(toMain);
             }
         });
+
     }
+
+    // TO DO
+    // Save username to firestore
+    // also save coins -> 100 and hours -> 0 to firestore
+
+    //save name, coins, hours to shared pref
 }
