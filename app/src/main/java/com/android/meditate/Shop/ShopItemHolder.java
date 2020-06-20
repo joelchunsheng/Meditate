@@ -26,6 +26,7 @@ public class ShopItemHolder extends RecyclerView.ViewHolder {
          this.title = itemView.findViewById(R.id.guideTitle);
          this.des = itemView.findViewById(R.id.guideDes);
          this.item = itemView.findViewById(R.id.shopItem);
+         this.cardView = itemView.findViewById(R.id.shopItemCard);
 
      }
 }

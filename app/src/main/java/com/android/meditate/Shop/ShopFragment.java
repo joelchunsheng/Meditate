@@ -1,5 +1,7 @@
 package com.android.meditate.Shop;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -8,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import com.android.meditate.Home.MeditationModel;
 import com.android.meditate.R;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 
 /**
@@ -50,15 +54,46 @@ public class ShopFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
+        SharedPreferences userPref = this.getActivity().getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
+        Set<String> fetch = userPref.getStringSet("purchased", null);
+
         shopList = new ArrayList<>();
-        shopList.add(new ShopItemModel("Nature", "Love the world as your own self", R.drawable.calm, R.drawable.baseline_lock_black_24dp));
-        shopList.add(new ShopItemModel("Sunset", "Love the world as your own self", R.drawable.calm, R.drawable.baseline_lock_black_24dp));
-        shopList.add(new ShopItemModel("Rain", "Love the world as your own self", R.drawable.calm, R.drawable.baseline_lock_black_24dp));
-        shopList.add(new ShopItemModel("Title1", "Love the world as your own self", R.drawable.calm, R.drawable.baseline_lock_black_24dp));
-        shopList.add(new ShopItemModel("Title1", "Love the world as your own self", R.drawable.calm, R.drawable.baseline_lock_black_24dp));
-        shopList.add(new ShopItemModel("Title1", "Love the world as your own self", R.drawable.calm, R.drawable.baseline_lock_black_24dp));
-        shopList.add(new ShopItemModel("Title1", "Love the world as your own self", R.drawable.calm, R.drawable.baseline_lock_black_24dp));
-        shopList.add(new ShopItemModel("Piano", "Love the world as your own self", R.drawable.calm, R.drawable.baseline_lock_black_24dp));
+        shopList.add(new ShopItemModel("10 min guides", "Quick guides anytime anywhere.", R.drawable.clock, R.drawable.baseline_lock_black_24dp));
+        shopList.add(new ShopItemModel("White Noise", "Better sleep. Ease anxiety.", R.drawable.wave, R.drawable.baseline_lock_black_24dp));
+        shopList.add(new ShopItemModel("Nature", "Love the world as your own self.", R.drawable.tree, R.drawable.baseline_lock_black_24dp));
+        shopList.add(new ShopItemModel("Self care", "Accept yourself, love yourself.", R.drawable.self, R.drawable.baseline_lock_black_24dp));
+        shopList.add(new ShopItemModel("Rainy days", "Get warm and comfortable.", R.drawable.water, R.drawable.baseline_lock_black_24dp));
+        shopList.add(new ShopItemModel("Piano", "Soothing piano music for you.", R.drawable.piano, R.drawable.baseline_lock_black_24dp));
+        shopList.add(new ShopItemModel("Slow down", "A huge part of recovery and life is slowing down.", R.drawable.slow, R.drawable.baseline_lock_black_24dp));
+
+        for (String name : fetch){
+            Log.i("Set", name);
+            if (name.equalsIgnoreCase("10 min guides")){
+                shopList.set(0, new ShopItemModel("10 min guides", "Quick guides anytime anywhere.", R.drawable.clock, R.drawable.baseline_check_circle_black_24dp));
+            }
+            else if (name.equalsIgnoreCase("White Noise")){
+                shopList.set(1, new ShopItemModel("White Noise", "Better sleep. Ease anxiety.", R.drawable.wave, R.drawable.baseline_check_circle_black_24dp));
+            }
+            else if (name.equalsIgnoreCase("Nature")){
+                shopList.set(2, new ShopItemModel("Nature", "Love the world as your own self.", R.drawable.tree, R.drawable.baseline_check_circle_black_24dp));
+            }
+            else if (name.equalsIgnoreCase("Self care")){
+                shopList.set(3, new ShopItemModel("Self care", "Accept yourself, love yourself.", R.drawable.self, R.drawable.baseline_check_circle_black_24dp));
+            }
+            else if (name.equalsIgnoreCase("Rainy days")){
+                shopList.set(4, new ShopItemModel("Rainy days", "Get warm and comfortable.", R.drawable.water, R.drawable.baseline_check_circle_black_24dp));
+            }
+            else if (name.equalsIgnoreCase("Piano")){
+                shopList.set(5, new ShopItemModel("Piano", "Soothing piano music for you.", R.drawable.piano, R.drawable.baseline_check_circle_black_24dp));
+            }
+            else if (name.equalsIgnoreCase("Slow down")){
+                shopList.set(6, new ShopItemModel("Slow down", "A huge part of recovery and life is slowing down.", R.drawable.slow, R.drawable.baseline_check_circle_black_24dp));
+            }
+            else{
+                Log.i("ERROR", "Error updating list with purchased guides");
+            }
+        }
 
     }
 }

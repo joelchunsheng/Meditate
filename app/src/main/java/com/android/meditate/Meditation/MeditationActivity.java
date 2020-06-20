@@ -159,23 +159,26 @@ public class MeditationActivity extends AppCompatActivity {
 
     //set up card bg
     public static void setUpHeaderCard(String mTitle, CardView iconCard){
-        if (mTitle.equalsIgnoreCase("Sleep")){
+        if (mTitle.equalsIgnoreCase("Sleep") || mTitle.equalsIgnoreCase("10 min guides")){
             iconCard.setCardBackgroundColor(Color.parseColor("#C6DEF1"));
         }
-        else if (mTitle.equalsIgnoreCase("Stress & Anxiety")){
+        else if (mTitle.equalsIgnoreCase("Stress & Anxiety") || mTitle.equalsIgnoreCase("White Noise")){
             iconCard.setCardBackgroundColor(Color.parseColor("#FFCDB2"));
         }
-        else if (mTitle.equalsIgnoreCase("Breathe")){
+        else if (mTitle.equalsIgnoreCase("Breathe") || mTitle.equalsIgnoreCase("Self care")){
             iconCard.setCardBackgroundColor(Color.parseColor("#DBCDF0"));
         }
-        else if (mTitle.equalsIgnoreCase("Midnight Thoughts")){
+        else if (mTitle.equalsIgnoreCase("Midnight Thoughts") || mTitle.equalsIgnoreCase("Nature")){
             iconCard.setCardBackgroundColor(Color.parseColor("#E2CFC4"));
         }
-        else if (mTitle.equalsIgnoreCase("Work Out")){
+        else if (mTitle.equalsIgnoreCase("Work Out") || mTitle.equalsIgnoreCase("Slow down")){
             iconCard.setCardBackgroundColor(Color.parseColor("#C9E4DE"));
         }
+        else if (mTitle.equalsIgnoreCase("Concentration") || mTitle.equalsIgnoreCase("Piano")){
+            iconCard.setCardBackgroundColor(Color.parseColor("#E2E2DF"));
+        }
         else{
-            iconCard.setCardBackgroundColor(Color.parseColor("#D2D2CF"));
+            iconCard.setCardBackgroundColor(Color.parseColor("#FAEDCB"));
         }
     }
 

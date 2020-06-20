@@ -7,13 +7,13 @@
         android:icon="@drawable/baseline_home_black_24dp"
         android:title="@string/nav_home" />
     <item
-        android:id="@+id/navBarShop"
-        android:icon="@drawable/baseline_shopping_bag_black_24dp"
-        android:title="@string/nav_shop" />
-    <item
         android:id="@+id/navBarMood"
         android:icon="@drawable/baseline_mood_black_24dp"
         android:title="@string/nav_mood" />
+    <item
+        android:id="@+id/navBarShop"
+        android:icon="@drawable/baseline_shopping_bag_black_24dp"
+        android:title="@string/nav_shop" />
     <item
         android:id="@+id/navBarUser"
         android:icon="@drawable/baseline_account_circle_black_24dp"
