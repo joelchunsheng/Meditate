@@ -1,5 +1,7 @@
 package com.android.meditate.User;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.meditate.R;
 
@@ -27,6 +30,8 @@ public class UserFragment extends Fragment {
     private ImageView userAvatar;
     private static final String TAG = "UserFragment";
     private ArrayList<String> settingsList;
+    SharedPreferences userPref;
+    private TextView userName, mHours, coins;
 
     public UserFragment() {
         // Required empty public constructor
@@ -41,6 +46,13 @@ public class UserFragment extends Fragment {
 
         userAvatar = v.findViewById(R.id.userAvatar);
         userAvatar.setImageURI(Uri.parse("android.resource://" + v.getContext().getPackageName() + "/" + R.drawable.user_pic));
+
+        userName = v.findViewById(R.id.userName);
+        userName.setText(userPref.getString("name", "Error"));
+
+        mHours = v.findViewById(R.id.userMeditationHours);
+        mHours.setText(userPref.getFloat("hours", 0) + " Meditation Hours");
+
 
         RecyclerView userSettingsRecyclerView = v.findViewById(R.id.userSettingsRecyclerView);
         UserAdaptor userAdaptor = new UserAdaptor(settingsList);
@@ -57,6 +69,9 @@ public class UserFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
+        userPref = this.getActivity().getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
+
 
         settingsList = new ArrayList<>();
         settingsList.add("About");
