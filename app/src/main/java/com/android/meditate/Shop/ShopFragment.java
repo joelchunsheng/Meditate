@@ -29,6 +29,8 @@ public class ShopFragment extends Fragment {
     View v;
     private RecyclerView mRecyclerView;
     private ArrayList<ShopItemModel> shopList;
+    private static final String TAG = "ShopActivity";
+
 
 
     public ShopFragment() {
@@ -67,32 +69,38 @@ public class ShopFragment extends Fragment {
         shopList.add(new ShopItemModel("Piano", "Soothing piano music for you.", R.drawable.piano, R.drawable.baseline_lock_black_24dp));
         shopList.add(new ShopItemModel("Slow down", "A huge part of recovery and life is slowing down.", R.drawable.slow, R.drawable.baseline_lock_black_24dp));
 
-        for (String name : fetch){
-            Log.i("Set", name);
-            if (name.equalsIgnoreCase("10 min guides")){
-                shopList.set(0, new ShopItemModel("10 min guides", "Quick guides anytime anywhere.", R.drawable.clock, R.drawable.baseline_check_circle_black_24dp));
+        try{
+            for (String name : fetch){
+                Log.i("Set", name);
+                if (name.equalsIgnoreCase("10 min guides")){
+                    shopList.set(0, new ShopItemModel("10 min guides", "Quick guides anytime anywhere.", R.drawable.clock, R.drawable.baseline_check_circle_black_24dp));
+                }
+                else if (name.equalsIgnoreCase("White Noise")){
+                    shopList.set(1, new ShopItemModel("White Noise", "Better sleep. Ease anxiety.", R.drawable.wave, R.drawable.baseline_check_circle_black_24dp));
+                }
+                else if (name.equalsIgnoreCase("Nature")){
+                    shopList.set(2, new ShopItemModel("Nature", "Love the world as your own self.", R.drawable.tree, R.drawable.baseline_check_circle_black_24dp));
+                }
+                else if (name.equalsIgnoreCase("Self care")){
+                    shopList.set(3, new ShopItemModel("Self care", "Accept yourself, love yourself.", R.drawable.self, R.drawable.baseline_check_circle_black_24dp));
+                }
+                else if (name.equalsIgnoreCase("Rainy days")){
+                    shopList.set(4, new ShopItemModel("Rainy days", "Get warm and comfortable.", R.drawable.water, R.drawable.baseline_check_circle_black_24dp));
+                }
+                else if (name.equalsIgnoreCase("Piano")){
+                    shopList.set(5, new ShopItemModel("Piano", "Soothing piano music for you.", R.drawable.piano, R.drawable.baseline_check_circle_black_24dp));
+                }
+                else if (name.equalsIgnoreCase("Slow down")){
+                    shopList.set(6, new ShopItemModel("Slow down", "A huge part of recovery and life is slowing down.", R.drawable.slow, R.drawable.baseline_check_circle_black_24dp));
+                }
+                else{
+                    Log.i(TAG, "Error updating list with purchased guides");
+                }
             }
-            else if (name.equalsIgnoreCase("White Noise")){
-                shopList.set(1, new ShopItemModel("White Noise", "Better sleep. Ease anxiety.", R.drawable.wave, R.drawable.baseline_check_circle_black_24dp));
-            }
-            else if (name.equalsIgnoreCase("Nature")){
-                shopList.set(2, new ShopItemModel("Nature", "Love the world as your own self.", R.drawable.tree, R.drawable.baseline_check_circle_black_24dp));
-            }
-            else if (name.equalsIgnoreCase("Self care")){
-                shopList.set(3, new ShopItemModel("Self care", "Accept yourself, love yourself.", R.drawable.self, R.drawable.baseline_check_circle_black_24dp));
-            }
-            else if (name.equalsIgnoreCase("Rainy days")){
-                shopList.set(4, new ShopItemModel("Rainy days", "Get warm and comfortable.", R.drawable.water, R.drawable.baseline_check_circle_black_24dp));
-            }
-            else if (name.equalsIgnoreCase("Piano")){
-                shopList.set(5, new ShopItemModel("Piano", "Soothing piano music for you.", R.drawable.piano, R.drawable.baseline_check_circle_black_24dp));
-            }
-            else if (name.equalsIgnoreCase("Slow down")){
-                shopList.set(6, new ShopItemModel("Slow down", "A huge part of recovery and life is slowing down.", R.drawable.slow, R.drawable.baseline_check_circle_black_24dp));
-            }
-            else{
-                Log.i("ERROR", "Error updating list with purchased guides");
-            }
+
+        }catch (Exception e){
+            Log.i(TAG, "No purchased found");
+
         }
 
     }
