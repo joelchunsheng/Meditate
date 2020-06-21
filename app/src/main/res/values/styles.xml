@@ -8,9 +8,12 @@
         <item name="colorAccent">@color/colorTerraCotta</item>
 
     </style>
-
-    <style name="SeekBarTheme" parent="Widget.AppCompat.SeekBar">
-        <item name="colorAccent">@color/colorTerraCotta</item>
+    
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
 </resources>

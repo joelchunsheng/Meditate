@@ -75,16 +75,16 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationHolder> {
         else if (models.get(position).getTitle().equalsIgnoreCase("Stress & Anxiety") || models.get(position).getTitle().equalsIgnoreCase("White Noise"))
             holder.cardView.setCardBackgroundColor(Color.parseColor("#F7D9C4"));
 
-        else if (models.get(position).getTitle().equalsIgnoreCase("Breathe") || models.get(position).getTitle().equalsIgnoreCase("Self care"))
+        else if (models.get(position).getTitle().equalsIgnoreCase("Self care"))
             holder.cardView.setCardBackgroundColor(Color.parseColor("#DBCDF0"));
 
         else if (models.get(position).getTitle().equalsIgnoreCase("Midnight Thoughts") || models.get(position).getTitle().equalsIgnoreCase("Nature"))
             holder.cardView.setCardBackgroundColor(Color.parseColor("#E2CFC4"));
 
-        else if (models.get(position).getTitle().equalsIgnoreCase("Work Out") || models.get(position).getTitle().equalsIgnoreCase("Slow down"))
+        else if (models.get(position).getTitle().equalsIgnoreCase("Slow down"))
             holder.cardView.setCardBackgroundColor(Color.parseColor("#C9E4DE"));
 
-        else if (models.get(position).getTitle().equalsIgnoreCase("Concentration") || models.get(position).getTitle().equalsIgnoreCase("Piano"))
+        else if (models.get(position).getTitle().equalsIgnoreCase("Piano"))
             holder.cardView.setCardBackgroundColor(Color.parseColor("#E2E2DF"));
 
         else if (models.get(position).getTitle().equalsIgnoreCase("Rainy days"))
