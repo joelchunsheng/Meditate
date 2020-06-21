@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.meditate.Home.MeditationModel;
 import com.android.meditate.R;
@@ -28,8 +29,10 @@ import java.util.Set;
 public class ShopFragment extends Fragment {
     View v;
     private RecyclerView mRecyclerView;
+    private TextView coinTxt;
     private ArrayList<ShopItemModel> shopList;
     private static final String TAG = "ShopActivity";
+    private int coins;
 
 
 
@@ -44,10 +47,13 @@ public class ShopFragment extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_shop, container, false);
 
+        coinTxt = (TextView) v.findViewById(R.id.coinText);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.shopRecyclerView);
+
+        coinTxt.setText(coins + " coins");
+
         ShopItemAdapter recycleradpter = new ShopItemAdapter(getContext(),shopList);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity())) ;  //create recycler view in linearlayout
         mRecyclerView.setAdapter(recycleradpter);
 
         return v;
@@ -59,6 +65,7 @@ public class ShopFragment extends Fragment {
 
         SharedPreferences userPref = this.getActivity().getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
         Set<String> fetch = userPref.getStringSet("purchased", null);
+        coins = userPref.getInt("coins", 0);
 
         shopList = new ArrayList<>();
         shopList.add(new ShopItemModel("10 min guides", "Quick guides anytime anywhere.", R.drawable.clock, R.drawable.baseline_lock_black_24dp));

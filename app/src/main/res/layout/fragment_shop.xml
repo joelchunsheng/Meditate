@@ -38,13 +38,15 @@
                     android:textSize="18sp" />
 
                 <TextView
+                    android:id="@+id/coinText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:text="0 Coins"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
 
