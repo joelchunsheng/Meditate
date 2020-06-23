@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.meditate.Login.LoginActivity;
 import com.android.meditate.R;
 import com.android.meditate.Username.UsernameActivity;
 
@@ -21,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText registerPassword;
     private EditText registerConfirmPassword;
     private Button registerButton;
+    TextView cancel;
 
     private final static String TAG = "RegisterActivity";
 
@@ -35,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerPassword = (EditText) findViewById(R.id.registerPassword);
         registerConfirmPassword = (EditText) findViewById(R.id.registerConfirmPassword);
         registerButton = (Button) findViewById(R.id.registerButton);
+        cancel = (TextView) findViewById(R.id.cancelTxt) ;
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +67,14 @@ public class RegisterActivity extends AppCompatActivity {
                 else{
                     Log.v(TAG, "Error occured when trying to compare passwords");
                 }
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toLogin = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(toLogin);
             }
         });
     }
