@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -44,11 +45,9 @@ public class MoodFragment extends Fragment {
     private static final String TAG = "Mood";
     View v;
     TextView date;
-    CardView happy, sad, stressed, angry, history;
-    ImageView selectedMoodImg;
+    CardView happy, sad, stressed, angry, history, save;
     SharedPreferences moodPreferences;
-    String retrievedMood, retrievedDate, retrieveSummary;
-    AlertDialog.Builder dialog;
+    String retrievedMood, retrievedDate, retrieveSummary, selectedMood, retrieveDocId;
     TextInputLayout dialogTxt;
     EditText dialogEditTxt;
     @ServerTimestamp Date time;
@@ -70,20 +69,30 @@ public class MoodFragment extends Fragment {
         date = (TextView) v.findViewById(R.id.datetxt);
         date.setText(getDateTime());
 
+        // card view
         happy = (CardView) v.findViewById(R.id.happyCardView);
         sad = (CardView) v.findViewById(R.id.sadCardView);
         stressed = (CardView) v.findViewById(R.id.stressedCardView);
         angry = (CardView) v.findViewById(R.id.angryCardView);
-        selectedMoodImg = (ImageView) v.findViewById(R.id.currentMoodImage);
-        history = (CardView) v.findViewById(R.id.historyCardView);
+//        history = (CardView) v.findViewById(R.id.historyCardView);
+        save = (CardView) v.findViewById(R.id.saveCard);
+
+        // edit text
+        dialogTxt = (TextInputLayout) v.findViewById(R.id.dialogTxt);
+        dialogEditTxt = (EditText) v.findViewById(R.id.dialogEditTxt);
+
 
         //mood card onclick
         happy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Happy Clicked");
-                selectedMoodImg.setImageResource(R.drawable.happy_emoji);
-                dialog("Happy");
+                happy.setCardBackgroundColor(Color.parseColor("#C9E4DE"));
+                sad.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
+                stressed.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
+                angry.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
+                selectedMood = "Happy";
+
             }
         });
 
@@ -91,8 +100,12 @@ public class MoodFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Sad Clicked");
-                selectedMoodImg.setImageResource(R.drawable.sad_emoji);
-                dialog("Sad");
+                happy.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
+                sad.setCardBackgroundColor(Color.parseColor("#C6DEF1"));
+                stressed.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
+                angry.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
+                selectedMood = "Sad";
+
             }
         });
 
@@ -100,8 +113,12 @@ public class MoodFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Stressed Clicked");
-                selectedMoodImg.setImageResource(R.drawable.stress_emoji);
-                dialog("Stressed");
+                happy.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
+                sad.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
+                stressed.setCardBackgroundColor(Color.parseColor("#E2CFC4"));
+                angry.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
+                selectedMood = "Stressed";
+
             }
         });
 
@@ -109,48 +126,75 @@ public class MoodFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Angry Clicked");
-                selectedMoodImg.setImageResource(R.drawable.angry_emoji);
-                dialog("Angry");
+                happy.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
+                sad.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
+                stressed.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
+                angry.setCardBackgroundColor(Color.parseColor("#F7D9C4"));
+                selectedMood = "Angry";
+
             }
         });
 
-        // check if it is a new day
-        // if same day, show selected mood
-        if (retrievedDate.equalsIgnoreCase(getDateTime())){
-            // if same date
+        // if same day -> display previous mood and summary
+        if (retrievedMood != null){
+
+            dialogEditTxt.setText(retrieveSummary);
+
             if (retrievedMood.equalsIgnoreCase("Happy")){
-                selectedMoodImg.setImageResource(R.drawable.happy_emoji);
+                happy.setCardBackgroundColor(Color.parseColor("#C9E4DE"));
             }
             else if (retrievedMood.equalsIgnoreCase("Sad")){
-                selectedMoodImg.setImageResource(R.drawable.sad_emoji);
+                sad.setCardBackgroundColor(Color.parseColor("#C6DEF1"));
             }
             else if (retrievedMood.equalsIgnoreCase("Stressed")){
-                selectedMoodImg.setImageResource(R.drawable.stress_emoji);
+                stressed.setCardBackgroundColor(Color.parseColor("#E2CFC4"));
             }
             else if (retrievedMood.equalsIgnoreCase("Angry")){
-                selectedMoodImg.setImageResource(R.drawable.angry_emoji);
+                angry.setCardBackgroundColor(Color.parseColor("#F7D9C4"));
             }
-            else{
-                selectedMoodImg.setImageResource(R.drawable.empty_mood);
-            }
-        }
-        //if different day, reset mood and summary
-        // clear documentid in shared pref
-        else{
-            selectedMoodImg.setImageResource(R.drawable.empty_mood);
-            moodPreferences.edit().putString("DocID", "").apply();
-            moodPreferences.edit().putString("Summary", "").apply();
         }
 
-        //history card
-        history.setOnClickListener(new View.OnClickListener() {
+
+        // save card onclick
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // navigate to mood history activity
-                Intent moodHistoryActivity = new Intent(getActivity(), MoodHistory.class);
-                startActivity(moodHistoryActivity);
+
+                String reflection = dialogTxt.getEditText().getText().toString().trim();
+
+                if (selectedMood != null && !reflection.isEmpty()){
+
+                    //save to shared pref
+                    moodPreferences.edit().putString("Mood", selectedMood).apply();
+                    moodPreferences.edit().putString("Date", getDateTime()).apply();
+                    moodPreferences.edit().putString("Summary", reflection).apply();
+
+                // save to firebase
+                    if (retrieveDocId == null){
+                        writeMood(db, getDateTime(), selectedMood, reflection, moodPreferences);
+                    }
+                    else{
+                        replaceMood(db, getDateTime(), selectedMood, reflection, moodPreferences);
+                    }
+                    retrieveDocId = moodPreferences.getString("DocID", ""); // retrieve Doc Id
+                    Toast.makeText(getContext(), "Mood saved", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getContext(), "Fail", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
+
+        //history card
+//        history.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // navigate to mood history activity
+//                Intent moodHistoryActivity = new Intent(getActivity(), MoodHistory.class);
+//                startActivity(moodHistoryActivity);
+//            }
+//        });
 
         return v;
     }
@@ -162,13 +206,20 @@ public class MoodFragment extends Fragment {
         // Access a Cloud Firestore instance from your Activity
         db = FirebaseFirestore.getInstance();
 
+        // access mood preference
         moodPreferences = this.getActivity().getSharedPreferences("com.android.meditate.Mood", Context.MODE_PRIVATE);
         // retrieve mood preference
-        retrievedMood = moodPreferences.getString("Mood", "");
-        retrievedDate = moodPreferences.getString("Date", "");
-        Log.i(TAG, retrievedMood);
 
-        //retrieve uid from shared preference
+        retrievedDate = moodPreferences.getString("Date", ""); // retrieve date
+
+        //same day
+        if (retrievedDate.equalsIgnoreCase(getDateTime())){
+            retrievedMood = moodPreferences.getString("Mood", ""); // retrieve mood
+            retrieveSummary = moodPreferences.getString("Summary", ""); // retrieve summary
+            retrieveDocId = moodPreferences.getString("DocID", ""); // retrieve Doc Id
+            selectedMood = retrievedMood;
+        }
+
 
     }
 
@@ -188,86 +239,10 @@ public class MoodFragment extends Fragment {
         return currentDate;
     }
 
-    // create dialog for summary input
-    public void dialog(final String mood){
-        dialog = new AlertDialog.Builder(getContext());
-        dialog.setTitle("Almost done");
-
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.mood_dialog, null);
-        dialogTxt = (TextInputLayout) dialogView.findViewById(R.id.dialogTxt);
-        dialogEditTxt = (EditText) dialogView.findViewById(R.id.dialogEditTxt);
-
-        //retrieve summary from shared pref
-        retrieveSummary = moodPreferences.getString("Summary", "");
-
-        // if summary is not blank, show saved summary
-        if (!retrieveSummary.equalsIgnoreCase("You did not write anything on this day.")){
-            dialogEditTxt.setText(retrieveSummary);
-        }
-
-        dialog.setCancelable(false);
-        dialog.setPositiveButton("Save", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int id){
-                String dialogText = dialogTxt.getEditText().getText().toString().trim();
-
-                // if summary text field empty
-                if (dialogText.isEmpty()){
-                    moodPreferences.edit().putString("Mood", mood).apply();
-                    moodPreferences.edit().putString("Date", getDateTime()).apply();
-                    moodPreferences.edit().putString("Summary", "You did not write anything on this day.").apply();
-                }
-                else{
-                    moodPreferences.edit().putString("Mood", mood).apply();
-                    moodPreferences.edit().putString("Date", getDateTime()).apply();
-                    moodPreferences.edit().putString("Summary", dialogText).apply();
-                }
-
-                // write to firestore
-                // if docID is blank -> new day
-                // create new doc
-                if (moodPreferences.getString("DocID", "").equals("")){
-                    // write to firestore
-                    writeMood(db, getDateTime(), mood, dialogText, moodPreferences);
-                }
-                else{
-                    // same day
-                    // replace old data
-                    replaceMood(db, getDateTime(), mood, dialogText, moodPreferences);
-                }
-
-                Toast.makeText(getContext(), "Mood saved", Toast.LENGTH_SHORT).show();
-            }
-        });
-        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int id){
-                retrievedMood = moodPreferences.getString("Mood", "");
-
-                if (retrievedMood.equalsIgnoreCase("Happy")){
-                    selectedMoodImg.setImageResource(R.drawable.happy_emoji);
-                }
-                else if (retrievedMood.equalsIgnoreCase("Sad")){
-                    selectedMoodImg.setImageResource(R.drawable.sad_emoji);
-                }
-                else if (retrievedMood.equalsIgnoreCase("Stressed")){
-                    selectedMoodImg.setImageResource(R.drawable.stress_emoji);
-                }
-                else if (retrievedMood.equalsIgnoreCase("Angry")){
-                    selectedMoodImg.setImageResource(R.drawable.angry_emoji);
-                }
-                else{
-                    selectedMoodImg.setImageResource(R.drawable.empty_mood);
-                }
-            }
-        });
-        dialog.setView(dialogView);
-        dialog.show();
-    }
-
     //creates a need mood document
     private static void writeMood(FirebaseFirestore db, String date, String mood, String summary, final SharedPreferences moodPreferences){
         Map<String, Object> moodObj = new HashMap<>();
-        moodObj.put("date", getDate(date, "D"));
-        moodObj.put("month", getDate(date, "M"));
+        moodObj.put("date", date);
         moodObj.put("mood", mood);
         moodObj.put("summary", summary);
         moodObj.put("timestamp", FieldValue.serverTimestamp());
@@ -292,8 +267,7 @@ public class MoodFragment extends Fragment {
     //replace existing mood document
     private static void replaceMood(FirebaseFirestore db, String date, String mood, String summary, final SharedPreferences moodPreferences){
         Map<String, Object> moodObj = new HashMap<>();
-        moodObj.put("date", getDate(date, "D"));
-        moodObj.put("month", getDate(date, "M"));
+        moodObj.put("date", date);
         moodObj.put("mood", mood);
         moodObj.put("summary", summary);
         moodObj.put("timestamp", FieldValue.serverTimestamp());
@@ -314,18 +288,5 @@ public class MoodFragment extends Fragment {
                 });
     }
 
-    public static String getDate(String date, String part){
-
-        String [] fullDate = date.split(",");
-        String [] dateSplit = fullDate[1].split(" ");
-
-        if (part.equalsIgnoreCase("D")){
-            return dateSplit[2];
-        }
-        else{
-            return dateSplit[1];
-        }
-
-    }
 
 }

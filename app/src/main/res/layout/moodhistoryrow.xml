@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="#f7f2ee"
     app:cardCornerRadius="7dp"
-    app:cardElevation="5dp"
+    app:cardElevation="3dp"
     app:cardUseCompatPadding="true">
 
     <RelativeLayout

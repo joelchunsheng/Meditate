@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.android.meditate.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +28,7 @@ public class MoodHistory extends AppCompatActivity {
     MoodAdapter moodAdapter;
     FirebaseFirestore db;
     ArrayList<MoodModel> moodList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +93,8 @@ public class MoodHistory extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 //    private ArrayList<MoodModel> getList(){
 //        moodModels = new ArrayList<>();
