@@ -1,10 +1,12 @@
 package com.android.meditate.Home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.meditate.Mood.MoodHistory;
 import com.android.meditate.R;
 
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private MeditationAdapter myAdapter;
     private ArrayList<MeditationModel> listGuides;
+    CardView random, journal;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -41,6 +45,23 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_home, container, false);
+        random = v.findViewById(R.id.randomCard);
+        journal = v.findViewById(R.id.journalCard);
+
+        random.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        journal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moodHistoryActivity = new Intent(getActivity(), MoodHistory.class);
+                startActivity(moodHistoryActivity);
+            }
+        });
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
         MeditationAdapter recycleradpter = new MeditationAdapter(getContext(),listGuides);
