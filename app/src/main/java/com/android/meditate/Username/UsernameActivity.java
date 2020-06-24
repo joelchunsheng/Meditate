@@ -41,6 +41,7 @@ public class UsernameActivity extends AppCompatActivity {
     }
 
     // TO DO
+    // retrieve UID from user shared pref
     // Save username to firestore
     // also save coins -> 100 and hours -> 0 to firestore
 

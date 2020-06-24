@@ -80,6 +80,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     //TO DO
-    // Register
-    // save UID to shared pref
+    // Register code (Firebase auth)
+    // save UID to shared pref -> called upon successful user registration
 }

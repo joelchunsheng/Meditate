@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="How are you \nfeeling today?"
+            android:text="How are you feeling today?"
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -245,7 +245,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/qnCard"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:layout_below="@id/qn2Txt"
         app:cardBackgroundColor="#EDEDEB"
         android:layout_marginTop="10dp"

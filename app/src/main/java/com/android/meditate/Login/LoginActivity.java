@@ -96,18 +96,18 @@ public class LoginActivity extends AppCompatActivity {
         loginSignUpTextView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    // TO DO
-    // method to save UID to shared pref
-    //method to retrive user data from firestore and save to firestore
 
-    //call this method upon successful login.
-    //Pass in user uid.
+    //method to retrieve user data from firestore and save to firestore
+    //call this methods upon successful login. (in firebase auth login code)
+
+    //Save UID in shared prefrence
     private void saveUID(String uid){
         Log.i(TAG, "saving UID");
         SharedPreferences userPref = this.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
         userPref.edit().putString("UID", uid).apply();
     }
 
+    // get user info from firestore
     private void getUserInfo(String uid){
         Log.i(TAG, "retrieving user info");
         final SharedPreferences userPref = this.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
