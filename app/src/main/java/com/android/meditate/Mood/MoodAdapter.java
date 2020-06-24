@@ -33,7 +33,6 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodHolder> {
     @Override
     public void onBindViewHolder(@NonNull MoodHolder holder, int position) {
         holder.date.setText(moodList.get(position).getDate());
-        holder.month.setText(moodList.get(position).getMonth());
         holder.mood.setText(moodList.get(position).getMood());
         holder.summary.setText(moodList.get(position).getSummary());
         holder.moodImage.setImageResource(moodList.get(position).getImage());

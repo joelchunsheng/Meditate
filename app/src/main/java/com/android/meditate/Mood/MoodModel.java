@@ -2,7 +2,7 @@ package com.android.meditate.Mood;
 
 public class MoodModel {
 
-    private String date, month, mood, summary;
+    private String date, mood, summary;
     private int image;
 
     public String getDate() {
@@ -11,14 +11,6 @@ public class MoodModel {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public String getMonth() {
-        return month;
-    }
-
-    public void setMonth(String month) {
-        this.month = month;
     }
 
     public String getMood() {
