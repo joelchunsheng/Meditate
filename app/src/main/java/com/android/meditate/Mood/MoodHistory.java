@@ -35,9 +35,6 @@ public class MoodHistory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mood_history);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Mood Journal");
-
         moodRecyclerView = findViewById(R.id.moodHistoryRecycler);
         moodRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

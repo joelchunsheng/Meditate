@@ -3,6 +3,8 @@ package com.android.meditate.Home;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -16,10 +18,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.meditate.Meditation.MeditationActivity;
 import com.android.meditate.Mood.MoodHistory;
 import com.android.meditate.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Set;
 
 
@@ -51,7 +56,13 @@ public class HomeFragment extends Fragment {
         random.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // get random category
+                String randomGuideName = randomGuide();
 
+                Intent meditationActivity = new Intent(getActivity(), MeditationActivity.class);
+                meditationActivity.putExtra("iTitle", randomGuideName);
+                meditationActivity.putExtra("iDes", "Press play to listen to your guide!");
+                startActivity(meditationActivity);
             }
         });
 
@@ -79,10 +90,8 @@ public class HomeFragment extends Fragment {
         listGuides = new ArrayList<>();
         listGuides.add(new MeditationModel("Sleep", "Feel the night. Watch its beauty.", R.drawable.sleep));
         listGuides.add(new MeditationModel("Stress & Anxiety", "Soothes your soul.", R.drawable.calm));
-//        listGuides.add(new MeditationModel("Breathe", "Stop, relax and breathe.", R.drawable.nature));
         listGuides.add(new MeditationModel("Midnight Thoughts", "Calm your heart.", R.drawable.moon));
-//        listGuides.add(new MeditationModel("Work Out", "Get your heart pumping.", R.drawable.man));
-//        listGuides.add(new MeditationModel("Concentration", "Focus and relax.", R.drawable.mind));
+
 
         try{
             //retrieve purchased guides from shared pref
@@ -123,4 +132,21 @@ public class HomeFragment extends Fragment {
 
     }
 
+    public String randomGuide(){
+        ArrayList<String> randomList = new ArrayList<>();
+        randomList.add("Sleep");
+        randomList.add("Stress & Anxiety");
+        randomList.add("Midnight Thoughts");
+
+        SharedPreferences userPref = this.getActivity().getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
+        Set<String> fetch = userPref.getStringSet("purchased", null);
+        for (String guides: fetch){
+            randomList.add(guides);
+        }
+
+        Random rand = new Random();
+        int index = rand.nextInt(randomList.size());
+
+        return randomList.get(index);
+    }
 }

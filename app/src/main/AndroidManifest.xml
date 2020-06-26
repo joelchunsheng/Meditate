@@ -16,15 +16,12 @@
             android:name=".Mood.MoodHistory"
             android:parentActivityName=".MainActivity" />
 
-        <activity android:name=".Username.UsernameActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Username.UsernameActivity" />
 
         <activity
-            android:name=".Register.RegisterActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:name=".Register.RegisterActivity" />
 
-        <activity android:name=".Login.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,10 +31,9 @@
 
         <activity
             android:name=".Meditation.MeditationActivity"
-            android:parentActivityName=".MainActivity" />
+            android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".MainActivity">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 

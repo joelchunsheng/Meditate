@@ -11,14 +11,18 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.meditate.MainActivity;
 import com.android.meditate.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,10 +37,10 @@ import java.util.Random;
 public class MeditationActivity extends AppCompatActivity {
     private static final String TAG = "Meditate Activity";
 
-    TextView meditateTitle, meditateDes, playPauseTxt, artistTxt, durationTxt, genreTxt;
-    ImageView meditateImage, playPauseImage;
+    TextView meditateTitle, artistTxt, durationTxt, genreTxt;
+    ImageView playPauseImage, exit;
     MediaPlayer mediaPlayer;
-    CardView iconCard, playCard;
+    CardView  playCard;
     FirebaseFirestore db;
     ArrayList<MeditationGuide> meditationGuideArrayList;
     String guideTitle, guideArtist, guideDuration;
@@ -48,36 +52,42 @@ public class MeditationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meditation);
 
+        // In Activity's onCreate() for instance
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+
         meditateTitle = findViewById(R.id.meditateTitleTxt); // meditation title
         artistTxt = findViewById(R.id.artistTxt); // meditation artist
         durationTxt = findViewById(R.id.durationTxt); // meditation duration
         genreTxt = findViewById(R.id.genreTxt); // meditation genre
+        exit = findViewById(R.id.meditateExit);
 
         //meditateDes = findViewById(R.id.meditateDesTxt); // meditation des
-        meditateImage = findViewById(R.id.meditateImageView); // meditation icon
 
-        iconCard = findViewById(R.id.headerCard); //medication icon card
         playCard = findViewById(R.id.playCard); // play pause btn
-        playPauseTxt = findViewById(R.id.playPauseText); // play pause text
         playPauseImage = findViewById(R.id.playPauseImg); // play pause img
 
         //get data from intent
         Intent intent = getIntent();
         final String mTitle = intent.getStringExtra("iTitle");
         String mDes = intent.getStringExtra("iDes");
-        byte[] mBytes = getIntent().getByteArrayExtra("iImage");
-        //decode image
-        Bitmap bitmap = BitmapFactory.decodeByteArray(mBytes, 0 , mBytes.length);
 
         //display
         meditateTitle.setText(mTitle);
         artistTxt.setText(mDes);
-        meditateImage.setImageBitmap(bitmap);
         durationTxt.setText("");
-        genreTxt.setText("");
+        genreTxt.setText(mTitle);
 
-        //set up header card
-        setUpHeaderCard(mTitle, iconCard);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toHome = new Intent(MeditationActivity.this, MainActivity.class);
+                startActivity(toHome);
+                finish();
+            }
+        });
 
         // instantiating media player
         mediaPlayer = new MediaPlayer();
@@ -133,13 +143,11 @@ public class MeditationActivity extends AppCompatActivity {
                                             genreTxt.setText(mTitle);
                                             //change card text and img
                                             playPauseImage.setImageResource(R.drawable.ic_pause_white_24dp);
-                                            playPauseTxt.setText("PAUSE");
                                         }
                                         else{
                                             mediaPlayer.pause(); //stop audio
                                             //change card text and img
                                             playPauseImage.setImageResource(R.drawable.ic_play_arrow_white_24dp);
-                                            playPauseTxt.setText("PLAY");
                                         }
                                     }
                                 });
@@ -154,32 +162,6 @@ public class MeditationActivity extends AppCompatActivity {
                     }
                 });
 
-    }
-
-
-    //set up card bg
-    public static void setUpHeaderCard(String mTitle, CardView iconCard){
-        if (mTitle.equalsIgnoreCase("Sleep") || mTitle.equalsIgnoreCase("10 min guides")){
-            iconCard.setCardBackgroundColor(Color.parseColor("#C6DEF1"));
-        }
-        else if (mTitle.equalsIgnoreCase("Stress & Anxiety") || mTitle.equalsIgnoreCase("White Noise")){
-            iconCard.setCardBackgroundColor(Color.parseColor("#FFCDB2"));
-        }
-        else if (mTitle.equalsIgnoreCase("Breathe") || mTitle.equalsIgnoreCase("Self care")){
-            iconCard.setCardBackgroundColor(Color.parseColor("#DBCDF0"));
-        }
-        else if (mTitle.equalsIgnoreCase("Midnight Thoughts") || mTitle.equalsIgnoreCase("Nature")){
-            iconCard.setCardBackgroundColor(Color.parseColor("#E2CFC4"));
-        }
-        else if (mTitle.equalsIgnoreCase("Work Out") || mTitle.equalsIgnoreCase("Slow down")){
-            iconCard.setCardBackgroundColor(Color.parseColor("#C9E4DE"));
-        }
-        else if (mTitle.equalsIgnoreCase("Concentration") || mTitle.equalsIgnoreCase("Piano")){
-            iconCard.setCardBackgroundColor(Color.parseColor("#E2E2DF"));
-        }
-        else{
-            iconCard.setCardBackgroundColor(Color.parseColor("#FAEDCB"));
-        }
     }
 
     @Override

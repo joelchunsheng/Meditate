@@ -42,19 +42,11 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationHolder> {
             public void onClick(View v) {
                 String gTitle = models.get(vHolder.getAdapterPosition()).getTitle();
                 String gDes = models.get(vHolder.getAdapterPosition()).getDescription();
-                BitmapDrawable bitmapDrawable = (BitmapDrawable)vHolder.mImageView.getDrawable(); //get image from drawable
-
-                Bitmap bitmap = bitmapDrawable.getBitmap();
-
-                ByteArrayOutputStream stream = new ByteArrayOutputStream(); //image will get steam and bytes
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); // compress image
-                byte[] bytes = stream.toByteArray();
 
                 //intent to meditation activity
                 Intent intent = new Intent(c, MeditationActivity.class);
                 intent.putExtra("iTitle", gTitle);
                 intent.putExtra("iDes", gDes);
-                intent.putExtra("iImage", bytes);
                 c.startActivity(intent);
             }
         });
