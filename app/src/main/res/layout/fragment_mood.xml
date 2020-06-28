@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/moodHeader"
-        android:text="1. Select your mood."
+        android:text="Select your mood."
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -232,94 +232,160 @@
     </GridLayout>
 
     <TextView
-        android:id="@+id/qn2Txt"
+        android:id="@+id/calenderHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/moodGrid"
-        android:text="2. How was your day?"
-        android:textAlignment="viewStart"
+        android:text="Mood trends"
         android:textColor="#000000"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"/>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/qnCard"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_below="@id/qn2Txt"
-        app:cardBackgroundColor="#EDEDEB"
-        android:layout_marginTop="10dp"
-        app:cardElevation="0dp"
-        app:cardCornerRadius="5dp">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/calenderHeader"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dialogTxt"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:hintEnabled="false"
-            app:counterEnabled="true"
-            app:counterMaxLength="300">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dialogEditTxt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:background="@null"
-                android:ems="10"
-                android:gravity="top|left"
-                android:hint="Type something here..."
-                android:inputType="textMultiLine"
-                android:maxLength="300" />
-        </com.google.android.material.textfield.TextInputLayout>
+<!--            <ImageButton-->
+<!--                android:id="@+id/mtPrevMonth"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_alignParentLeft="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:background="@drawable/baseline_navigate_before_black_24dp" />-->
 
-    </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/mtCurrentMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Curent month"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/saveCard"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:cardBackgroundColor="@color/colorGrean"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="15dp"
-        app:cardCornerRadius="10dp"
-        >
+<!--            <ImageButton-->
+<!--                android:id="@+id/mtNextMonth"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:background="@drawable/baseline_navigate_next_black_24dp" />-->
+        </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Save mood"
-            android:textColor="@color/colorWhite"
-            android:textSize="18dp" />
+            android:text="Great work! You have ..."
+            android:textColor="#000000"
+            android:textSize="14sp" />
 
-    </androidx.cardview.widget.CardView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:id="@+id/historyCardView"-->
-<!--        android:layout_width="35dp"-->
-<!--        android:layout_height="35dp"-->
-<!--        app:cardBackgroundColor="@color/colorSandy"-->
-<!--        android:clickable="true"-->
-<!--        android:foreground="?android:attr/selectableItemBackground"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        >-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center">
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:text="History"-->
-<!--            android:textColor="@color/colorWhite"-->
-<!--            android:textSize="18dp"-->
-<!--            android:textStyle="bold" />-->
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/happycircle"/>
 
-<!--    </androidx.cardview.widget.CardView>-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="Happy"
+                    android:textColor="#000000" />
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center">
 
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/sadcircle"/>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="Sad"
+                    android:textColor="#000000" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/stressedcircle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="Stressed"
+                    android:textColor="#000000" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/angrycircle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="Angry"
+                    android:textColor="#000000" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/moodCalendarRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -12,10 +12,6 @@
         <activity android:name=".Notification.Notification"
             android:parentActivityName=".MainActivity" />
 
-        <activity
-            android:name=".Mood.MoodHistory"
-            android:parentActivityName=".MainActivity" />
-
         <activity android:name=".Username.UsernameActivity" />
 
         <activity

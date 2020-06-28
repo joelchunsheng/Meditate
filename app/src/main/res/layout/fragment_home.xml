@@ -152,9 +152,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="left"
-
                                 android:layout_marginHorizontal="10dp"
-                                android:text="Mood Journal"
+                                android:text="Meditation Articles"
                                 android:textColor="#FFFFFF"
                                 android:textSize="17sp" />
                         </LinearLayout>
