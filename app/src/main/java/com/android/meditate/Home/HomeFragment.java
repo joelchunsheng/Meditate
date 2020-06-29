@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.meditate.ArticleHome.ArticleHome;
 import com.android.meditate.Meditation.MeditationActivity;
 import com.android.meditate.R;
 
@@ -65,6 +66,8 @@ public class HomeFragment extends Fragment {
         journal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent articleActivity = new Intent(getActivity(), ArticleHome.class);
+                startActivity(articleActivity);
 
             }
         });
