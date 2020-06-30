@@ -3,6 +3,7 @@ package com.android.meditate.Login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +25,9 @@ import com.android.meditate.R;
 import com.android.meditate.Register.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,6 +38,8 @@ import java.util.Set;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private FirebaseAuth auth;
+
     private EditText emailInput;
     private EditText passwordInput;
     private Button loginButton;
@@ -43,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        auth = FirebaseAuth.getInstance();
 
         emailInput = (EditText) findViewById(R.id.loginEmail);
         passwordInput = (EditText) findViewById(R.id.loginPassword);
@@ -64,17 +72,29 @@ public class LoginActivity extends AppCompatActivity {
 //                    return;
 //                }
 
-                //call this only when login SUCCESSFUL
-                // include this in your firebase auth sign in
-                saveUID("wumxM5qn4tYAyYSzMXdhZawvITW2");
-
-                //get user infro
-                getUserInfo("wumxM5qn4tYAyYSzMXdhZawvITW2");
+                auth.signInWithEmailAndPassword(emailInputText, passwordInputText)
+                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()){
+                                    // Sign in successful
+                                    Log.v(TAG, "Email Sign In Successful"); // Log sign in with email successful
+                                    FirebaseUser currentUser = auth.getCurrentUser(); // Gets current logged in user
+                                    String uid = currentUser.getUid(); // Gets user UID
+                                    saveUID(uid); // saves user UID to sharedPref
+                                    getUserInfo(uid); // gets user info with UID and saves it to sharedPref
+                                    Intent toMain = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
+                                    startActivity(toMain);
+                                    finish();
+                                }
+                                else{
+                                    Log.v(TAG, "Email Sign In Failed"); // Log sign in with email failed
+                                    Toast.makeText(getApplicationContext(), "Sign in Failed", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
 
                 Log.v(TAG, "Login Button Clicked!");
-                Intent toMain = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(toMain);
-                finish();
             }
         });
 
@@ -96,7 +116,19 @@ public class LoginActivity extends AppCompatActivity {
         loginSignUpTextView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
 
+        FirebaseUser currentUser = auth.getCurrentUser(); // Gets current user (null if no current user)
+        if (currentUser != null){ // If there is a current user (logged in user)
+            String uid = currentUser.getUid(); // Gets UID of current user
+            saveUID(uid); // saves UID to sharedPref
+            getUserInfo(uid); // gets user info with UID given and saves it to sharedPref
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
+            startActivity(intent);
+        }
+    }
     //method to retrieve user data from firestore and save to firestore
     //call this methods upon successful login. (in firebase auth login code)
 

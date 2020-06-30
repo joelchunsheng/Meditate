@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "49718949610-afgvbhggtvevhkj49gulrouaravufm5t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.meditate",
+            "certificate_hash": "038f2da54d08f73cd885b1b7394b1f5e968a3e9e"
+          }
+        },
+        {
           "client_id": "49718949610-epuujkbqesk45sfa60iiqjpbtgab789t.apps.googleusercontent.com",
           "client_type": 3
         }
