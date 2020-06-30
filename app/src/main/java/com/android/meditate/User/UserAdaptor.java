@@ -14,6 +14,7 @@ import com.android.meditate.MainActivity;
 import com.android.meditate.Meditation.MeditationActivity;
 import com.android.meditate.Notification.Notification;
 import com.android.meditate.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -59,6 +60,7 @@ public class UserAdaptor extends RecyclerView.Adapter<UserViewHolder> {
             holder.settingCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent(view.getContext(), LoginActivity.class);
                     view.getContext().startActivity(intent);
 
