@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -75,6 +76,7 @@ public class HomeFragment extends Fragment {
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
         MeditationAdapter recycleradpter = new MeditationAdapter(getContext(),listGuides);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity())) ;  //create recycler view in linearlayout
+//        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2)) ;  //create recycler view in linearlayout
         mRecyclerView.setAdapter(recycleradpter);
 
         return v;
@@ -86,9 +88,9 @@ public class HomeFragment extends Fragment {
 
         // create list of meditation guides
         listGuides = new ArrayList<>();
-        listGuides.add(new MeditationModel("Sleep", "Feel the night. Watch its beauty.", R.drawable.sleep));
-        listGuides.add(new MeditationModel("Stress & Anxiety", "Soothes your soul.", R.drawable.calm));
-        listGuides.add(new MeditationModel("Midnight Thoughts", "Calm your heart.", R.drawable.moon));
+        listGuides.add(new MeditationModel("Sleep", "Feel the night. Watch its beauty.", R.drawable.homeheader));
+        listGuides.add(new MeditationModel("Stress & Anxiety", "Soothes your soul.", R.drawable.articles1));
+        listGuides.add(new MeditationModel("Midnight Thoughts", "Calm your heart.", R.drawable.articles2));
 
 
         try{

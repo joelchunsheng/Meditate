@@ -61,26 +61,26 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationHolder> {
         holder.mImageView.setImageResource(models.get(position).getImg());
 
         //set card bg based on position
-        if(models.get(position).getTitle().equalsIgnoreCase("Sleep") || models.get(position).getTitle().equalsIgnoreCase("10 min guides"))
-            holder.cardView.setCardBackgroundColor(Color.parseColor("#C6DEF1"));
-
-        else if (models.get(position).getTitle().equalsIgnoreCase("Stress & Anxiety") || models.get(position).getTitle().equalsIgnoreCase("White Noise"))
-            holder.cardView.setCardBackgroundColor(Color.parseColor("#F7D9C4"));
-
-        else if (models.get(position).getTitle().equalsIgnoreCase("Self care"))
-            holder.cardView.setCardBackgroundColor(Color.parseColor("#DBCDF0"));
-
-        else if (models.get(position).getTitle().equalsIgnoreCase("Midnight Thoughts") || models.get(position).getTitle().equalsIgnoreCase("Nature"))
-            holder.cardView.setCardBackgroundColor(Color.parseColor("#E2CFC4"));
-
-        else if (models.get(position).getTitle().equalsIgnoreCase("Slow down"))
-            holder.cardView.setCardBackgroundColor(Color.parseColor("#C9E4DE"));
-
-        else if (models.get(position).getTitle().equalsIgnoreCase("Piano"))
-            holder.cardView.setCardBackgroundColor(Color.parseColor("#E2E2DF"));
-
-        else if (models.get(position).getTitle().equalsIgnoreCase("Rainy days"))
-            holder.cardView.setCardBackgroundColor(Color.parseColor("#FAEDCB"));
+//        if(models.get(position).getTitle().equalsIgnoreCase("Sleep") || models.get(position).getTitle().equalsIgnoreCase("10 min guides"))
+//            holder.cardView.setCardBackgroundColor(Color.parseColor("#C6DEF1"));
+//
+//        else if (models.get(position).getTitle().equalsIgnoreCase("Stress & Anxiety") || models.get(position).getTitle().equalsIgnoreCase("White Noise"))
+//            holder.cardView.setCardBackgroundColor(Color.parseColor("#F7D9C4"));
+//
+//        else if (models.get(position).getTitle().equalsIgnoreCase("Self care"))
+//            holder.cardView.setCardBackgroundColor(Color.parseColor("#DBCDF0"));
+//
+//        else if (models.get(position).getTitle().equalsIgnoreCase("Midnight Thoughts") || models.get(position).getTitle().equalsIgnoreCase("Nature"))
+//            holder.cardView.setCardBackgroundColor(Color.parseColor("#E2CFC4"));
+//
+//        else if (models.get(position).getTitle().equalsIgnoreCase("Slow down"))
+//            holder.cardView.setCardBackgroundColor(Color.parseColor("#C9E4DE"));
+//
+//        else if (models.get(position).getTitle().equalsIgnoreCase("Piano"))
+//            holder.cardView.setCardBackgroundColor(Color.parseColor("#E2E2DF"));
+//
+//        else if (models.get(position).getTitle().equalsIgnoreCase("Rainy days"))
+//            holder.cardView.setCardBackgroundColor(Color.parseColor("#FAEDCB"));
 
 
     }

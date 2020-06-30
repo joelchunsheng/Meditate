@@ -36,41 +36,50 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="230dp"
-                    app:cardCornerRadius="10dp"
+                    android:layout_height="170dp"
+                    app:cardCornerRadius="5dp"
                     app:cardBackgroundColor="@color/colorSandy">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center"
-                        android:paddingHorizontal="15dp"
-                        android:paddingVertical="8dp">
+                        android:layout_height="match_parent">
 
                         <ImageView
-                            android:layout_width="130dp"
-                            android:layout_height="130dp"
-                            android:src="@drawable/greetings"
-                            android:layout_gravity="center" />
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/homeheader"
+                            android:scaleType="fitXY"/>
 
-                        <TextView
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="“I’ve decided to be happy because it is good for my health.”"
-                            android:textColor="#FFFFFF"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:orientation="vertical"
+                            android:layout_centerVertical="true"
+                            android:paddingHorizontal="10dp">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="–Voltaire"
-                            android:textColor="#FFFFFF"
-                            android:textSize="17sp"
-                            android:textStyle="italic" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="“I’ve decided to be happy because it is good for my health.”"
+                                android:textAlignment="center"
+                                android:textColor="#FFFFFF"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
 
-                    </LinearLayout>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="–Voltaire"
+                                android:textAlignment="center"
+                                android:textColor="#FFFFFF"
+                                android:textSize="17sp"
+                                android:textStyle="italic" />
+                        </LinearLayout>
+
+
+
+                    </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
 
