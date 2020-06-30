@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -88,9 +87,9 @@ public class HomeFragment extends Fragment {
 
         // create list of meditation guides
         listGuides = new ArrayList<>();
-        listGuides.add(new MeditationModel("Sleep", "Feel the night. Watch its beauty.", R.drawable.homeheader));
-        listGuides.add(new MeditationModel("Stress & Anxiety", "Soothes your soul.", R.drawable.articles1));
-        listGuides.add(new MeditationModel("Midnight Thoughts", "Calm your heart.", R.drawable.articles2));
+        listGuides.add(new MeditationModel("Sleep", "Feel the night. Watch its beauty.", R.drawable.sleepbg));
+        listGuides.add(new MeditationModel("Stress & Anxiety", "Soothes your soul.", R.drawable.stressbg));
+        listGuides.add(new MeditationModel("Midnight Thoughts", "Calm your heart.", R.drawable.midnightbg));
 
 
         try{
@@ -101,25 +100,25 @@ public class HomeFragment extends Fragment {
             // add purchase guides to list
             for (String guide: fetch){
                 if (guide.equalsIgnoreCase("10 min guides")){
-                    listGuides.add(new MeditationModel("10 min guides", "Quick guides anytime anywhere.", R.drawable.clock));
+                    listGuides.add(new MeditationModel("10 min guides", "Quick guides anytime anywhere.", R.drawable.sleepbg));
                 }
                 else if (guide.equalsIgnoreCase("White Noise")){
-                    listGuides.add(new MeditationModel("White Noise", "Better sleep. Ease anxiety.", R.drawable.wave));
+                    listGuides.add(new MeditationModel("White Noise", "Better sleep. Ease anxiety.", R.drawable.stressbg));
                 }
                 else if (guide.equalsIgnoreCase("Nature")){
-                    listGuides.add(new MeditationModel("Nature", "Love the world as your own self.", R.drawable.tree));
+                    listGuides.add(new MeditationModel("Nature", "Love the world as your own self.", R.drawable.midnightbg));
                 }
                 else if (guide.equalsIgnoreCase("Self care")){
-                    listGuides.add(new MeditationModel("Self care", "Accept yourself, love yourself.", R.drawable.self));
+                    listGuides.add(new MeditationModel("Self care", "Accept yourself, love yourself.", R.drawable.selfcarebg));
                 }
                 else if (guide.equalsIgnoreCase("Rainy days")){
-                    listGuides.add(new MeditationModel("Rainy days", "Get warm and comfortable.", R.drawable.water));
+                    listGuides.add(new MeditationModel("Rainy days", "Get warm and comfortable.", R.drawable.rainybg));
                 }
                 else if (guide.equalsIgnoreCase("Piano")){
-                    listGuides.add(new MeditationModel("Piano", "Soothing piano music for you.", R.drawable.piano));
+                    listGuides.add(new MeditationModel("Piano", "Soothing piano music for you.", R.drawable.pianobg));
                 }
                 else if (guide.equalsIgnoreCase("Slow down")){
-                    listGuides.add(new MeditationModel("Slow down", "A huge part of recovery and life is slowing down.", R.drawable.slow));
+                    listGuides.add(new MeditationModel("Slow down", "A huge part of recovery and life is slowing down.", R.drawable.slowdownbg));
                 }
                 else{
                     Log.i(TAG, "Error retrieving purchased guides");
