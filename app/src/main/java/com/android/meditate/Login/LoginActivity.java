@@ -59,42 +59,38 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.v(TAG, "Login Button Clicked!");
+
                 String emailInputText = emailInput.getEditableText().toString();
                 String passwordInputText = passwordInput.getEditableText().toString();
 
-//                if (emailInputText.contains(" ") || (!(emailInputText.contains("@"))) || emailInputText.isEmpty()){
-//                    Toast.makeText(LoginActivity.this, "Please provide a valid Email", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (passwordInputText.contains(" ") || passwordInputText.isEmpty()){
-//                    Toast.makeText(LoginActivity.this, "Please provide a valid password", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
 
-                auth.signInWithEmailAndPassword(emailInputText, passwordInputText)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()){
-                                    // Sign in successful
-                                    Log.v(TAG, "Email Sign In Successful"); // Log sign in with email successful
-                                    FirebaseUser currentUser = auth.getCurrentUser(); // Gets current logged in user
-                                    String uid = currentUser.getUid(); // Gets user UID
-                                    saveUID(uid); // saves user UID to sharedPref
-                                    getUserInfo(uid); // gets user info with UID and saves it to sharedPref
-                                    Intent toMain = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
-                                    startActivity(toMain);
-                                    finish();
-                                }
-                                else{
-                                    Log.v(TAG, "Email Sign In Failed"); // Log sign in with email failed
-                                    Toast.makeText(getApplicationContext(), "Sign in Failed", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                 if (!emailInputText.isEmpty() && !passwordInputText.isEmpty()){
+                     auth.signInWithEmailAndPassword(emailInputText, passwordInputText)
+                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                 @Override
+                                 public void onComplete(@NonNull Task<AuthResult> task) {
+                                     if (task.isSuccessful()){
+                                         // Sign in successful
+                                         Log.v(TAG, "Email Sign In Successful"); // Log sign in with email successful
+                                         FirebaseUser currentUser = auth.getCurrentUser(); // Gets current logged in user
+                                         String uid = currentUser.getUid(); // Gets user UID
+                                         saveUID(uid); // saves user UID to sharedPref
+                                         getUserInfo(uid); // gets user info with UID and saves it to sharedPref
+                                         Intent toMain = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
+                                         startActivity(toMain);
+                                         finish();
+                                     }
+                                     else{
+                                         Log.v(TAG, "Email Sign In Failed"); // Log sign in with email failed
+                                         Toast.makeText(getApplicationContext(), "Sign in Failed", Toast.LENGTH_SHORT).show();
+                                     }
+                                 }
+                             });
+                 } else{
+                     Toast.makeText(getApplicationContext(), "Please fill in both fields", Toast.LENGTH_SHORT).show();
+                 }
 
-                Log.v(TAG, "Login Button Clicked!");
             }
         });
 
@@ -116,19 +112,19 @@ public class LoginActivity extends AppCompatActivity {
         loginSignUpTextView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-
-        FirebaseUser currentUser = auth.getCurrentUser(); // Gets current user (null if no current user)
-        if (currentUser != null){ // If there is a current user (logged in user)
-            String uid = currentUser.getUid(); // Gets UID of current user
-            saveUID(uid); // saves UID to sharedPref
-            getUserInfo(uid); // gets user info with UID given and saves it to sharedPref
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
-            startActivity(intent);
-        }
-    }
+//    @Override
+//    protected void onStart(){
+//        super.onStart();
+//
+//        FirebaseUser currentUser = auth.getCurrentUser(); // Gets current user (null if no current user)
+//        if (currentUser != null){ // If there is a current user (logged in user)
+//            String uid = currentUser.getUid(); // Gets UID of current user
+//            saveUID(uid); // saves UID to sharedPref
+//            getUserInfo(uid); // gets user info with UID given and saves it to sharedPref
+//            Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
+//            startActivity(intent);
+//        }
+//    }
     //method to retrieve user data from firestore and save to firestore
     //call this methods upon successful login. (in firebase auth login code)
 
