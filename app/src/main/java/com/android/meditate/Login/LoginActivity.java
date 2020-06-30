@@ -112,19 +112,19 @@ public class LoginActivity extends AppCompatActivity {
         loginSignUpTextView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-//    @Override
-//    protected void onStart(){
-//        super.onStart();
-//
-//        FirebaseUser currentUser = auth.getCurrentUser(); // Gets current user (null if no current user)
-//        if (currentUser != null){ // If there is a current user (logged in user)
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        FirebaseUser currentUser = auth.getCurrentUser(); // Gets current user (null if no current user)
+        if (currentUser != null){ // If there is a current user (logged in user)
 //            String uid = currentUser.getUid(); // Gets UID of current user
 //            saveUID(uid); // saves UID to sharedPref
 //            getUserInfo(uid); // gets user info with UID given and saves it to sharedPref
-//            Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
-//            startActivity(intent);
-//        }
-//    }
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
+            startActivity(intent);
+        }
+    }
     //method to retrieve user data from firestore and save to firestore
     //call this methods upon successful login. (in firebase auth login code)
 
