@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.android.meditate.MainActivity;
 import com.android.meditate.R;
 import com.android.meditate.Register.RegisterActivity;
+import com.android.meditate.Username.UsernameActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -64,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
                 String emailInputText = emailInput.getEditableText().toString();
                 String passwordInputText = passwordInput.getEditableText().toString();
 
-
                  if (!emailInputText.isEmpty() && !passwordInputText.isEmpty()){
                      auth.signInWithEmailAndPassword(emailInputText, passwordInputText)
                              .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -77,8 +77,16 @@ public class LoginActivity extends AppCompatActivity {
                                          String uid = currentUser.getUid(); // Gets user UID
                                          saveUID(uid); // saves user UID to sharedPref
                                          getUserInfo(uid); // gets user info with UID and saves it to sharedPref
-                                         Intent toMain = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
-                                         startActivity(toMain);
+
+                                         SharedPreferences userPref = LoginActivity.this.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE); // Get sharedPref
+                                         Intent intent;
+                                         if (checkUsername(userPref) == false){
+                                             intent = new Intent(LoginActivity.this, UsernameActivity.class); // Intent to UsernameActivity
+                                         }
+                                         else{
+                                             intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
+                                         }
+                                         startActivity(intent);
                                          finish();
                                      }
                                      else{
@@ -116,13 +124,29 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
 
-        FirebaseUser currentUser = auth.getCurrentUser(); // Gets current user (null if no current user)
+        final FirebaseUser currentUser = auth.getCurrentUser(); // Gets current user (null if no current user)
         if (currentUser != null){ // If there is a current user (logged in user)
-//            String uid = currentUser.getUid(); // Gets UID of current user
-//            saveUID(uid); // saves UID to sharedPref
-//            getUserInfo(uid); // gets user info with UID given and saves it to sharedPref
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
-            startActivity(intent);
+            // check if user still exists in database
+            currentUser.reload()
+            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()){ // If user still exists in database (in case of deletion)
+                        saveUID(currentUser.getUid()); // Saves user UID to sharedPref
+                        getUserInfo(currentUser.getUid()); // Gets user info with UID and saves it to sharedPref
+                        SharedPreferences userPref = LoginActivity.this.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
+                        Intent intent;
+                        if (checkUsername(userPref) == false){ // If Username is empty
+                            intent = new Intent(LoginActivity.this, UsernameActivity.class); // Intent to UsernameActivity
+                        }
+                        else{
+                            intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
+                        }
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            });
         }
     }
     //method to retrieve user data from firestore and save to firestore
@@ -136,14 +160,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // get user info from firestore
-    private void getUserInfo(String uid){
+    private void getUserInfo(final String uid){
         Log.i(TAG, "retrieving user info");
         final SharedPreferences userPref = this.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
 
         // Access a Cloud Firestore instance from your Activity
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         DocumentReference docRef = db.collection("users").document(uid);
+
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -183,7 +207,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // convert list to hashset to save to shared pref
-    public static Set transformList(List<String> list){
+    private Set transformList(List<String> list){
         Set<String> set = new HashSet<String>();
 
         for(String guide : list){
@@ -191,5 +215,17 @@ public class LoginActivity extends AppCompatActivity {
         }
         Log.d(TAG, "HashSet: " + set);
         return set;
+    }
+
+    private boolean checkUsername(SharedPreferences sharedPref){
+        try{
+            if (sharedPref.getString("name", "").replace(" ", "").isEmpty()){
+                return false;
+            }
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
     }
 }

@@ -14,22 +14,23 @@
         android:src="@drawable/qcircle"
         android:tint="@color/colorSandy" />
 
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="20dp"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/usernameTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
             android:text="Last Step"
             android:textColor="#000000"
             android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="20dp"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/usernameInput"
@@ -43,15 +44,13 @@
 
     </LinearLayout>
 
-
-
     <Button
         android:id="@+id/usernameButton"
         android:layout_width="194dp"
         android:layout_height="36dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
         android:background="@drawable/login_sign_up_button"
         android:text="Confirm"
-        android:textColor="#ffffff"
-        android:layout_marginTop="40dp"
-        android:layout_gravity="center"/>
+        android:textColor="#ffffff" />
 </LinearLayout>
