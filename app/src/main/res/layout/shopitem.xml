@@ -5,6 +5,8 @@
     android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
     android:layout_marginHorizontal="4dp"
    >
 

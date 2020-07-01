@@ -1,12 +1,15 @@
 package com.android.meditate.ArticleHome;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.meditate.Article.Article;
 import com.android.meditate.R;
 
 import java.util.ArrayList;
@@ -25,7 +28,16 @@ public class BigArticleAdapter extends RecyclerView.Adapter<BigArticleHolder> {
     @Override
     public BigArticleHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(c).inflate(R.layout.articles_big,parent,false);
-        BigArticleHolder bigArticleHolder = new BigArticleHolder(view);
+        final BigArticleHolder bigArticleHolder = new BigArticleHolder(view);
+
+        bigArticleHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(c, Article.class);
+                intent.putExtra("title", bigArticleModelArrayList.get(bigArticleHolder.getAdapterPosition()).getTitle());
+                c.startActivity(intent);
+            }
+        });
 
         return bigArticleHolder;
     }

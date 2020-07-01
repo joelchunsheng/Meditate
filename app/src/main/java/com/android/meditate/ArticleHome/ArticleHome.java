@@ -58,13 +58,12 @@ public class ArticleHome extends AppCompatActivity {
         listBigArticles.add(new ArticleModel("3 Simple ways to relax.", R.drawable.articleb1));
         listBigArticles.add(new ArticleModel("Starter guide to self improvement.", R.drawable.articleb2));
         listBigArticles.add(new ArticleModel("Getting better sleep.", R.drawable.articleb3));
-
     }
 
     public void setUpSmallArticles(){
         listSmallArticles = new ArrayList<>();
-        listSmallArticles.add(new ArticleModel("3 Simple ways to relax.", R.drawable.articles1));
-        listSmallArticles.add(new ArticleModel("Starter guide to self improvement.", R.drawable.articles2));
-        listSmallArticles.add(new ArticleModel("Getting better sleep.", R.drawable.articles3));
+        listSmallArticles.add(new ArticleModel("How to Meditate.", R.drawable.articles1));
+        listSmallArticles.add(new ArticleModel("How to build a perfect wind-down routine.", R.drawable.articles2));
+        listSmallArticles.add(new ArticleModel("Relaxing our grip on sleep.", R.drawable.articles3));
     }
 }
