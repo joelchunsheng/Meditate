@@ -65,7 +65,7 @@ public class UsernameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.v(TAG, "Username Button Clicked");
                 final String usernameInputText = usernameInput.getEditableText().toString();
-                if (usernameInputText.contains(" ") || usernameInputText.isEmpty()){
+                if (usernameInputText.trim().isEmpty() || usernameInputText.isEmpty()){
                     Toast.makeText(UsernameActivity.this, "Please provide a valid Username", Toast.LENGTH_SHORT).show();
                     return;
                 }
