@@ -62,7 +62,7 @@ public class MeditationActivity extends AppCompatActivity {
         artistTxt = findViewById(R.id.artistTxt); // meditation artist
         durationTxt = findViewById(R.id.durationTxt); // meditation duration
         genreTxt = findViewById(R.id.genreTxt); // meditation genre
-        exit = findViewById(R.id.meditateExit);
+        exit = findViewById(R.id.mBackImg);
 
         //meditateDes = findViewById(R.id.meditateDesTxt); // meditation des
 
