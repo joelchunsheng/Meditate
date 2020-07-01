@@ -40,22 +40,7 @@ public class UsernameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_username);
-
         auth = FirebaseAuth.getInstance();
-
-        // Check if user still exists in database
-        auth.getCurrentUser().reload()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (!task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(), "Manual Sign in required", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(UsernameActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
-                });
 
         usernameInput = (EditText) findViewById(R.id.usernameInput);
         usernameButton = (Button) findViewById(R.id.usernameButton);
@@ -68,52 +53,45 @@ public class UsernameActivity extends AppCompatActivity {
                 if (usernameInputText.trim().isEmpty() || usernameInputText.isEmpty()){
                     Toast.makeText(UsernameActivity.this, "Please provide a valid Username", Toast.LENGTH_SHORT).show();
                     return;
+                } else{
+                    // Access a Cloud Firestore instance from your Activity
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    try{
+                        DocumentReference docRef = db.collection("users").document(auth.getCurrentUser().getUid());
+                        docRef.update("name", usernameInputText)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) { // Database update successful
+                                        Log.v(TAG, "Successfully updated name field in database"); // Log success
+                                        System.out.println(usernameInputText);
+                                        SharedPreferences userPref = UsernameActivity.this.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
+                                        userPref.edit().putString("name", usernameInputText).apply(); // Edit sharedPref "name" field
+                                        Intent toMain = new Intent(UsernameActivity.this, MainActivity.class); // Intent to MainActivity
+                                        startActivity(toMain); // start MainActivity
+                                        finish();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() { // Database update failed
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.v(TAG, "Failed to update name field in database"); // Log failure
+                                        Toast.makeText(getApplicationContext(), "Failed to set Username. Please try again.", Toast.LENGTH_SHORT).show(); // Toast message for failure
+                                    }
+                                });
+
+                    }
+                    catch (Exception e){
+                        Toast.makeText(getApplicationContext(), "Unable to retrieve user data", Toast.LENGTH_SHORT).show();
+                        Log.v(TAG, "Cannot find document. Document may be deleted");
+                        Intent intent = new Intent(UsernameActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
 
-                final SharedPreferences userPref = UsernameActivity.this.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
-
-                // Access a Cloud Firestore instance from your Activity
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                try{
-                    DocumentReference docRef = db.collection("users").document(auth.getCurrentUser().getUid());
-
-                    docRef.update("name", usernameInputText)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) { // Database update successful
-                                    Log.v(TAG, "Successfully updated name field in database"); // Log success
-                                    userPref.edit().putString("name", usernameInputText); // Edit sharedPref "name" field
-                                    Intent toMain = new Intent(UsernameActivity.this, MainActivity.class); // Intent to MainActivity
-                                    startActivity(toMain); // start MainActivity
-                                    finish();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() { // Database update failed
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.v(TAG, "Failed to update name field in database"); // Log failure
-                                    Toast.makeText(getApplicationContext(), "Failed to set Username. Please try again.", Toast.LENGTH_SHORT).show(); // Toast message for failure
-                                }
-                            });
-
-                }
-                catch (Exception e){
-                    Toast.makeText(getApplicationContext(), "Unable to retrieve user data", Toast.LENGTH_SHORT).show();
-                    Log.v(TAG, "Cannot find document. Document may be deleted");
-                    Intent intent = new Intent(UsernameActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
             }
         });
 
     }
 
-    // TO DO
-    // retrieve UID from user shared pref
-    // Save username to firestore
-    // also save coins -> 100 and hours -> 0 to firestore and empty array called purchased
-    //
-
-    //save name, coins, hours, array (setHash) to shared pref (look at my login getUserInfo)
 }

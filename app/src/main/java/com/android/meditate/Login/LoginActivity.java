@@ -77,15 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                                          String uid = currentUser.getUid(); // Gets user UID
                                          saveUID(uid); // saves user UID to sharedPref
                                          getUserInfo(uid); // gets user info with UID and saves it to sharedPref
-
-                                         SharedPreferences userPref = LoginActivity.this.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE); // Get sharedPref
-                                         Intent intent;
-                                         if (checkUsername(userPref) == false){
-                                             intent = new Intent(LoginActivity.this, UsernameActivity.class); // Intent to UsernameActivity
-                                         }
-                                         else{
-                                             intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
-                                         }
+                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
                                          startActivity(intent);
                                          finish();
                                      }
@@ -132,16 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()){ // If user still exists in database (in case of deletion)
-                        saveUID(currentUser.getUid()); // Saves user UID to sharedPref
-                        getUserInfo(currentUser.getUid()); // Gets user info with UID and saves it to sharedPref
-                        SharedPreferences userPref = LoginActivity.this.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
-                        Intent intent;
-                        if (checkUsername(userPref) == false){ // If Username is empty
-                            intent = new Intent(LoginActivity.this, UsernameActivity.class); // Intent to UsernameActivity
-                        }
-                        else{
-                            intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
-                        }
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to UsernameActivity
                         startActivity(intent);
                         finish();
                     }
@@ -217,15 +200,4 @@ public class LoginActivity extends AppCompatActivity {
         return set;
     }
 
-    private boolean checkUsername(SharedPreferences sharedPref){
-        try{
-            if (sharedPref.getString("name", "").replace(" ", "").isEmpty()){
-                return false;
-            }
-            return true;
-        }
-        catch (Exception e){
-            return false;
-        }
-    }
 }

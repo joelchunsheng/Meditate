@@ -76,57 +76,52 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (emailInput.isEmpty() || passwordInput.isEmpty() || confirmPasswordInput.isEmpty()){ // Checks if all fields are filled in
                     Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                } else{
+                    if (passwordInput.equals(confirmPasswordInput)){ // Check if both passwords match
+                        auth.createUserWithEmailAndPassword(emailInput, passwordInput)
+                                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()){
+                                            // Register Successful
+                                            Log.v(TAG, "Register Successful");
 
-                if (passwordInput.equals(confirmPasswordInput)){ // Check if both passwords match
-                    auth.createUserWithEmailAndPassword(emailInput, passwordInput)
-                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()){
-                                        // Register Successful
-                                        Log.v(TAG, "Register Successful");
-
-                                        // Automatically logs in new user after registration
-                                        auth.signInWithEmailAndPassword(emailInput, passwordInput)
-                                                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                                        if (task.isSuccessful()){
-                                                            FirebaseUser currentUser = auth.getCurrentUser(); // Get current user logged in
-                                                            String uid = currentUser.getUid(); // Gets uid of current user
-                                                            generateUserInfo(uid, RegisterActivity.this); // Generates new user info and saves it to firestore and sharedPref
-                                                            saveUID(uid); // Saves user uid to sharedPref
-                                                            Intent toUsername = new Intent(RegisterActivity.this, UsernameActivity.class);
-                                                            startActivity(toUsername);
-                                                            finish();
+                                            // Automatically logs in new user after registration
+                                            auth.signInWithEmailAndPassword(emailInput, passwordInput)
+                                                    .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                                            if (task.isSuccessful()){
+                                                                FirebaseUser currentUser = auth.getCurrentUser(); // Get current user logged in
+                                                                String uid = currentUser.getUid(); // Gets uid of current user
+                                                                generateUserInfo(uid, RegisterActivity.this); // Generates new user info and saves it to firestore and sharedPref
+                                                                saveUID(uid); // Saves user uid to sharedPref
+                                                                Intent toUsername = new Intent(RegisterActivity.this, UsernameActivity.class);
+                                                                startActivity(toUsername);
+                                                                finish();
+                                                            }
+                                                            else{
+                                                                Toast.makeText(getApplicationContext(), "Registration failed. Please try again", Toast.LENGTH_SHORT).show();
+                                                            }
                                                         }
-                                                        else{
-                                                            Log.v(TAG, "Auto Login after registration failed - Manual Sign in required");
-                                                            Toast.makeText(getApplicationContext(), "Manual Sign in required", Toast.LENGTH_SHORT).show();
-                                                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        }
-                                                    }
-                                                });
+                                                    });
+                                        }
+                                        else{
+                                            // Register failed
+                                            Log.v(TAG, "Registration Failed");
+                                            Toast.makeText(getApplicationContext(), "Registration failed. Please try again", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                    else{
-                                        // Register failed
-                                        Log.v(TAG, "Registration Failed");
-                                        Toast.makeText(getApplicationContext(), "Registration failed. Please try again", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
+                                });
 
 
-                }
-                else if (!(passwordInput.equals(confirmPasswordInput))){
-                    Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Log.v(TAG, "Error occured when trying to compare passwords");
+                    }
+                    else if (!(passwordInput.equals(confirmPasswordInput))){
+                        Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Log.v(TAG, "Error occured when trying to compare passwords");
+                    }
                 }
             }
         });
