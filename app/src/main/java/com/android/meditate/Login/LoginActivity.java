@@ -111,27 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         loginSignUpTextView.setText(loginSignUpSS);
         loginSignUpTextView.setMovementMethod(LinkMovementMethod.getInstance());
     }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-
-        final FirebaseUser currentUser = auth.getCurrentUser(); // Gets current user (null if no current user)
-        if (currentUser != null){ // If there is a current user (logged in user)
-            // check if user still exists in database
-            currentUser.reload()
-            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()){ // If user still exists in database (in case of deletion)
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to UsernameActivity
-                        startActivity(intent);
-                        finish();
-                    }
-                }
-            });
-        }
-    }
+    
     //method to retrieve user data from firestore and save to firestore
     //call this methods upon successful login. (in firebase auth login code)
 
