@@ -1,6 +1,7 @@
 package com.android.meditate.Shop;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +21,13 @@ public class ShopItemAdapter extends RecyclerView.Adapter<ShopItemHolder> {
     Context c;
     ArrayList<ShopItemModel> shopItemModelList;
 
-    public ShopItemAdapter(Context c, ArrayList<ShopItemModel> shopItemModelList) {
+    List<Integer> packagePriceList;
+
+    public ShopItemAdapter(Context c, ArrayList<ShopItemModel> shopItemModelList, List<Integer> packagePriceList) {
         this.c = c;
         this.shopItemModelList = shopItemModelList;
+
+        this.packagePriceList = packagePriceList;
     }
 
 
@@ -71,10 +76,28 @@ public class ShopItemAdapter extends RecyclerView.Adapter<ShopItemHolder> {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#C6DEF1"));
         }
 
+        setOnClickListener(holder.cardView, holder.title.getText().toString(), "Author Name", holder.des.getText().toString(), holder.cardImg.getDrawable().toString(), packagePriceList.get(position));
+
     }
 
     @Override
     public int getItemCount() {
         return shopItemModelList.size();
+    }
+
+    private void setOnClickListener(View v, final String packageTitle, final String packageAuthor, final String packageDescription, final String packagePicture, final int packageCost){
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), BuyGuideActivity.class);
+                intent.putExtra("title", packageTitle);
+                intent.putExtra("author", packageAuthor);
+                intent.putExtra("description", packageDescription);
+                intent.putExtra("picture", packagePicture);
+                intent.putExtra("cost", packageCost);
+                view.getContext().startActivity(intent);
+            }
+        });
+
     }
 }

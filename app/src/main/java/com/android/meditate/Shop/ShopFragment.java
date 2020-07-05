@@ -20,6 +20,7 @@ import com.android.meditate.Home.MeditationModel;
 import com.android.meditate.R;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 
@@ -34,7 +35,7 @@ public class ShopFragment extends Fragment {
     private static final String TAG = "ShopActivity";
     private int coins;
 
-
+    private List<Integer> packagePriceList;
 
     public ShopFragment() {
         // Required empty public constructor
@@ -52,9 +53,9 @@ public class ShopFragment extends Fragment {
 
         coinTxt.setText(coins + " coins");
 
-        ShopItemAdapter recycleradpter = new ShopItemAdapter(getContext(),shopList);
+        ShopItemAdapter recyclerAdapter = new ShopItemAdapter(getContext(), shopList, packagePriceList);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        mRecyclerView.setAdapter(recycleradpter);
+        mRecyclerView.setAdapter(recyclerAdapter);
 
         return v;
     }
@@ -75,6 +76,15 @@ public class ShopFragment extends Fragment {
         shopList.add(new ShopItemModel("Rainy days", "Get warm and comfortable.", R.drawable.water, R.drawable.baseline_lock_black_24dp));
         shopList.add(new ShopItemModel("Piano", "Soothing piano music for you.", R.drawable.piano, R.drawable.baseline_lock_black_24dp));
         shopList.add(new ShopItemModel("Slow down", "A huge part of recovery and life is slowing down.", R.drawable.slow, R.drawable.baseline_lock_black_24dp));
+
+        packagePriceList = new ArrayList<>();
+        packagePriceList.add(1000);
+        packagePriceList.add(1000);
+        packagePriceList.add(1000);
+        packagePriceList.add(1000);
+        packagePriceList.add(1000);
+        packagePriceList.add(1000);
+        packagePriceList.add(1000);
 
         try{
             for (String name : fetch){

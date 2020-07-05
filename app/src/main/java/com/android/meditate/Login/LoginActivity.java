@@ -2,6 +2,7 @@ package com.android.meditate.Login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.Activity;
 import android.content.Context;
@@ -36,6 +37,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 
 public class LoginActivity extends AppCompatActivity {
 
