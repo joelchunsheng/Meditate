@@ -3,7 +3,7 @@ package com.android.meditate.Mood;
 import androidx.cardview.widget.CardView;
 
 public class moodCalendarModel {
-    private String date, mood;
+    public String date, mood;
 
     public moodCalendarModel(String date, String mood) {
         this.date = date;
