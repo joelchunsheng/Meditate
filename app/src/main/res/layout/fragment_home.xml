@@ -59,6 +59,7 @@
                             android:paddingHorizontal="10dp">
 
                             <TextView
+                                android:id="@+id/quoteTxt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="“I’ve decided to be happy because it is good for my health.”"
@@ -68,6 +69,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/writerTxt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="–Voltaire"

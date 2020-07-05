@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.meditate.ArticleHome.ArticleHome;
 import com.android.meditate.Meditation.MeditationActivity;
@@ -36,6 +37,7 @@ public class HomeFragment extends Fragment {
     private MeditationAdapter myAdapter;
     private ArrayList<MeditationModel> listGuides;
     CardView random, journal;
+    TextView quote, writer;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -47,6 +49,14 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_home, container, false);
+
+        // mindful quote segment
+        quote = v.findViewById(R.id.quoteTxt);
+        writer = v.findViewById(R.id.writerTxt);
+
+
+
+
         random = v.findViewById(R.id.randomCard);
         journal = v.findViewById(R.id.journalCard);
 
@@ -148,4 +158,5 @@ public class HomeFragment extends Fragment {
 
         return randomList.get(index);
     }
+
 }
