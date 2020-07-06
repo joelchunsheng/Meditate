@@ -12,129 +12,188 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingHorizontal="15dp"
             android:paddingTop="40dp">
 
-            <androidx.cardview.widget.CardView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                app:cardCornerRadius="5dp"
-                app:cardBackgroundColor="@color/colorPlatinum">
+                android:layout_height="match_parent">
 
-                <RelativeLayout
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/aHeaderCard"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="250dp"
+                    android:layout_marginHorizontal="15dp"
+                    app:cardBackgroundColor="@color/colorPlatinum"
+                    app:cardCornerRadius="5dp">
 
-                    <ImageView
-                        android:id="@+id/articleImage"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        />
+                        android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_alignParentBottom="true"
-                        android:paddingHorizontal="10dp"
-                        android:paddingBottom="10dp">
+                        <ImageView
+                            android:id="@+id/articleImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop" />
 
-                        <TextView
-                            android:id="@+id/articleTitle"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Title"
-                            android:fontFamily="@font/sourcesanspro_bold"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="24sp" />
+                            android:layout_alignParentBottom="true"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="10dp"
+                            android:paddingBottom="10dp">
 
-                        <TextView
-                            android:id="@+id/articleAuthor"
+                            <TextView
+                                android:id="@+id/articleTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sourcesanspro_bold"
+                                android:text="Title"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="24sp" />
+
+                            <TextView
+                                android:id="@+id/articleAuthor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/sourcesanspro_semibold"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/articleText"
+                    android:layout_below="@id/aHeaderCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="30dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:fontFamily="@font/sourcesanspro_regular"
+                    android:justificationMode="inter_word"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/suggestedGuideTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/articleText"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Suggested guide"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_below="@id/suggestedGuideTxt"
+                    android:id="@+id/arecommededCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="7dp"
+                    app:cardElevation="2dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/stressbg" />
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/sourcesanspro_semibold"
-                            android:layout_marginTop="5dp"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="16sp" />
+                            android:layout_centerVertical="true"
+                            android:orientation="vertical"
+                            android:paddingStart="40dp">
 
-                    </LinearLayout>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Stress &amp; Anxiety"
+                                android:textColor="#000000"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Soothes your soul."
+                                android:textColor="#000000"
+                                android:textSize="14sp" />
+                        </LinearLayout>
 
 
-                </RelativeLayout>
+                    </RelativeLayout>
 
-            </androidx.cardview.widget.CardView>
-
-
-            <TextView
-                android:id="@+id/articleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="30dp"
-                android:fontFamily="@font/sourcesanspro_regular"
-                android:justificationMode="inter_word"
-                android:textColor="#000000"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Suggested guide"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"/>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/arecommededCard"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="7dp"
-                app:cardElevation="2dp">
+                </androidx.cardview.widget.CardView>
 
                 <RelativeLayout
+                    android:layout_below="@id/arecommededCard"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="80dp">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:id="@+id/afooterImg"
+                        android:layout_width="140dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="left"
                         android:scaleType="fitXY"
-                        android:src="@drawable/stressbg" />
+                        android:src="@drawable/articlefooter" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:orientation="vertical"
-                        android:paddingStart="40dp">
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/afooterImg"
+                        android:layout_marginStart="15dp">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Stress &amp; Anxiety"
+                            android:paddingEnd="5dp"
+                            android:text="Did you enjoy this article?"
+                            android:fontFamily="@font/sourcesanspro_semibold"
                             android:textColor="#000000"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
+                            android:textSize="18sp" />
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Soothes your soul."
+                            android:paddingEnd="5dp"
+                            android:text="We hope this article has thought you something useful!"
+                            android:fontFamily="@font/sourcesanspro_regular"
                             android:textColor="#000000"
                             android:textSize="14sp" />
+
+
                     </LinearLayout>
 
 
-                </RelativeLayout>
 
-            </androidx.cardview.widget.CardView>
+
+                </RelativeLayout>
+            </RelativeLayout>
+
 
         </LinearLayout>
     </ScrollView>
