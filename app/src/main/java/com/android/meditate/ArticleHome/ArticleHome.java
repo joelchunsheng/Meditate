@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.android.meditate.MainActivity;
@@ -20,14 +21,14 @@ public class ArticleHome extends AppCompatActivity {
     private RecyclerView smallArticle;
     private ArrayList<ArticleModel> listBigArticles;
     private ArrayList<ArticleModel> listSmallArticles;
-    ImageView backBtn;
+    ImageButton backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_home);
 
-        backBtn = findViewById(R.id.maBackImg);
+        backBtn = findViewById(R.id.maBackBtn);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override

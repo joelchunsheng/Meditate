@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-
+            android:fontFamily="@font/sourcesanspro_bold"
             android:text="Mood"
             android:textColor="#000000"
             android:textSize="24sp"
@@ -28,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Select your mood."
+            android:fontFamily="@font/sourcesanspro_semibold"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -38,6 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/qn1Txt"
+            android:fontFamily="@font/sourcesanspro_regular"
             android:text="Current date"
             android:textColor="#000000"
             android:textSize="18sp" />
@@ -79,6 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/sourcesanspro_semibold"
                         android:text="Happy"
                         android:textColor="#000000"
                         android:textSize="18dp"
@@ -122,6 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/sourcesanspro_semibold"
                         android:text="Sad"
                         android:textColor="#000000"
                         android:textSize="18dp"
@@ -164,6 +168,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/sourcesanspro_semibold"
                         android:text="Stressed"
                         android:textColor="#000000"
                         android:textSize="18dp"
@@ -205,6 +210,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/sourcesanspro_semibold"
                         android:text="Angry"
                         android:textColor="#000000"
                         android:textSize="18dp"
@@ -237,6 +243,7 @@
                 android:id="@+id/mtCurrentMonth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/sourcesanspro_semibold"
                 android:text="Curent month"
                 android:textColor="#000000"
                 android:textSize="18sp"
@@ -266,6 +273,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:fontFamily="@font/sourcesanspro_regular"
                         android:text="Happy"
                         android:textColor="#000000" />
 
@@ -288,6 +296,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:fontFamily="@font/sourcesanspro_regular"
                         android:text="Sad"
                         android:textColor="#000000" />
 
@@ -310,6 +319,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:fontFamily="@font/sourcesanspro_regular"
                         android:text="Stressed"
                         android:textColor="#000000" />
 
@@ -332,6 +342,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:fontFamily="@font/sourcesanspro_regular"
                         android:text="Angry"
                         android:textColor="#000000" />
 
@@ -349,42 +360,49 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/sourcesanspro_regular"
                     android:text="M"
                     android:gravity="center"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/sourcesanspro_regular"
                     android:text="T"
                     android:gravity="center"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/sourcesanspro_regular"
                     android:text="W"
                     android:gravity="center"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/sourcesanspro_regular"
                     android:text="T"
                     android:gravity="center"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/sourcesanspro_regular"
                     android:text="F"
                     android:gravity="center"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/sourcesanspro_regular"
                     android:text="S"
                     android:gravity="center"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/sourcesanspro_regular"
                     android:text="S"
                     android:gravity="center"/>
             </LinearLayout>
@@ -400,6 +418,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/sourcesanspro_semibold"
             android:text="Related guides"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -409,7 +428,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/recommededCard"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:layout_marginTop="15dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
@@ -436,6 +455,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/sourcesanspro_bold"
                         android:text="Stress &amp; Anxiety"
                         android:textColor="#000000"
                         android:textSize="18sp"
@@ -444,6 +464,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/sourcesanspro_regular"
                         android:text="Soothes your soul."
                         android:textColor="#000000"
                         android:textSize="14sp" />

@@ -13,7 +13,8 @@
         android:id="@+id/userInformation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="40dp">
 
         <ImageView
             android:id="@+id/userAvatar"
@@ -28,8 +29,8 @@
             android:id="@+id/userName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
             android:paddingTop="5sp"
+            android:fontFamily="@font/sourcesanspro_bold"
             android:text="Amy Tan"
             android:textAlignment="center"
             android:textColor="#000000"
@@ -40,7 +41,8 @@
             android:id="@+id/userMeditationHours"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="41.2 Meditation Hours"
+            android:fontFamily="@font/sourcesanspro_regular"
+            android:text="0 Meditation Hours"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="14sp" />
@@ -54,6 +56,7 @@
             android:paddingStart="25sp"
             android:paddingTop="10sp"
             android:paddingBottom="10sp"
+            android:fontFamily="@font/sourcesanspro_semibold"
             android:text="Settings"
             android:textColor="@android:color/white"
             android:textSize="18sp"
