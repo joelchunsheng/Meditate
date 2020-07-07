@@ -172,7 +172,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // convert list to hashset to save to shared pref
-    private Set transformList(List<String> list){
+    public static Set transformList(List<String> list){
         Set<String> set = new HashSet<String>();
 
         for(String guide : list){

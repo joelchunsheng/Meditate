@@ -5,58 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Shop.BuyGuideActivity" >
+    tools:context=".Shop.BuyPackageActivity" >
 
+
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05"
+        android:layout_marginTop="10sp"
+        android:layout_marginLeft="10sp"
+        android:background="@drawable/back_btn_bg"
+        android:text="X"
+        android:textSize="20sp"/>
 
     <ImageView
         android:id="@+id/packageImage"
-        android:layout_width="401dp"
+        android:layout_width="match_parent"
         android:layout_height="216dp"
         android:layout_marginStart="5sp"
         android:layout_marginTop="10sp"
         android:layout_marginEnd="5sp"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_weight="0.30" />
 
     <TextView
         android:id="@+id/packageTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60sp"
         android:layout_marginStart="15sp"
         android:layout_marginTop="20sp"
         android:layout_marginEnd="15sp"
-        android:text="Guide Title"
-        android:textSize="35sp" />
-
-    <TextView
-        android:id="@+id/packageAuthor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15sp"
-        android:layout_marginEnd="15sp"
-        android:textSize="15sp"
-        android:text="Author" />
+        android:text="Package Title"
+        android:textSize="35sp"
+        android:layout_weight="0.10"/>
 
     <TextView
         android:id="@+id/packageDescription"
         android:layout_width="match_parent"
-        android:layout_height="298dp"
+        android:layout_height="340dp"
         android:layout_marginStart="15sp"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="10sp"
         android:layout_marginEnd="15sp"
-        android:text="Guide Description"
-        android:textSize="20sp" />
+        android:text="Package Description"
+        android:textSize="20sp"
+        android:layout_weight="0.45"/>
 
     <Button
         android:id="@+id/packageBuyButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50sp"
         android:layout_gravity="bottom"
         android:layout_marginStart="15sp"
         android:layout_marginTop="20sp"
         android:layout_marginEnd="15sp"
         android:layout_marginBottom="30sp"
         android:background="@drawable/login_sign_up_button"
-        android:text="Buy for ___ coins" />
+        android:text="Loading..."
+        android:layout_weight="0.10" />
 
 
 </LinearLayout>
