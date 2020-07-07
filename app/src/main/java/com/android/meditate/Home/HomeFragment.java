@@ -15,12 +15,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.meditate.ArticleHome.ArticleHome;
 import com.android.meditate.Meditation.MeditationActivity;
 import com.android.meditate.R;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 import java.util.Set;
 
@@ -36,6 +39,8 @@ public class HomeFragment extends Fragment {
     private MeditationAdapter myAdapter;
     private ArrayList<MeditationModel> listGuides;
     CardView random, journal;
+    TextView quote, writer;
+    String retrievedQuote, retrievedAuthor;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -47,6 +52,15 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_home, container, false);
+
+        // mindful quote segment
+        quote = v.findViewById(R.id.quoteTxt);
+        writer = v.findViewById(R.id.writerTxt);
+
+        quote.setText(retrievedQuote);
+        writer.setText(retrievedAuthor);
+
+
         random = v.findViewById(R.id.randomCard);
         journal = v.findViewById(R.id.journalCard);
 
@@ -84,6 +98,21 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
+        //get quote shared pref
+        SharedPreferences homePref = this.getActivity().getSharedPreferences("com.android.meditate.Home", Context.MODE_PRIVATE);
+
+        // retrieve date
+        String retrievedDate = homePref.getString("Date", "");
+
+        // not same day
+        if (!retrievedDate.equalsIgnoreCase(getDateTime())){
+            // select new quote
+            randomQuote(homePref);
+        }
+        retrievedQuote = homePref.getString("Quote", "“I've decided to be happy because it's good for my health.”");
+        retrievedAuthor = homePref.getString("Author", "-Voltaire");
+
 
         // create list of meditation guides
         listGuides = new ArrayList<>();
@@ -131,6 +160,12 @@ public class HomeFragment extends Fragment {
 
     }
 
+    public static String getDateTime(){
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        return currentDate;
+    }
+
     public String randomGuide(){
         ArrayList<String> randomList = new ArrayList<>();
         randomList.add("Sleep");
@@ -148,4 +183,23 @@ public class HomeFragment extends Fragment {
 
         return randomList.get(index);
     }
+
+
+    public static void randomQuote(SharedPreferences homePref){
+
+        ArrayList<QuoteModel> quoteList =  new ArrayList<>();
+        quoteList.add(new QuoteModel("“I've decided to be happy because it's good for my health.”", "-Voltaire"));
+        quoteList.add(new QuoteModel("“Your goal is not to battle with the mind, but to witness the mind.”", "-Swami Muktananda"));
+        quoteList.add(new QuoteModel("“The act of meditation is being spacious.”", "-Sogyal Rinpoche"));
+        quoteList.add(new QuoteModel("“Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor.”", "-Thich Nhat Hahn"));
+
+        Random rand = new Random();
+        int index = rand.nextInt(quoteList.size());
+        homePref.edit().putString("Date", getDateTime()).apply();
+        homePref.edit().putString("Quote", quoteList.get(index).getQuote()).apply();
+        homePref.edit().putString("Author", quoteList.get(index).getAuthor()).apply();
+
+    }
+
+
 }

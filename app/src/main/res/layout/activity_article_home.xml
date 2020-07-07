@@ -7,26 +7,17 @@
     android:paddingHorizontal="15dp"
     tools:context=".ArticleHome.ArticleHome">
 
-    <ImageView
-        android:id="@+id/maBackImg"
-        android:layout_width="30dp"
-        android:layout_height="25dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/baseline_arrow_back_black_24dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"/>
-
     <TextView
         android:id="@+id/meditationArtitcleTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="43dp"
         android:layout_marginBottom="20dp"
-        android:text="Meditation \nArticles"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:text="Meditation Articles"
+        android:gravity="center"
         android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bigArticlesRecycler"
@@ -43,12 +34,27 @@
         android:layout_marginBottom="20dp"
         android:text="Other articles"
         android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:textSize="18sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/smallArticlesRecycler"
         android:layout_below="@id/moreArticlesTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:id="@+id/maBackBtn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="40dp"
+        android:elevation="3dp"
+        android:background="@drawable/back_btn_bg"
+        android:src="@drawable/baseline_arrow_back_black_24dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:padding="10dp"/>
+
 </RelativeLayout>

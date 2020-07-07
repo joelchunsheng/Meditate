@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,8 +21,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class Article extends AppCompatActivity {
     FirebaseFirestore db;
-    ImageView headerImg, backBtn;
+    ImageView headerImg;
     TextView title, author, text;
+    ImageButton backBtn;
 
     private static final String TAG = "Article Activity";
 
@@ -32,7 +34,7 @@ public class Article extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
 
-        backBtn = findViewById(R.id.aBackImg);
+        backBtn = findViewById(R.id.aBackBtn);
         title = findViewById(R.id.articleTitle);
         author = findViewById(R.id.articleAuthor);
         text = findViewById(R.id.articleText);

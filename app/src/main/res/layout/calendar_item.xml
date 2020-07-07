@@ -13,6 +13,7 @@
         android:id="@+id/itemDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/sourcesanspro_regular"
         android:layout_gravity="center"
         android:gravity="center"
         android:text="1"

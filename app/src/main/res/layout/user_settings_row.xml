@@ -3,9 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
-
-
     <androidx.cardview.widget.CardView
         android:id="@+id/userSettingsCardView"
         android:layout_width="match_parent"
@@ -19,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/sourcesanspro_regular"
             android:paddingStart="25sp"
             android:paddingTop="10sp"
             android:paddingBottom="10sp"

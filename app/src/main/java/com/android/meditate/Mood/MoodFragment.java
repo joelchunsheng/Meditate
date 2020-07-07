@@ -35,6 +35,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.ServerTimestamp;
@@ -58,10 +59,11 @@ public class MoodFragment extends Fragment {
     CardView happy, sad, stressed, angry, recommededCard;
     SharedPreferences moodPreferences, userPref;
     String retrievedMood, retrievedDate, selectedMood, retrieveDocId, retrieveUID;
+    int extraDays;
     RecyclerView recyclerView;
     ArrayList<moodCalendarModel> moodCalendarModelArrayList;
     Calendar c = Calendar.getInstance();
-    static moodCalendarAdapter moodCalendarAdapter;
+    moodCalendarAdapter adapter;
 
     @ServerTimestamp Date time;
 
@@ -92,7 +94,7 @@ public class MoodFragment extends Fragment {
         mtMonth = (TextView) v.findViewById(R.id.mtCurrentMonth);
         mtMonth.setText(new SimpleDateFormat("MMMM YYYY").format(c.getTime()));
 
-        // recommeded card
+        // recommended card
         recommededCard = (CardView) v.findViewById(R.id.recommededCard);
 
         recommededCard.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +106,14 @@ public class MoodFragment extends Fragment {
                 startActivity(meditationActivity);
             }
         });
+
+        recyclerView = (RecyclerView) v.findViewById(R.id.moodCalendarRecycler);
+
+        adapter = new moodCalendarAdapter(getContext(), moodCalendarModelArrayList);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
+        recyclerView.setAdapter(adapter);
+
+        getMoodMonth(db, c, retrieveUID,moodCalendarModelArrayList, adapter, extraDays);
 
         //mood card onclick
         happy.setOnClickListener(new View.OnClickListener() {
@@ -125,12 +135,12 @@ public class MoodFragment extends Fragment {
                     replaceMood(db, selectedMood, c, retrieveUID,moodPreferences);
                 }
                 retrieveDocId = moodPreferences.getString("DocID", ""); // retrieve Doc Id
-                getMoodMonth(db, c, retrieveUID,moodCalendarModelArrayList);
+                updateMoodTable(moodCalendarModelArrayList, "Happy", extraDays);
+                adapter.notifyDataSetChanged();
 
-                for (moodCalendarModel x: moodCalendarModelArrayList){
-                    System.out.println(x.getDate());
+                for(moodCalendarModel x : moodCalendarModelArrayList){
                     System.out.println(x.getMood());
-
+                    System.out.println(x.getDate());
                 }
 
             }
@@ -155,7 +165,9 @@ public class MoodFragment extends Fragment {
                     replaceMood(db, selectedMood, c, retrieveUID,moodPreferences);
                 }
                 retrieveDocId = moodPreferences.getString("DocID", ""); // retrieve Doc Id
-                getMoodMonth(db, c, retrieveUID,moodCalendarModelArrayList);
+                updateMoodTable(moodCalendarModelArrayList, "Sad", extraDays);
+                adapter.notifyDataSetChanged();
+
             }
         });
 
@@ -178,7 +190,8 @@ public class MoodFragment extends Fragment {
                     replaceMood(db, selectedMood, c,retrieveUID, moodPreferences);
                 }
                 retrieveDocId = moodPreferences.getString("DocID", ""); // retrieve Doc Id
-                getMoodMonth(db, c, retrieveUID,moodCalendarModelArrayList);
+                updateMoodTable(moodCalendarModelArrayList, "Stressed", extraDays);
+                adapter.notifyDataSetChanged();
 
             }
         });
@@ -202,7 +215,15 @@ public class MoodFragment extends Fragment {
                     replaceMood(db, selectedMood, c, retrieveUID,moodPreferences);
                 }
                 retrieveDocId = moodPreferences.getString("DocID", ""); // retrieve Doc Id
-                getMoodMonth(db, c, retrieveUID, moodCalendarModelArrayList);
+                updateMoodTable(moodCalendarModelArrayList, "Angry", extraDays);
+                adapter.notifyDataSetChanged();
+
+                for (moodCalendarModel x : moodCalendarModelArrayList){
+                    System.out.println(x.getMood());
+                    System.out.println(x.getDate());
+
+                }
+
             }
         });
 
@@ -222,13 +243,6 @@ public class MoodFragment extends Fragment {
                 angry.setCardBackgroundColor(Color.parseColor("#F7D9C4"));
             }
         }
-
-        recyclerView = (RecyclerView) v.findViewById(R.id.moodCalendarRecycler);
-
-        moodCalendarAdapter = new moodCalendarAdapter(getContext(), moodCalendarModelArrayList);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
-        recyclerView.setAdapter(moodCalendarAdapter);
-
 
         return v;
     }
@@ -257,26 +271,23 @@ public class MoodFragment extends Fragment {
             selectedMood = retrievedMood;
         }
 
-        int monthMaxDays = Integer.parseInt(new SimpleDateFormat("d").format(c.getTime()));
-
         moodCalendarModelArrayList = new ArrayList<>();
 
         Calendar cal = Calendar.getInstance();   // this takes current date
         cal.set(Calendar.DAY_OF_MONTH, 1);
 
+        extraDays = blankDays(new SimpleDateFormat("E").format(cal.getTime()));
 
-        int extraDays = blankDays(new SimpleDateFormat("E").format(cal.getTime()));
+        for (int i = 1; i<= extraDays; i++){
+            moodCalendarModelArrayList.add(new moodCalendarModel("", "blank"));
+        }
 
 
-//        for (int i = 1; i<= extraDays; i++){
-//            moodCalendarModelArrayList.add(new moodCalendarModel("", "blank"));
-//        }
-
+        int monthMaxDays = Integer.parseInt(new SimpleDateFormat("d").format(c.getTime()));
         for (int day = 1; day <= monthMaxDays; day++){
             moodCalendarModelArrayList.add(new moodCalendarModel(Integer.toString(day), "blank"));
         }
 
-        getMoodMonth(db, c, retrieveUID,moodCalendarModelArrayList);
 
     }
 
@@ -305,7 +316,7 @@ public class MoodFragment extends Fragment {
     }
 
     // Get current date time
-    public String getDateTime(){
+    public static String getDateTime(){
         Calendar calendar = Calendar.getInstance();
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
         return currentDate;
@@ -361,9 +372,8 @@ public class MoodFragment extends Fragment {
                 });
     }
 
-
     // retrieve mood in current month
-    private static void getMoodMonth(FirebaseFirestore db, Calendar c, String uid , final ArrayList moodCalendarModelArrayList){
+    private static void getMoodMonth(FirebaseFirestore db, Calendar c, String uid , final ArrayList moodCalendarModelArrayList, final moodCalendarAdapter adapter, final int extra){
         db.collection("users").document(uid).collection("mood")
                 .whereEqualTo("filter", new SimpleDateFormat("MMMM YYYY").format(c.getTime()))
                 .get()
@@ -374,14 +384,30 @@ public class MoodFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 int index = Integer.parseInt(document.getString("date"));
-                                moodCalendarModelArrayList.set(index-1, new moodCalendarModel(Integer.toString(index), document.getString("mood")));
+                                moodCalendarModelArrayList.set(index-1+extra, new moodCalendarModel(Integer.toString(index), document.getString("mood")));
                             }
-                            moodCalendarAdapter.notifyDataSetChanged();
+                            adapter.notifyDataSetChanged();
 
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
                         }
                     }
                 });
+    }
+
+    public static void updateMoodTable(ArrayList moodCalendarModelArrayList, String mood, int extraDays){
+        if (mood.equalsIgnoreCase("Happy")){
+            moodCalendarModelArrayList.set(moodCalendarModelArrayList.size()-1, new moodCalendarModel(Integer.toString(moodCalendarModelArrayList.size()-extraDays), "Happy"));
+        }
+        else if (mood.equalsIgnoreCase("Sad")){
+            moodCalendarModelArrayList.set(moodCalendarModelArrayList.size()-1, new moodCalendarModel(Integer.toString(moodCalendarModelArrayList.size()-extraDays), "Sad"));
+        }
+        else if (mood.equalsIgnoreCase("Stressed")){
+            moodCalendarModelArrayList.set(moodCalendarModelArrayList.size()-1, new moodCalendarModel(Integer.toString(moodCalendarModelArrayList.size()-extraDays), "Stressed"));
+        }
+        else if (mood.equalsIgnoreCase("Angry")){
+            moodCalendarModelArrayList.set(moodCalendarModelArrayList.size()-1, new moodCalendarModel(Integer.toString(moodCalendarModelArrayList.size()-extraDays), "Angry"));
+        }
+
     }
 }

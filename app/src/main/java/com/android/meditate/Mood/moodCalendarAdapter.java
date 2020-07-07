@@ -46,6 +46,9 @@ public class moodCalendarAdapter extends RecyclerView.Adapter<moodCalendarHolder
         else if(moodCalendarModelArrayList.get(position).getMood().equalsIgnoreCase("Angry")){
             holder.cardView.setCardBackgroundColor(Color.parseColor("#F7D9C4"));
         }
+        else{
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#E2E2DF"));
+        }
     }
 
     @Override

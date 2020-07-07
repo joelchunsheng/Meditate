@@ -29,8 +29,8 @@
             android:paddingBottom="20dp"
             android:text="3 Ways to Relax"
             android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/sourcesanspro_bold"
+            android:textSize="20sp" />
     </RelativeLayout>
 
 
