@@ -3,6 +3,7 @@ package com.android.meditate.Shop;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +40,9 @@ public class BuyPackageActivity extends AppCompatActivity {
 
     private ImageView packageImage;
     private TextView packageTitle, packageDescription;
-    private Button buyPackageButton, exitButton;
+    private Button buyPackageButton;
+    private ImageButton exitButton;
+    private CardView piCard;
 
     private static final String TAG = "BuyPackageActivity";
 
@@ -53,7 +57,8 @@ public class BuyPackageActivity extends AppCompatActivity {
         packageTitle = (TextView) findViewById(R.id.packageTitle);
         packageDescription = (TextView) findViewById(R.id.packageDescription);
         buyPackageButton = (Button) findViewById(R.id.packageBuyButton);
-        exitButton = (Button) findViewById(R.id.exitButton);
+        exitButton = (ImageButton) findViewById(R.id.exitButton);
+        piCard = (CardView) findViewById(R.id.piCard);
 
         // Get intent with extras from ShopFragment
         Intent intent = getIntent();
@@ -73,6 +78,9 @@ public class BuyPackageActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        //set up card view
+        setUpCard(title, piCard);
 
         FirebaseUser currentUser = auth.getCurrentUser();
         final String uid = currentUser.getUid();
@@ -103,12 +111,6 @@ public class BuyPackageActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-
     }
 
     private void setButtonText(DocumentReference docRef, final int cost, final String uid){
@@ -197,5 +199,32 @@ public class BuyPackageActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setUpCard(String title, CardView cardView){
+        if (title.equals("10 min guides")){
+            cardView.setCardBackgroundColor(Color.parseColor("#C6DEF1"));
+        }
+        else if(title.equals("White Noise")){
+            cardView.setCardBackgroundColor(Color.parseColor("#F7D9C4"));
+        }
+        else if(title.equals("Nature")){
+            cardView.setCardBackgroundColor(Color.parseColor("#E2CFC4"));
+        }
+        else if(title.equals("Self care")){
+            cardView.setCardBackgroundColor(Color.parseColor("#DBCDF0"));
+        }
+        else if(title.equals("Rainy days")){
+            cardView.setCardBackgroundColor(Color.parseColor("#FAEDCB"));
+        }
+        else if(title.equals("Piano")){
+            cardView.setCardBackgroundColor(Color.parseColor("#E2E2DF"));
+        }
+        else if(title.equals("Slow down")){
+            cardView.setCardBackgroundColor(Color.parseColor("#C9E4DE"));
+        }
+        else{
+            cardView.setCardBackgroundColor(Color.parseColor("#C6DEF1"));
+        }
     }
 }

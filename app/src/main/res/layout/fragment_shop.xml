@@ -24,15 +24,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
+                    android:fontFamily="@font/sourcesanspro_bold"
                     android:text="Explore"
                     android:textColor="#000000"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/sourcesanspro_regular"
                     android:text="Discover more meditation guides!"
                     android:textColor="#000000"
                     android:textSize="18sp" />
@@ -42,11 +43,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/sourcesanspro_semibold"
                     android:text="0 Coins"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
 
