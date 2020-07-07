@@ -48,7 +48,13 @@ public class UserFragment extends Fragment {
         userAvatar.setImageURI(Uri.parse("android.resource://" + v.getContext().getPackageName() + "/" + R.drawable.user_pic));
 
         userName = v.findViewById(R.id.userName);
-        userName.setText(userPref.getString("name", "Error"));
+        String username = userPref.getString("name", "Error getting Username");
+        if (username.isEmpty()){
+            userName.setText("No Username Set");
+        }
+        else{
+            userName.setText(username);
+        }
 
         mHours = v.findViewById(R.id.userMeditationHours);
         mHours.setText(userPref.getFloat("hours", 0) + " Meditation Hours");
@@ -76,6 +82,8 @@ public class UserFragment extends Fragment {
         settingsList = new ArrayList<>();
         settingsList.add("About");
         settingsList.add("Notifications");
+        settingsList.add("Change Username");
+        settingsList.add("Change Password");
         settingsList.add("Log Out");
     }
 }
