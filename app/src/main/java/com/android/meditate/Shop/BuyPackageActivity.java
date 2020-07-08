@@ -172,7 +172,7 @@ public class BuyPackageActivity extends AppCompatActivity {
                     if (document.exists()){
                         SharedPreferences userPref = BuyPackageActivity.this.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
                         Log.v(TAG, "DocumentSnapshot data: " + document.getData());
-                        int coins = Integer.parseInt(document.getString("coins"));
+                        int coins = document.getLong("coins").intValue();
                         if (coins >= cost){ // Sufficient Coins
                             // Deduct Coins
                             coins -= cost;
