@@ -146,10 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                         userPref.edit().putString("name", document.getString("name")).apply();
 
                         // save coins
-                        userPref.edit().putInt("coins", Integer.parseInt(document.getString("coins"))).apply();
-
-                        // save hours
-                        userPref.edit().putFloat("hours", Float.parseFloat(document.getString("hours"))).apply();
+                        userPref.edit().putInt("coins", document.getLong("coins").intValue()).apply();
 
                         // save purchased (if applicable)
                         try{

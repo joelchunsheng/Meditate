@@ -1,7 +1,8 @@
 package com.android.meditate.Meditation;
 
 public class MeditationGuide {
-    String name, artist, url, duration;
+    String name, artist, url;
+    int duration;
 
     public String getName() {
         return name;
@@ -27,11 +28,11 @@ public class MeditationGuide {
         this.url = url;
     }
 
-    public String getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 }

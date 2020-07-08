@@ -31,7 +31,7 @@ public class UserFragment extends Fragment {
     private static final String TAG = "UserFragment";
     private ArrayList<String> settingsList;
     SharedPreferences userPref;
-    private TextView userName, mHours, coins;
+    private TextView userName;
 
     public UserFragment() {
         // Required empty public constructor
@@ -56,10 +56,6 @@ public class UserFragment extends Fragment {
             userName.setText(username);
         }
 
-        mHours = v.findViewById(R.id.userMeditationHours);
-        mHours.setText(userPref.getFloat("hours", 0) + " Meditation Hours");
-
-
         RecyclerView userSettingsRecyclerView = v.findViewById(R.id.userSettingsRecyclerView);
         UserAdaptor userAdaptor = new UserAdaptor(settingsList);
 
@@ -82,8 +78,7 @@ public class UserFragment extends Fragment {
         settingsList = new ArrayList<>();
         settingsList.add("About");
         settingsList.add("Notifications");
-        settingsList.add("Change Username");
-        settingsList.add("Change Password");
+        settingsList.add("Edit Profile");
         settingsList.add("Log Out");
     }
 }

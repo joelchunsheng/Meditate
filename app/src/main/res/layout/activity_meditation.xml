@@ -6,105 +6,115 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Meditation.MeditationActivity"
-    android:background="@drawable/meditatebg"
     android:fitsSystemWindows="true"
     >
 
-    <ImageView
-        android:id="@+id/mBackImg"
-        android:layout_width="30dp"
-        android:layout_height="25dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/baseline_clear_black_24dp"
-        android:tint="@color/colorWhite"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"/>
+    <RelativeLayout
+        android:id="@+id/headerRL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+        <ImageButton
+            android:id="@+id/mBackImg"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="15dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/meditate_back_btn"
+            android:elevation="3dp"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            android:layout_centerVertical="true"
+            android:src="@drawable/baseline_clear_black_24dp"
+            android:tint="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/genreTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/sourcesanspro_bold"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="category"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+
+
+
+    <ImageButton
+        android:id="@+id/playImageBtn"
+        android:layout_width="235dp"
+        android:layout_height="230dp"
+        android:layout_marginTop="100dp"
+        android:layout_below="@id/headerRL"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/playbg"
+        android:src="@drawable/baseline_play_arrow_black_24dp"
+        android:tint="@color/colorWhite" />
 
     <TextView
-        android:id="@+id/genreTxt"
-        android:layout_width="wrap_content"
+        android:id="@+id/timerTxt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_below="@id/playImageBtn"
         android:layout_centerHorizontal="true"
-        android:text="category"
-        android:textColor="@color/colorWhite"
+        android:layout_marginTop="30dp"
         android:gravity="center"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:fontFamily="@font/sourcesanspro_semibold"
+        android:text="00:00"
+        android:textColor="#000000"
+        android:textSize="18sp" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginHorizontal="15dp"
-        android:layout_above="@id/playCard"
-        android:layout_marginBottom="30dp"
-        >
+        android:layout_marginBottom="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="15dp">
 
         <TextView
             android:id="@+id/meditateTitleTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="@font/sourcesanspro_semibold"
+            android:gravity="center"
             android:text="Title"
-            android:textColor="@color/colorWhite"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textColor="#000000"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/artistTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Artist"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-            android:textStyle="normal" />
+            android:fontFamily="@font/sourcesanspro_regular"
+            android:textColor="#000000"
+            android:textSize="18sp" />
 
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/durationTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/durationTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0 min"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp"
-                android:textStyle="normal" />
+            android:gravity="center"
+            android:fontFamily="@font/sourcesanspro_regular"
+            android:text="0 min"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:textStyle="normal" />
 
 
-        </LinearLayout>
 
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/playCard"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:backgroundTint="@color/colorTerraCotta"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"
-        >
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/playPauseImg"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_play_arrow_white_24dp"
-                android:layout_margin="5dp"
-                android:layout_gravity="center"
-               />
-
-    </androidx.cardview.widget.CardView>
 
 
 

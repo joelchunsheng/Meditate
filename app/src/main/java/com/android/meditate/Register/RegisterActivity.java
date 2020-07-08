@@ -152,7 +152,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Generate default information
         Map<String, Object> newUserInfo = new HashMap<>();
-        newUserInfo.put("coins", "100");
+        newUserInfo.put("coins", 100);
         newUserInfo.put("hours", "0.0");
         newUserInfo.put("name", "");
         List<String> list = new ArrayList<>();
@@ -166,7 +166,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                         // Set sharedPref to default values
                         userPref.edit().putInt("coins", 100).apply();
-                        userPref.edit().putFloat("hours", Float.parseFloat("0.0")).apply();
                         userPref.edit().putString("name", "").apply();
                         userPref.edit().putStringSet("purchased", new HashSet<String>()).apply();
                     }

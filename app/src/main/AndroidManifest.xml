@@ -14,8 +14,7 @@
         <activity android:name=".Article.Article" />
         <activity android:name=".ArticleHome.ArticleHome" />
         <activity
-            android:name=".Notification.Notification"
-            android:parentActivityName=".MainActivity" />
+            android:name=".Notification.Notification"/>
         <activity android:name=".Username.UsernameActivity" />
         <activity android:name=".Register.RegisterActivity" />
         <activity android:name=".Login.LoginActivity">
@@ -26,10 +25,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Meditation.MeditationActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".Meditation.MeditationActivity" />
         <activity android:name=".MainActivity">
-
 <!--             <intent-filter> -->
 <!--             <action android:name="android.intent.action.MAIN" /> -->
 

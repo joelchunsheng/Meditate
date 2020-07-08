@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment {
         listGuides = new ArrayList<>();
         listGuides.add(new MeditationModel("Sleep", "Feel the night. Watch its beauty.", R.drawable.sleepbg));
         listGuides.add(new MeditationModel("Stress & Anxiety", "Soothes your soul.", R.drawable.stressbg));
-        listGuides.add(new MeditationModel("Midnight Thoughts", "Calm your heart.", R.drawable.midnightbg));
+        listGuides.add(new MeditationModel("Midnight Thoughts", "A test guide for presentation.", R.drawable.midnightbg));
 
 
         try{
