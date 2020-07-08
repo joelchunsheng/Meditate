@@ -153,7 +153,6 @@ public class RegisterActivity extends AppCompatActivity {
         // Generate default information
         Map<String, Object> newUserInfo = new HashMap<>();
         newUserInfo.put("coins", 100);
-        newUserInfo.put("hours", "0.0");
         newUserInfo.put("name", "");
         List<String> list = new ArrayList<>();
         newUserInfo.put("purchased", list);
