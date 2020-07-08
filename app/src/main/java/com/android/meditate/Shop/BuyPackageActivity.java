@@ -176,7 +176,7 @@ public class BuyPackageActivity extends AppCompatActivity {
                         if (coins >= cost){ // Sufficient Coins
                             // Deduct Coins
                             coins -= cost;
-                            docRef.update("coins", "" + coins);
+                            docRef.update("coins", coins);
                             // Update COINS in sharedPreferences
                             userPref.edit().putInt("coins", coins).apply();
                             // Update purchased ARRAY in Firestore and SET in sharedPreferences
