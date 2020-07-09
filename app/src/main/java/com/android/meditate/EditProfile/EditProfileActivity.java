@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.android.meditate.ArticleHome.ArticleHome;
+import com.android.meditate.ArticleHome.ArticleModel;
+import com.android.meditate.ArticleHome.SmallArticleAdapter;
+import com.android.meditate.MainActivity;
 import com.android.meditate.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -55,7 +59,8 @@ public class EditProfileActivity extends AppCompatActivity {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 

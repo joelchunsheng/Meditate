@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
-        android:fontFamily="@font/sourcesanspro_bold"
+        android:fontFamily="@font/sourcesanspro_semibold"
         android:text="Edit Profile"
         android:gravity="center"
         android:textColor="#000000"
@@ -50,7 +50,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sourcesanspro_semibold"
                 android:text="Name"
-                android:textColor="#000000"
                 android:textSize="14sp" />
 
             <TextView
@@ -103,7 +102,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sourcesanspro_semibold"
                 android:text="Email"
-                android:textColor="#000000"
                 android:textSize="14sp" />
 
             <TextView
@@ -156,7 +154,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sourcesanspro_semibold"
                 android:text="Password"
-                android:textColor="#000000"
                 android:textSize="14sp" />
 
             <TextView
