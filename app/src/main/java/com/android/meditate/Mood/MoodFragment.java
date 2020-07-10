@@ -55,19 +55,22 @@ import java.util.Map;
 public class MoodFragment extends Fragment {
     private static final String TAG = "Mood";
     View v;
+
     TextView date, mtMonth;
     CardView happy, sad, stressed, angry, recommededCard;
-    SharedPreferences moodPreferences, userPref;
-    String retrievedMood, retrievedDate, selectedMood, retrieveDocId, retrieveUID;
-    int extraDays;
     RecyclerView recyclerView;
+
+    SharedPreferences moodPreferences, userPref;
+
     ArrayList<moodCalendarModel> moodCalendarModelArrayList;
-    Calendar c = Calendar.getInstance();
     moodCalendarAdapter adapter;
 
-    @ServerTimestamp Date time;
-
     FirebaseFirestore db;
+
+    String retrievedMood, retrievedDate, selectedMood, retrieveDocId, retrieveUID;
+    int extraDays;
+
+    Calendar c = Calendar.getInstance();
 
     public MoodFragment() {
         // Required empty public constructor
@@ -80,23 +83,18 @@ public class MoodFragment extends Fragment {
         // Inflate the layout for this fragment
         v =  inflater.inflate(R.layout.fragment_mood, container, false);
 
-        // display current date
         date = (TextView) v.findViewById(R.id.datetxt);
         date.setText(getDateTime());
-
-        // card view
         happy = (CardView) v.findViewById(R.id.happyCardView);
         sad = (CardView) v.findViewById(R.id.sadCardView);
         stressed = (CardView) v.findViewById(R.id.stressedCardView);
         angry = (CardView) v.findViewById(R.id.angryCardView);
-
-        //calendar
         mtMonth = (TextView) v.findViewById(R.id.mtCurrentMonth);
         mtMonth.setText(new SimpleDateFormat("MMMM YYYY").format(c.getTime()));
-
-        // recommended card
         recommededCard = (CardView) v.findViewById(R.id.recommededCard);
+        recyclerView = (RecyclerView) v.findViewById(R.id.moodCalendarRecycler);
 
+        // Recommended guide
         recommededCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,12 +105,13 @@ public class MoodFragment extends Fragment {
             }
         });
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.moodCalendarRecycler);
 
+        // set up recycler view for calendar
         adapter = new moodCalendarAdapter(getContext(), moodCalendarModelArrayList);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
         recyclerView.setAdapter(adapter);
 
+        // retrieve mood from firebase and populate recyclerview
         getMoodMonth(db, c, retrieveUID,moodCalendarModelArrayList, adapter, extraDays);
 
         //mood card onclick
@@ -120,28 +119,36 @@ public class MoodFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Happy Clicked");
+                selectedMood = "Happy"; // set selected mood
+
+                // Set colour of card
                 happy.setCardBackgroundColor(Color.parseColor("#C9E4DE"));
                 sad.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
                 stressed.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
                 angry.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
-                selectedMood = "Happy";
+
+
                 // save mood to shared pref
                 moodPreferences.edit().putString("Mood", selectedMood).apply();
                 moodPreferences.edit().putString("Date", getDateTime()).apply();
+
+                // write to firebase
                 if (retrieveDocId == null){
+                    // if no existing DocID
+                    // write new mood
                     writeMood(db, selectedMood, c, retrieveUID,moodPreferences);
                 }
                 else{
+                    //else update mood
                     replaceMood(db, selectedMood, c, retrieveUID,moodPreferences);
                 }
-                retrieveDocId = moodPreferences.getString("DocID", ""); // retrieve Doc Id
+
+                // set retrievedDocId with new ID
+                retrieveDocId = moodPreferences.getString("DocID", "");
+
+                // Update recyclerview
                 updateMoodTable(moodCalendarModelArrayList, "Happy", extraDays);
                 adapter.notifyDataSetChanged();
-
-                for(moodCalendarModel x : moodCalendarModelArrayList){
-                    System.out.println(x.getMood());
-                    System.out.println(x.getDate());
-                }
 
             }
         });
@@ -150,21 +157,33 @@ public class MoodFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Sad Clicked");
+                selectedMood = "Sad";
+
+                // Set colour of card
                 happy.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
                 sad.setCardBackgroundColor(Color.parseColor("#C6DEF1"));
                 stressed.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
                 angry.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
-                selectedMood = "Sad";
+
                 // save mood to shared pref
                 moodPreferences.edit().putString("Mood", selectedMood).apply();
                 moodPreferences.edit().putString("Date", getDateTime()).apply();
+
+                // write to firebase
                 if (retrieveDocId == null){
+                    // if no existing DocID
+                    // write new mood
                     writeMood(db, selectedMood, c, retrieveUID,moodPreferences);
                 }
                 else{
+                    //else update mood
                     replaceMood(db, selectedMood, c, retrieveUID,moodPreferences);
                 }
-                retrieveDocId = moodPreferences.getString("DocID", ""); // retrieve Doc Id
+
+                // set retrievedDocId with new ID
+                retrieveDocId = moodPreferences.getString("DocID", "");
+
+                // Update recyclerview
                 updateMoodTable(moodCalendarModelArrayList, "Sad", extraDays);
                 adapter.notifyDataSetChanged();
 
@@ -175,21 +194,33 @@ public class MoodFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Stressed Clicked");
+                selectedMood = "Stressed";
+
+                // Set colour of card
                 happy.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
                 sad.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
                 stressed.setCardBackgroundColor(Color.parseColor("#FAEDCB"));
                 angry.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
-                selectedMood = "Stressed";
+
                 // save mood to shared pref
                 moodPreferences.edit().putString("Mood", selectedMood).apply();
                 moodPreferences.edit().putString("Date", getDateTime()).apply();
+
+                // write to firebase
                 if (retrieveDocId == null){
+                    // if no existing DocID
+                    // write new mood
                     writeMood(db, selectedMood, c,retrieveUID, moodPreferences);
                 }
                 else{
+                    // else update mood
                     replaceMood(db, selectedMood, c,retrieveUID, moodPreferences);
                 }
-                retrieveDocId = moodPreferences.getString("DocID", ""); // retrieve Doc Id
+
+                // set retrievedDocId with new ID
+                retrieveDocId = moodPreferences.getString("DocID", "");
+
+                //Update recyclerview
                 updateMoodTable(moodCalendarModelArrayList, "Stressed", extraDays);
                 adapter.notifyDataSetChanged();
 
@@ -200,36 +231,38 @@ public class MoodFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Angry Clicked");
+                selectedMood = "Angry";
+
+                // Set colour of card
                 happy.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
                 sad.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
                 stressed.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
                 angry.setCardBackgroundColor(Color.parseColor("#F7D9C4"));
-                selectedMood = "Angry";
+
                 // save mood to shared pref
                 moodPreferences.edit().putString("Mood", selectedMood).apply();
                 moodPreferences.edit().putString("Date", getDateTime()).apply();
+
+                // write to firebase
                 if (retrieveDocId == null){
                     writeMood(db, selectedMood, c, retrieveUID, moodPreferences);
                 }
                 else{
                     replaceMood(db, selectedMood, c, retrieveUID,moodPreferences);
                 }
-                retrieveDocId = moodPreferences.getString("DocID", ""); // retrieve Doc Id
+
+                // set retrievedDocId with new ID
+                retrieveDocId = moodPreferences.getString("DocID", "");
+
+                //update recyclerview
                 updateMoodTable(moodCalendarModelArrayList, "Angry", extraDays);
                 adapter.notifyDataSetChanged();
-
-                for (moodCalendarModel x : moodCalendarModelArrayList){
-                    System.out.println(x.getMood());
-                    System.out.println(x.getDate());
-
-                }
 
             }
         });
 
         // if same day -> display previous mood and summary
         if (retrievedMood != null){
-
             if (retrievedMood.equalsIgnoreCase("Happy")){
                 happy.setCardBackgroundColor(Color.parseColor("#C9E4DE"));
             }
@@ -278,19 +311,21 @@ public class MoodFragment extends Fragment {
 
         extraDays = blankDays(new SimpleDateFormat("E").format(cal.getTime()));
 
+        // creates the blank spaces for 1st week
         for (int i = 1; i<= extraDays; i++){
             moodCalendarModelArrayList.add(new moodCalendarModel("", "blank"));
         }
 
+        int monthMaxDays = Integer.parseInt(new SimpleDateFormat("d").format(c.getTime())); // gets current day
 
-        int monthMaxDays = Integer.parseInt(new SimpleDateFormat("d").format(c.getTime()));
+        // sets up list
         for (int day = 1; day <= monthMaxDays; day++){
             moodCalendarModelArrayList.add(new moodCalendarModel(Integer.toString(day), "blank"));
         }
 
-
     }
 
+    // find out the number of blank cards in 1st week
     public int blankDays(String day){
 
         if (day.equals("Tue")){

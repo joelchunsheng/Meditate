@@ -2,6 +2,7 @@ package com.android.meditate.Article;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.meditate.ArticleHome.ArticleHome;
+import com.android.meditate.Meditation.MeditationActivity;
 import com.android.meditate.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,8 +24,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class Article extends AppCompatActivity {
     FirebaseFirestore db;
     ImageView headerImg;
-    TextView title, author, text;
+    TextView title, author, text, bonusTitle, bonusDes;
     ImageButton backBtn;
+    CardView bonusCard;
 
     private static final String TAG = "Article Activity";
 
@@ -39,6 +42,9 @@ public class Article extends AppCompatActivity {
         author = findViewById(R.id.articleAuthor);
         text = findViewById(R.id.articleText);
         headerImg = findViewById(R.id.articleImage);
+        bonusTitle = findViewById(R.id.bonusTitleTxt);
+        bonusDes = findViewById(R.id.bonusDesTxt);
+        bonusCard = findViewById(R.id.bonusCard);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,26 +60,46 @@ public class Article extends AppCompatActivity {
 
         if (intentTitle.equalsIgnoreCase("3 Simple ways to relax.")){
             headerImg.setImageResource(R.drawable.article1);
+            bonusTitle.setText("Getting Started");
+            bonusDes.setText("Begin your meditation journey.");
         }
         else if (intentTitle.equalsIgnoreCase("Starter guide to self improvement.")){
             headerImg.setImageResource(R.drawable.article2);
+            bonusTitle.setText("Letting Go of Stress");
+            bonusDes.setText("Letting negative energy go.");
         }
         else if (intentTitle.equalsIgnoreCase("Getting better sleep.")){
             headerImg.setImageResource(R.drawable.article3);
+            bonusTitle.setText("Acceptance");
+            bonusDes.setText("Let go of resistance and find acceptance.");
         }
         else if (intentTitle.equalsIgnoreCase("How to Meditate.")){
             headerImg.setImageResource(R.drawable.articles1);
+            bonusTitle.setText("Getting Started");
+            bonusDes.setText("Begin your meditation journey");
         }
         else if (intentTitle.equalsIgnoreCase("How to build a perfect wind-down routine.")){
             headerImg.setImageResource(R.drawable.articles2);
+            bonusTitle.setText("Acceptance");
+            bonusDes.setText("Let go of resistance and find acceptance.");
         }
         else if (intentTitle.equalsIgnoreCase("Relaxing our grip on sleep.")){
             headerImg.setImageResource(R.drawable.articles3);
+            bonusTitle.setText("Acceptance");
+            bonusDes.setText("Let go of resistance and find acceptance.");
         }
 
-        //retrieve article from firestore
+        bonusCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent meditationActivity = new Intent(Article.this, MeditationActivity.class);
+                meditationActivity.putExtra("iTitle", bonusTitle.getText().toString());
+                meditationActivity.putExtra("iDes", bonusDes.getText().toString());
+                startActivity(meditationActivity);
+            }
+        });
 
-        // Access a Cloud Firestore instance from your Activity
+        //retrieve article from firestore
         db = FirebaseFirestore.getInstance();
         db.collection("articles")
                 .whereEqualTo("name", intentTitle)

@@ -90,14 +90,14 @@
                     android:layout_below="@id/articleText"
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="20dp"
-                    android:text="Suggested guide"
+                    android:text="Bonus guide"
                     android:textColor="#000000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_below="@id/suggestedGuideTxt"
-                    android:id="@+id/arecommededCard"
+                    android:id="@+id/bonusCard"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_marginTop="15dp"
@@ -125,6 +125,7 @@
                             android:paddingStart="40dp">
 
                             <TextView
+                                android:id="@+id/bonusTitleTxt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Stress &amp; Anxiety"
@@ -133,6 +134,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/bonusDesTxt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Soothes your soul."
@@ -146,7 +148,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <RelativeLayout
-                    android:layout_below="@id/arecommededCard"
+                    android:layout_below="@id/bonusCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -192,6 +194,7 @@
 
 
                 </RelativeLayout>
+
             </RelativeLayout>
 
 
