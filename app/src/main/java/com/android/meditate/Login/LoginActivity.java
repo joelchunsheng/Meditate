@@ -77,8 +77,8 @@ public class LoginActivity extends AppCompatActivity {
                                          Log.v(TAG, "Email Sign In Successful"); // Log sign in with email successful
                                          FirebaseUser currentUser = auth.getCurrentUser(); // Gets current logged in user
                                          String uid = currentUser.getUid(); // Gets user UID
-                                         saveUID(uid); // saves user UID to sharedPref
-                                         getUserInfo(uid); // gets user info with UID and saves it to sharedPref
+                                         saveUID(uid, LoginActivity.this); // saves user UID to sharedPref
+                                         getUserInfo(uid, LoginActivity.this); // gets user info with UID and saves it to sharedPref
                                          Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
                                          startActivity(intent);
                                          finish();
@@ -118,16 +118,16 @@ public class LoginActivity extends AppCompatActivity {
     //call this methods upon successful login. (in firebase auth login code)
 
     //Save UID in shared prefrence
-    private void saveUID(String uid){
+    public static void saveUID(String uid, Context context){
         Log.i(TAG, "saving UID");
-        SharedPreferences userPref = this.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
+        SharedPreferences userPref = context.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
         userPref.edit().putString("UID", uid).apply();
     }
 
     // get user info from firestore
-    private void getUserInfo(final String uid){
+    public static void getUserInfo(final String uid, Context context){
         Log.i(TAG, "retrieving user info");
-        final SharedPreferences userPref = this.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
+        final SharedPreferences userPref = context.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
 
         // Access a Cloud Firestore instance from your Activity
         FirebaseFirestore db = FirebaseFirestore.getInstance();
