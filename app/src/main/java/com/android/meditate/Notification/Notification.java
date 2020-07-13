@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.ScaleAnimation;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -42,6 +43,7 @@ public class Notification extends AppCompatActivity {
     static SharedPreferences notificationPref;
     SwitchCompat notificationSwitch;
     CardView wakeUpCard, bedTimeCard;
+    ImageButton backBtn;
     static TextView wakeUpText, bedTimeText;
     Context context = this;
     int hour, min;
@@ -52,11 +54,21 @@ public class Notification extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
+        createNotificationChannel();
+
         notificationSwitch = (SwitchCompat) findViewById(R.id.notiSwitch);
         wakeUpCard = (CardView) findViewById(R.id.wakeUpCard);
         bedTimeCard = (CardView) findViewById(R.id.bedTimeCard);
         wakeUpText = (TextView) findViewById(R.id.wakeUpTimeText);
         bedTimeText = (TextView) findViewById(R.id.bedTimeText);
+        backBtn = (ImageButton) findViewById(R.id.notificationBackBtn);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Calendar calendar = Calendar.getInstance();
         hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -65,6 +77,9 @@ public class Notification extends AppCompatActivity {
         notificationPref = this.getSharedPreferences("com.android.meditate.Notification", Context.MODE_PRIVATE);
 
         switchPref = notificationPref.getBoolean("Notification", false);
+
+        wakeUpText.setText(notificationPref.getString("Wake Up", "7 : 00 AM"));
+        bedTimeText.setText(notificationPref.getString("Bed Time", "9 : 00 PM"));
 
         //if switch was previously checked
         if (switchPref == true){
@@ -95,6 +110,18 @@ public class Notification extends AppCompatActivity {
                     wakeUpCard.setAlpha(1);
                     bedTimeCard.setAlpha(1);
                     switchPref = true;
+
+                    // set default wake up time
+                    // trigger only if it does not exist in share pref
+                    if (notificationPref.getString("Wake Up", "").equals("")){
+                        notificationPref.edit().putString("Wake Up", "7 : 00 AM").apply();
+
+                    }
+                    // set default bed time
+                    // trigger only if it does not exist in share pref
+                    if (notificationPref.getString("Bed Time", "").equals("")){
+                        notificationPref.edit().putString("Bed Time", "9 : 00 PM").apply();
+                    }
                 }
                 else{
                     // Set sharedPreferences
@@ -139,9 +166,12 @@ public class Notification extends AppCompatActivity {
                     //PM
                     if (minute < 10){ // If minute is less than 10, add a 0 in front to avoid this --> 6 : 3 PM
                         textView.setText((hourOfDay-12) + " : 0" + minute + " PM");
+                        notificationPref.edit().putString(notificationName, (hourOfDay-12) + " : 0" + minute + " PM").apply();
                     }
                     else{
                         textView.setText((hourOfDay-12) + " : " + minute + " PM");
+                        notificationPref.edit().putString(notificationName, (hourOfDay-12) + " : " + minute + " PM").apply();
+
                     }
 
                 }
@@ -149,9 +179,13 @@ public class Notification extends AppCompatActivity {
                     //AM
                     if (minute < 10){ // If minute is less than 10, add a 0 in front to avoid this --> 6 : 3 AM
                         textView.setText(hourOfDay + " : 0" + minute + " AM");
+                        notificationPref.edit().putString(notificationName, hourOfDay + " : 0" + minute + " AM").apply();
+
                     }
                     else{
                         textView.setText(hourOfDay + " : " + minute + " AM");
+                        notificationPref.edit().putString(notificationName, hourOfDay + " : " + minute + " AM").apply();
+
                     }
                 }
                 calendar.setTimeInMillis(System.currentTimeMillis());
@@ -181,6 +215,19 @@ public class Notification extends AppCompatActivity {
         }
         else{
             return;
+        }
+    }
+
+    private void createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "MeditateReminderChannel";
+            String description = "Channel for Meditate Application";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("MeditateChannel", name ,importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 
