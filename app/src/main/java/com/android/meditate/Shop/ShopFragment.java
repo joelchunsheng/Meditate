@@ -29,9 +29,9 @@ import java.util.Set;
  */
 public class ShopFragment extends Fragment {
     View v;
-    private RecyclerView mRecyclerView;
+    public RecyclerView mRecyclerView;
     private TextView coinTxt;
-    private ArrayList<ShopItemModel> shopList;
+    private static ArrayList<ShopItemModel> shopList;
     private static final String TAG = "ShopActivity";
     private int coins;
 
@@ -111,4 +111,47 @@ public class ShopFragment extends Fragment {
         }
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences userPref = this.getActivity().getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
+        Set<String> fetch = userPref.getStringSet("purchased", null);
+        try{
+            for (String name : fetch){
+                Log.i("Set", name);
+                if (name.equalsIgnoreCase("10 min guides")){
+                    shopList.set(0, new ShopItemModel("10 min guides", "Quick guides anytime anywhere.", R.drawable.clock, R.drawable.baseline_check_circle_black_24dp));
+                }
+                else if (name.equalsIgnoreCase("White Noise")){
+                    shopList.set(1, new ShopItemModel("White Noise", "Better sleep. Ease anxiety.", R.drawable.wave, R.drawable.baseline_check_circle_black_24dp));
+                }
+                else if (name.equalsIgnoreCase("Nature")){
+                    shopList.set(2, new ShopItemModel("Nature", "Love the world as your own self.", R.drawable.tree, R.drawable.baseline_check_circle_black_24dp));
+                }
+                else if (name.equalsIgnoreCase("Self care")){
+                    shopList.set(3, new ShopItemModel("Self care", "Accept yourself, love yourself.", R.drawable.self, R.drawable.baseline_check_circle_black_24dp));
+                }
+                else if (name.equalsIgnoreCase("Rainy days")){
+                    shopList.set(4, new ShopItemModel("Rainy days", "Get warm and comfortable.", R.drawable.water, R.drawable.baseline_check_circle_black_24dp));
+                }
+                else if (name.equalsIgnoreCase("Piano")){
+                    shopList.set(5, new ShopItemModel("Piano", "Soothing piano music for you.", R.drawable.piano, R.drawable.baseline_check_circle_black_24dp));
+                }
+                else if (name.equalsIgnoreCase("Slow down")){
+                    shopList.set(6, new ShopItemModel("Slow down", "A huge part of recovery and life is slowing down.", R.drawable.slow, R.drawable.baseline_check_circle_black_24dp));
+                }
+                else{
+                    Log.i(TAG, "Error updating list with purchased guides");
+                }
+                mRecyclerView.getAdapter().notifyDataSetChanged();
+            }
+
+        }catch (Exception e){
+            Log.i(TAG, "No purchased found");
+
+        }
+    }
+
+
 }

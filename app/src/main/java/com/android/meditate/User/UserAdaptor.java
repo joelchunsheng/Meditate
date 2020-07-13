@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.meditate.EditProfile.EditProfileActivity;
 import com.android.meditate.Login.LoginActivity;
-import com.android.meditate.MainActivity;
-import com.android.meditate.Meditation.MeditationActivity;
 import com.android.meditate.Notification.Notification;
 import com.android.meditate.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,6 +51,15 @@ public class UserAdaptor extends RecyclerView.Adapter<UserViewHolder> {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), Notification.class);
+                    view.getContext().startActivity(intent);
+                }
+            });
+        }
+        else if (text.equals(("Edit Profile"))){
+            holder.settingCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), EditProfileActivity.class);
                     view.getContext().startActivity(intent);
                 }
             });

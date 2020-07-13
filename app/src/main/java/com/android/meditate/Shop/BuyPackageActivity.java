@@ -96,18 +96,17 @@ public class BuyPackageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (buyPackageButton.getText().toString().contains("Loading")){ // To immediately return out of method if docRef is not completed
-                    return;
+                if (buyPackageButton.getText().toString().equalsIgnoreCase("Loading...")){
+                    Toast.makeText(getApplicationContext(), "Retrieving package", Toast.LENGTH_SHORT).show();
                 }
-
-                if (buyPackageButton.getText().toString().equalsIgnoreCase("Purchased")){ // If Purchased, show Toast and return
+                else if (buyPackageButton.getText().toString().equalsIgnoreCase("Purchased")){ // If Purchased, show Toast and return
                     Toast.makeText(getApplicationContext(), "Package Already Purchased", Toast.LENGTH_SHORT).show();
-                    return;
                 }
-
-                // Create AlertDialog for confirmation
-                createAlertDialog("Confirm Purchase", "Do you want to buy " + title + " for " + cost + " coins?", false, "Yes",
-                        "No", docRef, cost, uid);
+                else{
+                    // Create AlertDialog for confirmation
+                    createAlertDialog("Confirm Purchase", "Do you want to buy " + title + " for " + cost + " coins?", false, "Yes",
+                            "No", docRef, cost, uid);
+                }
 
             }
         });

@@ -9,11 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Shop.BuyPackageActivity"></activity>
+        <activity android:name=".EditProfile.EditPasswordActivity"></activity>
+        <activity android:name=".EditProfile.EditNameActivity" />
+        <activity android:name=".EditProfile.EditProfileActivity" />
+        <activity android:name=".Shop.BuyPackageActivity" />
         <activity android:name=".Article.Article" />
         <activity android:name=".ArticleHome.ArticleHome" />
-        <activity
-            android:name=".Notification.Notification"/>
+        <activity android:name=".Notification.Notification" />
         <activity android:name=".Username.UsernameActivity" />
         <activity android:name=".Register.RegisterActivity" />
         <activity android:name=".Login.LoginActivity">
@@ -23,15 +25,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Meditation.MeditationActivity" />
+        <activity android:name=".Meditation.MeditationActivity" />
         <activity android:name=".MainActivity">
-<!--             <intent-filter> -->
-<!--             <action android:name="android.intent.action.MAIN" /> -->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-<!--             <category android:name="android.intent.category.LAUNCHER" /> -->
-<!--             </intent-filter> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
 
         <receiver android:name=".Notification.Receiver"/>

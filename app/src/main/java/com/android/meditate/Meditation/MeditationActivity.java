@@ -81,8 +81,6 @@ public class MeditationActivity extends AppCompatActivity {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toHome = new Intent(MeditationActivity.this, MainActivity.class);
-                startActivity(toHome);
                 finish();
             }
         });
