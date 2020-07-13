@@ -48,16 +48,14 @@ public class EditPasswordActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditPasswordActivity.this, EditProfileActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditPasswordActivity.this, EditProfileActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 

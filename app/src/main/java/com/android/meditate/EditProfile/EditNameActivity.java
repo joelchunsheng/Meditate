@@ -53,16 +53,14 @@ public class EditNameActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditNameActivity.this, EditProfileActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditNameActivity.this, EditProfileActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
