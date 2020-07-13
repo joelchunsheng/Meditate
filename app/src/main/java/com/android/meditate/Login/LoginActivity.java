@@ -2,9 +2,7 @@ package com.android.meditate.Login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,7 +13,6 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,7 +21,6 @@ import android.widget.Toast;
 import com.android.meditate.MainActivity;
 import com.android.meditate.R;
 import com.android.meditate.Register.RegisterActivity;
-import com.android.meditate.Username.UsernameActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -42,6 +38,7 @@ import java.util.Set;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
+    private FirebaseUser currentUser;
 
     private EditText emailInput;
     private EditText passwordInput;
@@ -55,63 +52,76 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        emailInput = (EditText) findViewById(R.id.loginEmail);
-        passwordInput = (EditText) findViewById(R.id.loginPassword);
-        loginButton = (Button) findViewById(R.id.loginButton);
+        currentUser = auth.getCurrentUser(); // Gets current user (null if no current user)
+        if (currentUser != null){ // If there is a current user (logged in user)
+            String uid = currentUser.getUid();
+            // Update user info in sharedPreferences
+            LoginActivity.saveUID(uid, this);
+            LoginActivity.getUserInfo(uid, this);
+            // check if user still exists in database
+            Intent intent = new Intent(this, MainActivity.class); // Intent to UsernameActivity
+            startActivity(intent);
+        }else{
+            emailInput = (EditText) findViewById(R.id.loginEmail);
+            passwordInput = (EditText) findViewById(R.id.loginPassword);
+            loginButton = (Button) findViewById(R.id.loginButton);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v(TAG, "Login Button Clicked!");
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.v(TAG, "Login Button Clicked!");
 
-                String emailInputText = emailInput.getEditableText().toString();
-                String passwordInputText = passwordInput.getEditableText().toString();
+                    String emailInputText = emailInput.getEditableText().toString();
+                    String passwordInputText = passwordInput.getEditableText().toString();
 
-                 if (!emailInputText.isEmpty() && !passwordInputText.isEmpty()){
-                     auth.signInWithEmailAndPassword(emailInputText, passwordInputText)
-                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                                 @Override
-                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                     if (task.isSuccessful()){
-                                         // Sign in successful
-                                         Log.v(TAG, "Email Sign In Successful"); // Log sign in with email successful
-                                         FirebaseUser currentUser = auth.getCurrentUser(); // Gets current logged in user
-                                         String uid = currentUser.getUid(); // Gets user UID
-                                         saveUID(uid, LoginActivity.this); // saves user UID to sharedPref
-                                         getUserInfo(uid, LoginActivity.this); // gets user info with UID and saves it to sharedPref
-                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
-                                         startActivity(intent);
-                                         finish();
-                                     }
-                                     else{
-                                         Log.v(TAG, "Email Sign In Failed"); // Log sign in with email failed
-                                         Toast.makeText(getApplicationContext(), "Sign in Failed", Toast.LENGTH_SHORT).show();
-                                     }
-                                 }
-                             });
-                 } else{
-                     Toast.makeText(getApplicationContext(), "Please fill in both fields", Toast.LENGTH_SHORT).show();
-                 }
+                    if (!emailInputText.isEmpty() && !passwordInputText.isEmpty()){
+                        auth.signInWithEmailAndPassword(emailInputText, passwordInputText)
+                                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()){
+                                            // Sign in successful
+                                            Log.v(TAG, "Email Sign In Successful"); // Log sign in with email successful
+                                            FirebaseUser currentUser = auth.getCurrentUser(); // Gets current logged in user
+                                            String uid = currentUser.getUid(); // Gets user UID
+                                            saveUID(uid, LoginActivity.this); // saves user UID to sharedPref
+                                            getUserInfo(uid, LoginActivity.this); // gets user info with UID and saves it to sharedPref
+                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Intent to MainActivity
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                        else{
+                                            Log.v(TAG, "Email Sign In Failed"); // Log sign in with email failed
+                                            Toast.makeText(getApplicationContext(), "Sign in Failed", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                    } else{
+                        Toast.makeText(getApplicationContext(), "Please fill in both fields", Toast.LENGTH_SHORT).show();
+                    }
 
-            }
-        });
+                }
+            });
 
-        // SET UP SIGN UP LINK IN LOGIN ACTIVITY
-        TextView loginSignUpTextView = (TextView) findViewById(R.id.loginSignUpText);
-        String loginSignUpText = "Not registered with us? Sign Up here!";
+            // SET UP SIGN UP LINK IN LOGIN ACTIVITY
+            TextView loginSignUpTextView = (TextView) findViewById(R.id.loginSignUpText);
+            String loginSignUpText = "Not registered with us? Sign Up here!";
 
-        SpannableString loginSignUpSS = new SpannableString(loginSignUpText);
-        ClickableSpan loginSignUpClickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View view) {
-                Intent toSignUp = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(toSignUp);
-            }
-        };
+            SpannableString loginSignUpSS = new SpannableString(loginSignUpText);
+            ClickableSpan loginSignUpClickableSpan = new ClickableSpan() {
+                @Override
+                public void onClick(View view) {
+                    Intent toSignUp = new Intent(LoginActivity.this, RegisterActivity.class);
+                    startActivity(toSignUp);
+                }
+            };
 
-        loginSignUpSS.setSpan(loginSignUpClickableSpan, 24, 31, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        loginSignUpTextView.setText(loginSignUpSS);
-        loginSignUpTextView.setMovementMethod(LinkMovementMethod.getInstance());
+            loginSignUpSS.setSpan(loginSignUpClickableSpan, 24, 31, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            loginSignUpTextView.setText(loginSignUpSS);
+            loginSignUpTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
+
     }
     
     //method to retrieve user data from firestore and save to firestore
