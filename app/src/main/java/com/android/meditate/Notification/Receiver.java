@@ -25,10 +25,10 @@ public class Receiver extends BroadcastReceiver {
         }else{
             String notificationName = intent.getStringExtra("NotificationName");
             if (notificationName.equalsIgnoreCase("Wake Up")){
-                createNotification(context, "Rise and Shine!", "Good Morning!", 1, 1);
+                createNotification(context, "Rise and Shine!", "Good Morning! Start your day right with Meditate.", 1, 1);
             }
             else if (notificationName.equalsIgnoreCase("Bed Time")){
-                createNotification(context, "Time to Wind Down!", "Good Night!", 2, 2);
+                createNotification(context, "Time to Wind Down!", "Rest and be Thankful!", 2, 2);
             }
             else{
                 Log.i("Receiver", "No notification name");
