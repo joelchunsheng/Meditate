@@ -115,12 +115,21 @@ public class Notification extends AppCompatActivity {
                     // trigger only if it does not exist in share pref
                     if (notificationPref.getString("Wake Up", "").equals("")){
                         notificationPref.edit().putString("Wake Up", "7 : 00 AM").apply();
-
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTimeInMillis(System.currentTimeMillis());
+                        cal.set(Calendar.HOUR_OF_DAY, 7);
+                        cal.set(Calendar.MINUTE, 0);
+                        setAlarm(cal.getTimeInMillis(), context, "Wake Up");
                     }
                     // set default bed time
                     // trigger only if it does not exist in share pref
                     if (notificationPref.getString("Bed Time", "").equals("")){
                         notificationPref.edit().putString("Bed Time", "9 : 00 PM").apply();
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTimeInMillis(System.currentTimeMillis());
+                        cal.set(Calendar.HOUR_OF_DAY, 21);
+                        cal.set(Calendar.MINUTE, 0);
+                        setAlarm(cal.getTimeInMillis(), context, "Bed Time");
                     }
                 }
                 else{
@@ -171,7 +180,6 @@ public class Notification extends AppCompatActivity {
                     else{
                         textView.setText((hourOfDay-12) + " : " + minute + " PM");
                         notificationPref.edit().putString(notificationName, (hourOfDay-12) + " : " + minute + " PM").apply();
-
                     }
 
                 }
