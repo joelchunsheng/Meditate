@@ -159,26 +159,34 @@ public class Notification extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 if (hourOfDay>=12){
                     //PM
+                    int hour = hourOfDay;
+                    if (hourOfDay != 12){ // To avoid 0 : 12 PM
+                        hour -= 12;
+                    }
                     if (minute < 10){ // If minute is less than 10, add a 0 in front to avoid this --> 6 : 3 PM
-                        textView.setText((hourOfDay-12) + " : 0" + minute + " PM");
-                        notificationPref.edit().putString(notificationName, (hourOfDay-12) + " : 0" + minute + " PM").apply();
+                        textView.setText((hour) + " : 0" + minute + " PM");
+                        notificationPref.edit().putString(notificationName, hour + " : 0" + minute + " PM").apply();
                     }
                     else{
-                        textView.setText((hourOfDay-12) + " : " + minute + " PM");
-                        notificationPref.edit().putString(notificationName, (hourOfDay-12) + " : " + minute + " PM").apply();
+                        textView.setText((hour) + " : " + minute + " PM");
+                        notificationPref.edit().putString(notificationName, hour + " : " + minute + " PM").apply();
                     }
 
                 }
                 else{
                     //AM
+                    int hour = hourOfDay;
+                    if (hourOfDay == 0){ // To avoid 0 : 50 AM
+                        hour = 12;
+                    }
                     if (minute < 10){ // If minute is less than 10, add a 0 in front to avoid this --> 6 : 3 AM
-                        textView.setText(hourOfDay + " : 0" + minute + " AM");
-                        notificationPref.edit().putString(notificationName, hourOfDay + " : 0" + minute + " AM").apply();
+                        textView.setText(hour + " : 0" + minute + " AM");
+                        notificationPref.edit().putString(notificationName, hour + " : 0" + minute + " AM").apply();
 
                     }
                     else{
-                        textView.setText(hourOfDay + " : " + minute + " AM");
-                        notificationPref.edit().putString(notificationName, hourOfDay + " : " + minute + " AM").apply();
+                        textView.setText(hour + " : " + minute + " AM");
+                        notificationPref.edit().putString(notificationName, hour + " : " + minute + " AM").apply();
 
                     }
                 }
