@@ -68,6 +68,9 @@ public class EditPasswordActivity extends AppCompatActivity {
                 if (currentPass.getText().toString().trim().isEmpty() || newPass.getText().toString().trim().isEmpty() || confrimPass.getText().toString().trim().isEmpty()){
                     Toast.makeText(EditPasswordActivity.this, "Field(s) are empty", Toast.LENGTH_SHORT).show();
                 }
+                else if(newPass.length() < 8){
+                    Toast.makeText(EditPasswordActivity.this, "Password too short", Toast.LENGTH_SHORT).show();
+                }
                 else if (!pass.equals(cPass)){
                     Toast.makeText(EditPasswordActivity.this, "New password does not match", Toast.LENGTH_SHORT).show();
                 }
