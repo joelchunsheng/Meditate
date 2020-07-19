@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             // check if user still exists in database
             Intent intent = new Intent(this, MainActivity.class); // Intent to UsernameActivity
             startActivity(intent);
+            finish();
         }else{
             emailInput = (EditText) findViewById(R.id.loginEmail);
             passwordInput = (EditText) findViewById(R.id.loginPassword);
