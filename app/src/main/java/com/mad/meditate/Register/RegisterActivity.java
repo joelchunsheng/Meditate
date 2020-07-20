@@ -131,8 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toLogin = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(toLogin);
+                finish();
             }
         });
     }
@@ -145,7 +144,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     // Generate new user info, save to firestore and sharedPref
-    public static void generateUserInfo(final String uid, Activity activity) {
+    private void generateUserInfo(final String uid, Activity activity) {
         Log.i(TAG, "Generating new user info");
         final SharedPreferences userPref = activity.getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
 
