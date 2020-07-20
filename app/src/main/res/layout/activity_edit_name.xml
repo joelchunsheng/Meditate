@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditProfile.EditNameActivity">
+    tools:context="com.mad.meditate.EditProfile.EditNameActivity">
 
     <ImageButton
         android:id="@+id/usernameBackBtn"

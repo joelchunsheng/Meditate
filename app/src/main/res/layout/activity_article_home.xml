@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="15dp"
-    tools:context=".ArticleHome.ArticleHome">
+    tools:context="com.mad.meditate.ArticleHome.ArticleHome">
 
     <TextView
         android:id="@+id/meditationArtitcleTxt"
