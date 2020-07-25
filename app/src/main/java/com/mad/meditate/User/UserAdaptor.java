@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mad.meditate.AboutActivity;
 import com.mad.meditate.EditProfile.EditProfileActivity;
 import com.mad.meditate.Login.LoginActivity;
 import com.mad.meditate.Notification.Notification;
@@ -43,6 +44,8 @@ public class UserAdaptor extends RecyclerView.Adapter<UserViewHolder> {
                 @Override
                 public void onClick(View view) {
                     // GO TO ABOUT ACTIVITY
+                    Intent intent = new Intent(view.getContext(), AboutActivity.class);
+                    view.getContext().startActivity(intent);
                 }
             });
         }
