@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AboutActivity">
+    tools:context=".About.AboutActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/sourcesanspro_regular"
                 android:justificationMode="inter_word"
-                android:text="- The Honest Guys \n- Goodful \n"
+                android:text="- The Honest Guys \n- Goodful \n- Jason Stephenson \n- MindfulPeace"
                 android:textColor="#000000"
                 android:textSize="18sp" />
         </LinearLayout>

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mad.meditate.AboutActivity;
+import com.mad.meditate.About.AboutActivity;
 import com.mad.meditate.EditProfile.EditProfileActivity;
 import com.mad.meditate.Login.LoginActivity;
 import com.mad.meditate.Notification.Notification;
