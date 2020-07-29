@@ -119,7 +119,5 @@ public class Article extends AppCompatActivity {
                         }
                     }
                 });
-
-
     }
 }

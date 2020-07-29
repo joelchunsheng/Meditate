@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mad.meditate.About.AboutActivity;
+import com.mad.meditate.AvatarSelect.AvatarSelectActivity;
 import com.mad.meditate.EditProfile.EditProfileActivity;
 import com.mad.meditate.Login.LoginActivity;
 import com.mad.meditate.Notification.Notification;
@@ -46,6 +47,16 @@ public class UserAdaptor extends RecyclerView.Adapter<UserViewHolder> {
                     // GO TO ABOUT ACTIVITY
                     Intent intent = new Intent(view.getContext(), AboutActivity.class);
                     view.getContext().startActivity(intent);
+                }
+            });
+        }
+        else if (text.equals(("Change Avatar"))){
+            holder.settingCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), AvatarSelectActivity.class);
+                    view.getContext().startActivity(intent);
+
                 }
             });
         }

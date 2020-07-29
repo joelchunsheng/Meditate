@@ -89,6 +89,7 @@ public class UserFragment extends Fragment {
 
         settingsList = new ArrayList<>();
         settingsList.add("About");
+        settingsList.add("Change Avatar");
         settingsList.add("Edit Profile");
         settingsList.add("Notifications");
         settingsList.add("Log Out");

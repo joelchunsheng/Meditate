@@ -5,8 +5,8 @@
     android:id="@+id/avatarSelectViewHolder"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp"
     android:orientation="vertical">
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/avatarSelectItemView"
@@ -20,8 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginHorizontal="15sp"
-            android:layout_marginVertical="15sp" />
+            android:layout_margin="15dp"/>
 
     </androidx.cardview.widget.CardView>
 

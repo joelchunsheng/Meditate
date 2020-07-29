@@ -43,7 +43,7 @@ public class AvatarSelectAdaptor extends RecyclerView.Adapter<AvatarSelectViewHo
     @Override
     public void onBindViewHolder(@NonNull final AvatarSelectViewHolder holder, final int position) {
         if (selectedPos == position){
-            holder.avatarSelectItemView.setBackgroundColor(Color.parseColor("#91dbe6"));
+            holder.avatarSelectItemView.setBackgroundColor(Color.parseColor("#C9E4DE"));
         }
         else{
             holder.avatarSelectItemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
