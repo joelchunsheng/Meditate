@@ -18,6 +18,13 @@
         <activity android:name=".Username.UsernameActivity" />
         <activity android:name=".Register.RegisterActivity" />
         <activity android:name=".Login.LoginActivity">
+<!--            <intent-filter>
+                <action android:name="android.intent.action.MAIN" /> -->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> -->
+        </activity>
+        <activity android:name=".OnboardingScreen.OnBoardingScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

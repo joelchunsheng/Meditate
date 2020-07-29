@@ -15,7 +15,7 @@
         android:background="@color/colorYellow">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/slide_heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Daily messages that reminds you to keep calm and stress-free!"
