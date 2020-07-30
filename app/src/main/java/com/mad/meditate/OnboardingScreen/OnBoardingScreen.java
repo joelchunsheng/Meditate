@@ -1,4 +1,4 @@
-package com.android.meditate.OnboardingScreen;
+package com.mad.meditate.OnboardingScreen;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,11 +11,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.meditate.Login.LoginActivity;
-import com.android.meditate.MainActivity;
-import com.android.meditate.R;
+import com.mad.meditate.Login.LoginActivity;
+import com.mad.meditate.MainActivity;
+import com.mad.meditate.R;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.ViewPager;
 
 public class OnBoardingScreen extends AppCompatActivity {
@@ -29,9 +30,11 @@ public class OnBoardingScreen extends AppCompatActivity {
 
     private SliderAdapter sliderAdapter;
 
-    private Button mNextButton;
-    private Button mBackButton;
-    private Button mFinishButton;
+    private CardView mNextButton;
+    private CardView mBackButton;
+    private CardView mFinishButton;
+
+    private TextView nextTxt, backTxt, finishTxt;
 
     private int mCurrentPage = 0;
 
@@ -55,9 +58,14 @@ public class OnBoardingScreen extends AppCompatActivity {
         mDotLayout = (LinearLayout) findViewById(R.id.dotsLayout);
 
         // adding the next, back and finish button
-        mNextButton = (Button) findViewById(R.id.nextButton);
-        mBackButton = (Button) findViewById(R.id.backButton);
-        mFinishButton = (Button) findViewById(R.id.finishButton);
+        mNextButton = (CardView) findViewById(R.id.nextButton);
+        mBackButton = (CardView) findViewById(R.id.backButton);
+        mFinishButton = (CardView) findViewById(R.id.finishButton);
+
+        nextTxt = (TextView) findViewById(R.id.nextTxt);
+        backTxt = (TextView) findViewById(R.id.backTxt);
+        finishTxt = (TextView) findViewById(R.id.finishTxt);
+
 
         // call the adapter
         sliderAdapter = new SliderAdapter(this);
@@ -146,7 +154,7 @@ public class OnBoardingScreen extends AppCompatActivity {
 
         if(mDots.length > 0) {
 
-            mDots[position].setTextColor(getResources().getColor(R.color.colorWhite));
+            mDots[position].setTextColor(getResources().getColor(R.color.colorSandy));
         }
     }
 
@@ -170,8 +178,8 @@ public class OnBoardingScreen extends AppCompatActivity {
                 mBackButton.setVisibility(View.INVISIBLE);
                 mFinishButton.setVisibility(View.INVISIBLE);
 
-                mNextButton.setText("Next");
-                mBackButton.setText("");
+                nextTxt.setText("Next");
+                backTxt.setText("");
             } else if(i == mDots.length -1){
 
                 mNextButton.setEnabled(false);
@@ -180,9 +188,9 @@ public class OnBoardingScreen extends AppCompatActivity {
                 mBackButton.setVisibility(View.VISIBLE);
                 mFinishButton.setVisibility(View.VISIBLE);
 
-                mNextButton.setText("");
-                mBackButton.setText("Back");
-                mFinishButton.setText("Finish");
+                nextTxt.setText("");
+                backTxt.setText("Back");
+                finishTxt.setText("Finish");
             } else {
 
                 mNextButton.setEnabled(true);
@@ -191,8 +199,8 @@ public class OnBoardingScreen extends AppCompatActivity {
                 mBackButton.setVisibility(View.VISIBLE);
                 mFinishButton.setVisibility(View.INVISIBLE);
 
-                mNextButton.setText("Next");
-                mBackButton.setText("Back");
+                nextTxt.setText("Next");
+                backTxt.setText("Back");
             }
         }
 

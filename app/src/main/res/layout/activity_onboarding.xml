@@ -31,41 +31,85 @@
         android:padding="20dp">
     </LinearLayout>
 
-    <Button
+    <androidx.cardview.widget.CardView
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="1dp"
-        android:layout_marginBottom="0dp"
-        android:background="@color/colorWhite"
-        android:text="Back"
-        android:visibility="invisible" />
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/colorWhite"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
+        android:visibility="invisible">
 
-    <Button
+        <TextView
+            android:id="@+id/backTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:fontFamily="@font/sourcesanspro_semibold"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="4dp"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/nextButton"
         android:layout_width="wrap_content"
-        android:layout_height="38dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="2dp"
-        android:background="@color/colorWhite"
-        android:text="Next"
+        app:cardCornerRadius="5dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/colorWhite"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
         android:visibility="visible"
-        android:onClick="next"/>
+        android:onClick="next">
 
-    <Button
+        <TextView
+            android:id="@+id/nextTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="4dp"
+            android:fontFamily="@font/sourcesanspro_semibold"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:text="Next"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/finishButton"
         android:layout_width="wrap_content"
-        android:layout_height="38dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="2dp"
-        android:background="@color/colorWhite"
-        android:text="Finish"
-        android:visibility="invisible" />
+        app:cardCornerRadius="5dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/colorWhite"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/finishTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="4dp"
+            android:fontFamily="@font/sourcesanspro_semibold"
+            android:textColor="#000000"
+            android:text="Finish"/>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

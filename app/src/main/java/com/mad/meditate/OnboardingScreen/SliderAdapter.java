@@ -1,4 +1,4 @@
-package com.android.meditate.OnboardingScreen;
+package com.mad.meditate.OnboardingScreen;
 
 import android.view.View;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.android.meditate.R;
+import com.mad.meditate.R;
 
 public class SliderAdapter extends PagerAdapter {
 
