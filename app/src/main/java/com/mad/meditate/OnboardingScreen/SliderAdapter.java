@@ -38,9 +38,9 @@ public class SliderAdapter extends PagerAdapter {
 
     // slider descriptions
     public String[] slide_description = {
-            "Help you unwind and stay clam",
-            "Track your mood daily",
-            "Start and End your day feeling calm"
+            "Breathe and relax! Enjoy our range of meditation guides. Stay calm and mindful.",
+            "Keep track of your mood everyday! Meditate shows you your monthly mood summary at a glance.",
+            "Start and end your day with a mindful message from us!"
     };
 
 
