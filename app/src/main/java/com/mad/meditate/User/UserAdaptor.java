@@ -1,5 +1,6 @@
 package com.mad.meditate.User;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -85,7 +86,7 @@ public class UserAdaptor extends RecyclerView.Adapter<UserViewHolder> {
                     FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent(view.getContext(), LoginActivity.class);
                     view.getContext().startActivity(intent);
-
+                    ((Activity)view.getContext()).finish();
                 }
             });
         }
