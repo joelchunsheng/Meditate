@@ -9,25 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.mad.meditate.EditProfile.EditPasswordActivity"></activity>
-        <activity android:name="com.mad.meditate.EditProfile.EditNameActivity" />
-        <activity android:name="com.mad.meditate.EditProfile.EditProfileActivity" />
-        <activity android:name="com.mad.meditate.Shop.BuyPackageActivity" />
-        <activity android:name="com.mad.meditate.Article.Article" />
-        <activity android:name="com.mad.meditate.ArticleHome.ArticleHome" />
-        <activity android:name="com.mad.meditate.Notification.Notification" />
-        <activity android:name="com.mad.meditate.Username.UsernameActivity" />
-        <activity android:name="com.mad.meditate.Register.RegisterActivity" />
-        <activity android:name="com.mad.meditate.Login.LoginActivity">
+        <activity android:name=".AvatarSelect.AvatarSelectActivity" />
+        <activity android:name=".About.AboutActivity" />
+        <activity android:name=".EditProfile.EditPasswordActivity" />
+        <activity android:name=".EditProfile.EditNameActivity" />
+        <activity android:name=".EditProfile.EditProfileActivity" />
+        <activity android:name=".Shop.BuyPackageActivity" />
+        <activity android:name=".Article.Article" />
+        <activity android:name=".ArticleHome.ArticleHome" />
+        <activity android:name=".Notification.Notification" />
+        <activity android:name=".Username.UsernameActivity" />
+        <activity android:name=".Register.RegisterActivity" />
+        <activity android:name=".Login.LoginActivity" />
+        <activity android:name=".OnboardingScreen.OnBoardingScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.mad.meditate.Meditation.MeditationActivity" />
-        <activity android:name="com.mad.meditate.MainActivity">
-
+        <activity android:name=".Meditation.MeditationActivity" />
+        <activity android:name=".MainActivity">
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
 
@@ -36,8 +38,7 @@
             <!-- </intent-filter> -->
         </activity>
 
-        <receiver android:name="com.mad.meditate.Notification.Receiver"/>
-
+        <receiver android:name=".Notification.Receiver" />
     </application>
 
 </manifest>

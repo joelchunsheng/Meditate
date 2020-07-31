@@ -47,17 +47,17 @@ public class MoodFragment extends Fragment {
     View v;
 
     TextView date, mtMonth;
-    CardView happy, sad, stressed, angry, recommededCard;
+    static CardView happy, sad, stressed, angry, recommededCard;
     RecyclerView recyclerView;
 
-    SharedPreferences moodPreferences, userPref;
+    SharedPreferences userPref;
 
     ArrayList<moodCalendarModel> moodCalendarModelArrayList;
     moodCalendarAdapter adapter;
 
     FirebaseFirestore db;
 
-    String retrievedMood, retrievedDate, selectedMood, retrieveDocId, retrieveUID;
+    static String retrievedMood, selectedMood, retrieveDocId, retrieveUID;
     int extraDays;
 
     Calendar c = Calendar.getInstance();
@@ -65,7 +65,6 @@ public class MoodFragment extends Fragment {
     public MoodFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,7 +94,6 @@ public class MoodFragment extends Fragment {
             }
         });
 
-
         // set up recycler view for calendar
         adapter = new moodCalendarAdapter(getContext(), moodCalendarModelArrayList);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
@@ -117,24 +115,17 @@ public class MoodFragment extends Fragment {
                 stressed.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
                 angry.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
 
-
-                // save mood to shared pref
-                moodPreferences.edit().putString("Mood", selectedMood).apply();
-                moodPreferences.edit().putString("Date", getDateTime()).apply();
-
                 // write to firebase
                 if (retrieveDocId == null){
                     // if no existing DocID
                     // write new mood
-                    writeMood(db, selectedMood, c, retrieveUID,moodPreferences);
+                    writeMood(db, selectedMood, c, retrieveUID);
                 }
                 else{
                     //else update mood
-                    replaceMood(db, selectedMood, c, retrieveUID,moodPreferences);
+                    replaceMood(db, selectedMood, c, retrieveUID);
                 }
 
-                // set retrievedDocId with new ID
-                retrieveDocId = moodPreferences.getString("DocID", "");
 
                 // Update recyclerview
                 updateMoodTable(moodCalendarModelArrayList, "Happy", extraDays);
@@ -155,23 +146,16 @@ public class MoodFragment extends Fragment {
                 stressed.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
                 angry.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
 
-                // save mood to shared pref
-                moodPreferences.edit().putString("Mood", selectedMood).apply();
-                moodPreferences.edit().putString("Date", getDateTime()).apply();
-
                 // write to firebase
                 if (retrieveDocId == null){
                     // if no existing DocID
                     // write new mood
-                    writeMood(db, selectedMood, c, retrieveUID,moodPreferences);
+                    writeMood(db, selectedMood, c, retrieveUID);
                 }
                 else{
                     //else update mood
-                    replaceMood(db, selectedMood, c, retrieveUID,moodPreferences);
+                    replaceMood(db, selectedMood, c, retrieveUID);
                 }
-
-                // set retrievedDocId with new ID
-                retrieveDocId = moodPreferences.getString("DocID", "");
 
                 // Update recyclerview
                 updateMoodTable(moodCalendarModelArrayList, "Sad", extraDays);
@@ -192,23 +176,16 @@ public class MoodFragment extends Fragment {
                 stressed.setCardBackgroundColor(Color.parseColor("#FAEDCB"));
                 angry.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
 
-                // save mood to shared pref
-                moodPreferences.edit().putString("Mood", selectedMood).apply();
-                moodPreferences.edit().putString("Date", getDateTime()).apply();
-
                 // write to firebase
                 if (retrieveDocId == null){
                     // if no existing DocID
                     // write new mood
-                    writeMood(db, selectedMood, c,retrieveUID, moodPreferences);
+                    writeMood(db, selectedMood, c,retrieveUID);
                 }
                 else{
                     // else update mood
-                    replaceMood(db, selectedMood, c,retrieveUID, moodPreferences);
+                    replaceMood(db, selectedMood, c,retrieveUID);
                 }
-
-                // set retrievedDocId with new ID
-                retrieveDocId = moodPreferences.getString("DocID", "");
 
                 //Update recyclerview
                 updateMoodTable(moodCalendarModelArrayList, "Stressed", extraDays);
@@ -229,20 +206,13 @@ public class MoodFragment extends Fragment {
                 stressed.setCardBackgroundColor(Color.parseColor("#EDEDEB"));
                 angry.setCardBackgroundColor(Color.parseColor("#F7D9C4"));
 
-                // save mood to shared pref
-                moodPreferences.edit().putString("Mood", selectedMood).apply();
-                moodPreferences.edit().putString("Date", getDateTime()).apply();
-
                 // write to firebase
                 if (retrieveDocId == null){
-                    writeMood(db, selectedMood, c, retrieveUID, moodPreferences);
+                    writeMood(db, selectedMood, c, retrieveUID);
                 }
                 else{
-                    replaceMood(db, selectedMood, c, retrieveUID,moodPreferences);
+                    replaceMood(db, selectedMood, c, retrieveUID);
                 }
-
-                // set retrievedDocId with new ID
-                retrieveDocId = moodPreferences.getString("DocID", "");
 
                 //update recyclerview
                 updateMoodTable(moodCalendarModelArrayList, "Angry", extraDays);
@@ -250,22 +220,6 @@ public class MoodFragment extends Fragment {
 
             }
         });
-
-        // if same day -> display previous mood and summary
-        if (retrievedMood != null){
-            if (retrievedMood.equalsIgnoreCase("Happy")){
-                happy.setCardBackgroundColor(Color.parseColor("#C9E4DE"));
-            }
-            else if (retrievedMood.equalsIgnoreCase("Sad")){
-                sad.setCardBackgroundColor(Color.parseColor("#C6DEF1"));
-            }
-            else if (retrievedMood.equalsIgnoreCase("Stressed")){
-                stressed.setCardBackgroundColor(Color.parseColor("#FAEDCB"));
-            }
-            else if (retrievedMood.equalsIgnoreCase("Angry")){
-                angry.setCardBackgroundColor(Color.parseColor("#F7D9C4"));
-            }
-        }
 
         return v;
     }
@@ -277,22 +231,16 @@ public class MoodFragment extends Fragment {
         // Access a Cloud Firestore instance from your Activity
         db = FirebaseFirestore.getInstance();
 
-        // access mood preference
-        moodPreferences = this.getActivity().getSharedPreferences("com.android.meditate.Mood", Context.MODE_PRIVATE);
         // retrieve user preference
         userPref = this.getActivity().getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
 
         //get userID
         retrieveUID = userPref.getString("UID", "");
 
-        retrievedDate = moodPreferences.getString("Date", ""); // retrieve date
+        int todayDate = Integer.parseInt(new SimpleDateFormat("d").format(c.getTime())); // gets current day
 
-        //same day
-        if (retrievedDate.equalsIgnoreCase(getDateTime())){
-            retrievedMood = moodPreferences.getString("Mood", ""); // retrieve mood
-            retrieveDocId = moodPreferences.getString("DocID", ""); // retrieve Doc Id
-            selectedMood = retrievedMood;
-        }
+        getTodayMood(db, c, retrieveUID, todayDate);
+
 
         moodCalendarModelArrayList = new ArrayList<>();
 
@@ -306,10 +254,8 @@ public class MoodFragment extends Fragment {
             moodCalendarModelArrayList.add(new moodCalendarModel("", "blank"));
         }
 
-        int monthMaxDays = Integer.parseInt(new SimpleDateFormat("d").format(c.getTime())); // gets current day
-
         // sets up list
-        for (int day = 1; day <= monthMaxDays; day++){
+        for (int day = 1; day <= todayDate; day++){
             moodCalendarModelArrayList.add(new moodCalendarModel(Integer.toString(day), "blank"));
         }
 
@@ -347,8 +293,61 @@ public class MoodFragment extends Fragment {
         return currentDate;
     }
 
+    // check for current day mood
+    private static void getTodayMood(FirebaseFirestore db, Calendar c, String uid, int date){
+        db.collection("users").document(uid).collection("mood")
+                .whereEqualTo("filter", new SimpleDateFormat("MMMM YYYY").format(c.getTime()))
+                .whereEqualTo("date" , Integer.toString(date))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + "=>" + document.getData());
+
+                                // get doc id
+                                retrieveDocId =  document.getId();
+
+                                // get selected mood
+                                retrievedMood = document.getString("mood");
+                                System.out.println(retrievedMood);
+
+                                selectedMood = retrievedMood;
+
+                                // change bg color for mood card
+                                if (retrievedMood.equalsIgnoreCase("Happy")){
+                                    happy.setCardBackgroundColor(Color.parseColor("#C9E4DE"));
+                                }
+                                else if (retrievedMood.equalsIgnoreCase("Sad")){
+                                    sad.setCardBackgroundColor(Color.parseColor("#C6DEF1"));
+                                }
+                                else if (retrievedMood.equalsIgnoreCase("Stressed")){
+                                    stressed.setCardBackgroundColor(Color.parseColor("#FAEDCB"));
+                                }
+                                else if (retrievedMood.equalsIgnoreCase("Angry")){
+                                    angry.setCardBackgroundColor(Color.parseColor("#F7D9C4"));
+                                }
+                                else{
+                                    // nothing
+                                }
+
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+
+                            // doc id
+                            retrieveDocId =  null;
+
+                            // mood
+                            retrievedMood = null;
+                        }
+                    }
+                });
+    }
+
     //creates a need mood document
-    private static void writeMood(FirebaseFirestore db, String mood, Calendar c, String uid ,final SharedPreferences moodPreferences){
+    private static void writeMood(FirebaseFirestore db, String mood, Calendar c, String uid ){
         Map<String, Object> moodObj = new HashMap<>();
         moodObj.put("date", new SimpleDateFormat("d").format(c.getTime()));
         moodObj.put("mood", mood);
@@ -361,7 +360,6 @@ public class MoodFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                        moodPreferences.edit().putString("DocID", documentReference.getId()).apply();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -373,14 +371,14 @@ public class MoodFragment extends Fragment {
     }
 
     //replace existing mood document
-    private static void replaceMood(FirebaseFirestore db, String mood, Calendar c, String uid ,final SharedPreferences moodPreferences){
+    private static void replaceMood(FirebaseFirestore db, String mood, Calendar c, String uid){
         Map<String, Object> moodObj = new HashMap<>();
         moodObj.put("date", new SimpleDateFormat("d").format(c.getTime()));
         moodObj.put("mood", mood);
         moodObj.put("filter", new SimpleDateFormat("MMMM YYYY").format(c.getTime()));
         moodObj.put("timestamp", FieldValue.serverTimestamp());
 
-        db.collection("users").document(uid).collection("mood").document(moodPreferences.getString("DocID", ""))
+        db.collection("users").document(uid).collection("mood").document(retrieveDocId)
                 .set(moodObj)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

@@ -1,6 +1,7 @@
 package com.mad.meditate.User;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mad.meditate.AvatarSelect.AvatarSelectActivity;
+import com.mad.meditate.MainActivity;
 import com.mad.meditate.R;
 
 import java.util.ArrayList;
@@ -27,10 +30,10 @@ import java.util.ArrayList;
 public class UserFragment extends Fragment {
 
     private View v;
-    private ImageView userAvatar;
+    public static ImageView userAvatar;
     private static final String TAG = "UserFragment";
     private ArrayList<String> settingsList;
-    SharedPreferences userPref;
+    SharedPreferences userPref, avatarPref;
     private TextView userName;
 
     public UserFragment() {
@@ -45,7 +48,17 @@ public class UserFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_user, container, false);
 
         userAvatar = v.findViewById(R.id.userAvatar);
-        userAvatar.setImageURI(Uri.parse("android.resource://" + v.getContext().getPackageName() + "/" + R.drawable.user_pic));
+        String resName = userPref.getString("selectedAvatar", "avatar_trees");
+        int resId = getResources().getIdentifier(resName, "drawable", getContext().getPackageName());
+        userAvatar.setImageResource(resId);
+        userAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserFragment.this.getActivity(), AvatarSelectActivity.class);
+                startActivity(intent);
+            }
+        });
+        //userAvatar.setImageURI(Uri.parse("android.resource://" + v.getContext().getPackageName() + "/" + R.drawable.avatar_trees));
 
         userName = v.findViewById(R.id.userName);
         String username = userPref.getString("name", "Error getting Username");
@@ -74,9 +87,9 @@ public class UserFragment extends Fragment {
 
         userPref = this.getActivity().getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
 
-
         settingsList = new ArrayList<>();
         settingsList.add("About");
+        settingsList.add("Change Avatar");
         settingsList.add("Edit Profile");
         settingsList.add("Notifications");
         settingsList.add("Log Out");
