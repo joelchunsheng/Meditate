@@ -49,8 +49,7 @@ public class Article extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent articleHome = new Intent(Article.this, ArticleHome.class);
-                startActivity(articleHome);
+                onBackPressed();
             }
         });
 
