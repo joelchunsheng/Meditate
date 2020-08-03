@@ -114,6 +114,10 @@ public class ShopFragment extends Fragment {
         super.onResume();
         SharedPreferences userPref = this.getActivity().getSharedPreferences("com.android.meditate.User", Context.MODE_PRIVATE);
         Set<String> fetch = userPref.getStringSet("purchased", null);
+
+        coins = userPref.getInt("coins", 0);
+        coinTxt.setText(coins + " coins");
+
         try{
             for (String name : fetch){
                 Log.i("Set", name);

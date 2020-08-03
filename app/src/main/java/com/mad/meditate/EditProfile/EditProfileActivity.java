@@ -98,4 +98,11 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getUserName(db,user, name);
+
+    }
 }

@@ -94,4 +94,16 @@ public class UserFragment extends Fragment {
         settingsList.add("Notifications");
         settingsList.add("Log Out");
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String username = userPref.getString("name", "Error getting Username");
+        if (username.isEmpty()){
+            userName.setText("No Username Set");
+        }
+        else{
+            userName.setText(username);
+        }
+    }
 }
